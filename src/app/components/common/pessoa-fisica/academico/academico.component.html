@@ -28,7 +28,7 @@
   <mat-checkbox fxFlex="10%" style="padding-top: 24px;" color="primary"
                 name="stAtivo" 
                 [(ngModel)]="aluno.stAtivo">Ativo?
-</mat-checkbox>
+  </mat-checkbox>
 
 <!--
   <mat-checkbox fxFlex="10%"
@@ -129,6 +129,7 @@
 
 <div fxLayout="row" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill>
 
+ <!-- 
   <mat-form-field fxFlex="30%" fxFlexOffset="20px">
     <mat-label>Mora com o responsável ?</mat-label>
     <mat-select [(ngModel)]="aluno.moraPais" name="moraPais">
@@ -137,7 +138,31 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
+-->
 
+<mat-checkbox fxFlex="25%" fxFlexOffset="20px" color="primary"
+name="moraPais" 
+[(ngModel)]="aluno.moraPais">Mora com o responsável?
+</mat-checkbox>
+
+  <!--  
+
+  <mat-checkbox fxFlex="25%" fxFlexOffset="20px" color="primary"
+    name="moraPais" 
+    [(ngModel)]="aluno.moraPais">Mora com o responsável?
+  </mat-checkbox>
+-->
+<!--  
+
+<div style="margin-top: 25px;">
+  <mat-checkbox  fxFlex="30%" fxFlexOffset="20px"
+    name="moraPais" 
+    [(ngModel)]="aluno.moraPais">Mora com o responsável?
+  </mat-checkbox>
+</div>
+-->
+
+<!--  
   <mat-form-field fxFlex="30%" fxFlexOffset="20px">
     <mat-label>Pais do beneficiário são casados ?</mat-label>
     <mat-select [(ngModel)]="aluno.paisCasados" name="paisCasados">
@@ -146,7 +171,13 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
+-->
+  <mat-checkbox fxFlex="25%"  fxFlexOffset="20px" color="primary"
+    name="paisCasados" 
+    [(ngModel)]="aluno.paisCasados">Pais do beneficiário são casados?
+  </mat-checkbox>
 
+<!--  
   <mat-form-field fxFlex="30%" fxFlexOffset="20px">
     <mat-label>Pode participar de apresentações externas e publicidades em geral ?</mat-label>
     <mat-select [(ngModel)]="aluno.participaApresentacaoExterna" name="participaApresentacaoExterna">
@@ -155,10 +186,16 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
+-->
+
+<mat-checkbox fxFlex="50%" fxFlexOffset="20px" color="primary"
+    name="participaApresentacaoExterna" 
+    [(ngModel)]="aluno.participaApresentacaoExterna">Pode participar de apresentações externas e publicidades em geral?
+  </mat-checkbox>
 
 </div>
 
-<div fxLayout="row" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill>
+<div fxLayout="row" fxLayoutGap="80px" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill>
   <mat-form-field fxFlexOffset="20px" fxFlex="30%">
     <mat-label>Tipo Público Prioritário</mat-label>
     <mat-select [(ngModel)]="aluno.tiposPublicoPrioritario.id" name="tiposPublicoPrioritario">

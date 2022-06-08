@@ -28,8 +28,8 @@ export class Aluno {
     pessoaFisica: PessoaFisica;
 	unidade: Unidade;
 	
-	moraPais: string;
-	paisCasados: string;
+	moraPais: boolean;
+	paisCasados: boolean;
 	matriculadoEscPub: string;
 	descBuscaEscola: string;
 	publicoPrioritario: string;
@@ -52,11 +52,9 @@ export class Aluno {
 	dataDeclaracaoPasse: Date;
 	observacaoDeclaracaoMatricula: string;
 	dataDeclaracaoMatricula: Date;
-	participaApresentacaoExterna: string;
+	participaApresentacaoExterna: boolean;
 
 	stAtivo: boolean;
-//	stAtivo:string;
-
 
 	nome?: string;
 	nomeMae?: string;

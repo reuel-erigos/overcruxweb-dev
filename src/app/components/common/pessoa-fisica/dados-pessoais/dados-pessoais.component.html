@@ -106,6 +106,10 @@
                     </mat-select>
                 </mat-form-field>
 
+                <mat-form-field fxFlex= "20%" fxFlexOffset="20px" >
+                    <input  matInput maxlength="2"  name="qtPessoasResidemFamilia" 
+                       placeholder="Quatidade Pessoas Residem na Família:" [(ngModel)]="pessoaFisica.qtPessoasResidemFamilia" >
+                </mat-form-field>
 
             </div>
             <!-- <div fxLayout="row" fxLayoutGap="20px" fxFlexFill> -->
@@ -188,7 +192,7 @@
 
         <div>
             <div style="margin-top: 25px;">
-                <mat-checkbox  name="autorizaEmail" 
+                <mat-checkbox  color="primary" name="autorizaEmail" 
                                [(ngModel)]="pessoaFisica.autorizaEmail">Autorizo o recebimento de emails.
                 </mat-checkbox>
             </div>

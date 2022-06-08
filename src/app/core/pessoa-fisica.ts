@@ -98,4 +98,7 @@ export class PessoaFisica{
 
    foneRecado: string;
    celular2: string;
+
+   qtPessoasResidemFamilia:number;
+
 }

@@ -72,6 +72,22 @@
                 <td mat-cell *matCellDef="let element"> {{element.stAtivo ? 'Sim' : 'Não'}} </td>
             </ng-container>
 
+            <ng-container matColumnDef="participaApresentacaoExterna">
+                <th mat-header-cell *matHeaderCellDef> Participa apresentações externas </th>
+                <td mat-cell *matCellDef="let element"> {{element.participaApresentacaoExterna ? 'Sim' : 'Não'}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="paisCasados">
+                <th mat-header-cell *matHeaderCellDef> Pais do beneficiário são casados? </th>
+                <td mat-cell *matCellDef="let element"> {{element.paisCasados ? 'Sim' : 'Não'}} </td>
+            </ng-container>
+
+
+            <ng-container matColumnDef="moraPais">
+                <th mat-header-cell *matHeaderCellDef> Mora com os Pais? </th>
+                <td mat-cell *matCellDef="let element"> {{element.moraPais ? 'Sim' : 'Não'}} </td>
+            </ng-container>
+
             <ng-container matColumnDef="turno">
                 <th mat-header-cell *matHeaderCellDef> Turno:  </th>
                 <td mat-cell *matCellDef="let element"> {{element.turno}} </td>
