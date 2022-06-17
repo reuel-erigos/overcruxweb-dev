@@ -47,7 +47,7 @@
             <mat-form-field fxFlex="30%" fxLayoutGap="20px" fxFlexOffset="20px">
                 <input #condicaoAtual matInput maxlength="200" [(ngModel)]=situacaoExAluno.condicaoAtual
                        name="condicaoAtual" placeholder="Condição de Trabalho">
-                <mat-hint align="end">{{condicaoAtual.condicaoAtual}} / 200</mat-hint>
+                <mat-hint align="end">{{condicaoAtual.value.length}} / 200</mat-hint>
             </mat-form-field>
         </div>
 

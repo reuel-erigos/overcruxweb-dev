@@ -1,6 +1,6 @@
 <tool-bar-principal></tool-bar-principal>
 <mat-drawer-container  class="menu-principal-container" autosize >
-  <mat-drawer #menuPrincipal [opened]="mostrarMenu && toolbarPrincipalService.unidadeSelecionada" mode="side">
+  <mat-drawer #menuPrincipal [opened]="mostrarMenu && toolbarPrincipalService.unidadeSelecionada !== null" mode="side">
     <menu-principal></menu-principal>
   </mat-drawer>
 

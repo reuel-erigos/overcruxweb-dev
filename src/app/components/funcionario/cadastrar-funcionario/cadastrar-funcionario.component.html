@@ -4,7 +4,7 @@
     <mat-horizontal-stepper #stepper style="background: transparent; padding: 10px">
 
         <!------------------ DADOS PESSOAIS ------------------------>
-        <mat-step [stepControl]="formCadastroDadosPessoais">
+        <mat-step [stepControl]="formCadastroDadosPessoais.control">
             <form #formCadastroDadosPessoais="ngForm">
                 <ng-template matStepLabel>DADOS PESSOAIS</ng-template>
 
@@ -20,7 +20,7 @@
         </mat-step>
 
         <!-- ------------------ ESCOLARIDADE ------------------------ -->
-        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroEscolaridade">
+        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroEscolaridade.control">
             <form #formCadastroEscolaridade="ngForm">
                 <ng-template matStepLabel>ESCOLARIDADE</ng-template>
                 <escolaridade [pessoaFisica]="funcionario.pessoasFisica"></escolaridade>
@@ -38,7 +38,7 @@
         </mat-step>
 
         <!-- ------------------ DOCUMENTOS ------------------------ -->
-        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroDocumentos">
+        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroDocumentos.control">
             <form #formCadastroDocumentos="ngForm">
                 <ng-template matStepLabel>DOCUMENTOS</ng-template>
 
@@ -58,7 +58,7 @@
         </mat-step>
 
         <!------------------ DADOS PROFISSIONAIS ------------------------>
-        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroDadosProfissionais">
+        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroDadosProfissionais.control">
             <form #formCadastroDadosProfissionais="ngForm">
                 <ng-template matStepLabel>DADOS PROFISSIONAIS</ng-template>
 
@@ -78,7 +78,7 @@
         </mat-step>
 
         <!--  FUNCIONAL -->
-        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroFuncional">
+        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroFuncional.control">
             <form #formCadastroFuncional="ngForm">
                 <ng-template matStepLabel>FUNCIONAL</ng-template>
 
@@ -97,7 +97,7 @@
         </mat-step>
 
         <!--  ALOCACAO -->
-        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroAlocacao">
+        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroAlocacao.control">
             <form #formCadastroAlocacao="ngForm">
                 <ng-template matStepLabel>ALOCACAO</ng-template>
                 <alocacao [funcionario]="funcionario"></alocacao>
@@ -114,7 +114,7 @@
         </mat-step>   
         
         <!--  DEPENDENTES -->
-        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroDependente">
+        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroDependente.control">
             <form #formCadastroDependente="ngForm">
                 <ng-template matStepLabel>DEPENDENTES</ng-template>
                 <dependentes [funcionario]="funcionario"></dependentes>

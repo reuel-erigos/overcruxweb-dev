@@ -4,7 +4,7 @@
     <mat-horizontal-stepper #stepper style="background: transparent; padding: 10px">
 
         <!------------------ DADOS TURMA ------------------------>
-        <mat-step [stepControl]="formCadastroDadosTurma">
+        <mat-step [stepControl]="formCadastroDadosTurma.control">
             <form #formCadastroDadosTurma="ngForm">
                 <ng-template matStepLabel>DADOS DA TURMA</ng-template>
                 <div ngModelGroup="grupoTurma">
@@ -21,7 +21,7 @@
         </mat-step>
 
         <!-- ------------------ COLABORADORES ------------------------ -->
-        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroColaboradores">
+        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroColaboradores.control">
             <form #formCadastroColaboradores="ngForm">
                 <ng-template matStepLabel>COLABORADORES</ng-template>
                 <colaboradores-turma [turma]='turma'></colaboradores-turma>
@@ -39,7 +39,7 @@
         </mat-step>
 
         <!-- ------------------ OFICINAS ------------------------ -->
-        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroOficinas">
+        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroOficinas.control">
             <form #formCadastroOficinas="ngForm">
                 <ng-template matStepLabel>PLANO DE ATIVIDADES</ng-template>
                 <div ngModelGroup="grupoCadastrarTurma">

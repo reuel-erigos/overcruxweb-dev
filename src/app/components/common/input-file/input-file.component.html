@@ -6,5 +6,5 @@
 <input #inputFile
   type="file" id="uploadFile_{{data}}"
   name="uploadFile_{{data}}" hidden
-  (change)="onSelectionChange($event.target.files)"
+  (change)="onSelectionChange($event)"
   [accept]="extensoesAceitas" [multiple]="multiplosArquivos" />

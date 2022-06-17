@@ -3,7 +3,7 @@
     <mat-horizontal-stepper #stepper style="background: transparent; padding: 10px">
 
         <!------------------ DADOS USUARIO ------------------------>
-        <mat-step [stepControl]="formCadastroDadosUsuario">
+        <mat-step [stepControl]="formCadastroDadosUsuario.control">
           <form #formCadastroDadosUsuario="ngForm">
               <ng-template matStepLabel>DADOS USUARIO</ng-template>
               <dados-usuario [usuarioSistema]="usuarioSistema" [isAtualizar]="isAtualizar"></dados-usuario>
@@ -18,7 +18,7 @@
       </mat-step>
 
         <!------------------ DADOS PESSOAIS ------------------------>
-        <mat-step [stepControl]="formCadastroDadosPessoais">
+        <mat-step [stepControl]="formCadastroDadosPessoais.control">
             <form #formCadastroDadosPessoais="ngForm">
                 <ng-template matStepLabel>DADOS PESSOAIS</ng-template>
                 <dados-pessoais [pessoaFisica]="usuarioSistema.pessoaFisica"></dados-pessoais>
@@ -36,7 +36,7 @@
         </mat-step>
 
         <!-- ------------------ DOCUMENTOS ------------------------ -->
-        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroDocumentos">
+        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroDocumentos.control">
             <form #formCadastroDocumentos="ngForm">
                 <ng-template matStepLabel>DOCUMENTOS</ng-template>
                 <documentos [pessoaFisica]="usuarioSistema.pessoaFisica"></documentos>
@@ -54,7 +54,7 @@
         </mat-step>
 
         <!-- ------------------ UNIDADES ------------------------ -->
-        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroUnidades">
+        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroUnidades.control">
             <form #formCadastroUnidades="ngForm">
                 <ng-template matStepLabel>UNIDADES</ng-template>
                 <unidade [usuarioSistema]="usuarioSistema"></unidade>

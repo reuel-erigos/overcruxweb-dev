@@ -10,7 +10,7 @@
     <mat-horizontal-stepper #stepper style="background: transparent; padding: 10px">
 
         <!------------------ DADOS PESSOAIS ------------------------>
-        <mat-step [stepControl]="formCadastroDadosPessoais">
+        <mat-step [stepControl]="formCadastroDadosPessoais.control">
             <form #formCadastroDadosPessoais="ngForm">
                 <ng-template matStepLabel>DADOS PESSOAIS</ng-template>
                 <dados-pessoais [pessoaFisica]="familiar.pessoasFisica"></dados-pessoais>
@@ -25,7 +25,7 @@
         </mat-step>
 
         <!-- ------------------ PARENTESCO ------------------------ -->
-        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroParentesco">
+        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroParentesco.control">
             <form #formCadastroParentesco="ngForm">
                 <ng-template matStepLabel>PARENTESCO</ng-template>
                 <parentesco [familiar]="familiar"></parentesco>
@@ -44,7 +44,7 @@
 
 
         <!-- ------------------ RESPONSAVEL ------------------------ -->
-        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroResponsavel">
+        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroResponsavel.control">
             <form #formCadastroResponsavel="ngForm">
                 <ng-template matStepLabel>RESPONSÁVEL</ng-template>
                 <responsavel [familiar]="familiar"></responsavel>
@@ -62,7 +62,7 @@
         </mat-step>
 
         <!-- ------------------ ESCOLARIDADE ------------------------ -->
-        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroEscolaridade">
+        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroEscolaridade.control">
             <form #formCadastroEscolaridade="ngForm">
                 <ng-template matStepLabel>ESCOLARIDADE</ng-template>
                 <escolaridade [pessoaFisica]="familiar.pessoasFisica"></escolaridade>
@@ -80,7 +80,7 @@
         </mat-step>
 
         <!-- ------------------ DOCUMENTOS ------------------------ -->
-        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroDocumentos">
+        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroDocumentos.control">
             <form #formCadastroDocumentos="ngForm">
                 <ng-template matStepLabel>DOCUMENTOS</ng-template>
                 <documentos [pessoaFisica]="familiar.pessoasFisica"></documentos>
@@ -99,7 +99,7 @@
 
 
         <!--  PROFISSIONAL -->
-        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroProfissional">
+        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroProfissional.control">
             <form #formCadastroProfissional="ngForm">
                 <ng-template matStepLabel>DADOS PROFISSIONAIS</ng-template>
                 <profissional [familiar]="familiar"></profissional>
@@ -117,7 +117,7 @@
         </mat-step>
 
         <!-- ------------------ VULNERABILIDADE ------------------------ -->
-        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroVulnerabilidade">
+        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroVulnerabilidade.control">
             <form #formCadastroVulnerabilidade="ngForm">
                 <ng-template matStepLabel>VULNERABILIDADE</ng-template>
                 <vulnerabilidade [familiar]="familiar"></vulnerabilidade>
@@ -135,7 +135,7 @@
         </mat-step>
 
         <!-- OUTRAS INFORMAÇOES -->
-        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroOutrasInformacoes">
+        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroOutrasInformacoes.control">
             <form #formCadastroOutrasInformacoes="ngForm">
                 <ng-template matStepLabel>OUTRAS INFORMAÇÕES</ng-template>
                 <escolar [pessoaFisica]="familiar.pessoasFisica"></escolar>

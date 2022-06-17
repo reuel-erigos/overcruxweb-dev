@@ -91,7 +91,7 @@
                 <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px" fxFlexFill *ngIf="showFiltroFornecedor()">
                     <div ngModelGroup="comboPessoaFisica" fxLayout="column" fxFlex="50%" fxLayoutGap="20px" fxFlexOffset="20px" class="marginCombo">
                         <combo-pessoa-fisica    label="Fornecedor (Pessoa Física)"
-                                                [fxFlexOffset]="0"
+                                                [fxFlexOffset]="'0px'"
                                                 [selecionado]="filtro.pessoaFisica"
                                                 (valorChange)="limparFiltroEmpresa($event)">
                         </combo-pessoa-fisica>
@@ -99,7 +99,7 @@
 
                     <div ngModelGroup="comboEmpresa" fxLayout="column" fxFlex="50%" fxLayoutGap="20px" fxFlexOffset="20px" class="marginCombo">
                         <combo-empresa    label="Fornecedor (Empresa)"
-                                          [fxFlexOffset]="0"
+                                          [fxFlexOffset]="'0px'"
                                           [selecionado]="filtro.empresa"
                                           (valorChange)="limparFiltroPessoaFisica($event)">
                         </combo-empresa>

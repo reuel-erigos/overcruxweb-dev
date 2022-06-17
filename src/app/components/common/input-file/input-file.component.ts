@@ -24,9 +24,9 @@ export class InputFileComponent implements OnInit {
     this.data = Date.now();
   }
 
-  onSelectionChange(files: any) {
-    if (files) {
-      this.selecionado.emit(files);
+  onSelectionChange(event: any) {
+    if (event.target && event.target.files) {
+      this.selecionado.emit(event.target.files);
     }
     // necessário para ativar o método change ao subir o mesmo arquivo
     this.inputFile.nativeElement.value = '';

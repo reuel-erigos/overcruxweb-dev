@@ -42,7 +42,7 @@
                     <input matInput name= "dataInicioVigencia"
                            [matDatepicker]="dataInicioVigencia" 
                            placeholder="Data Início Vigência" 
-                           [required]="filtro.dataFimVigenciaInstituicao"
+                           [required]="true"
                            [(ngModel)]="filtro.dataInicioVigenciaInstituicao"
                            (input)="onMascaraDataInput($event)">
                     <mat-datepicker-toggle matSuffix [for]="dataInicioVigencia"></mat-datepicker-toggle>
@@ -53,7 +53,7 @@
                     <input matInput name="dataFimVigencia"
                             [matDatepicker]="dataFimVigencia" 
                             placeholder="Data Fim Vigência" 
-                            [required]="filtro.dataInicioVigenciaInstituicao"
+                            [required]="true"
                             [(ngModel)]="filtro.dataFimVigenciaInstituicao"
                             (input)="onMascaraDataInput($event)">
                     <mat-datepicker-toggle matSuffix [for]="dataFimVigencia"></mat-datepicker-toggle>

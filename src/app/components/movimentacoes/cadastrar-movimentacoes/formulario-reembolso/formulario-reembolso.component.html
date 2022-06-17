@@ -5,7 +5,7 @@
                matInput 
                #campoDataReembolso
                name="dataReembolso_{{pinDataReembolso}}"
-               [required]="reembolso.contaBancaria.id"
+               [required]="reembolso.contaBancaria.id !== null"
                [matDatepicker]="dataReembolso"
                placeholder="Data do reembolso" 
                (change)="onCarregarContasReembolso()"              

@@ -26,7 +26,7 @@ import { CarregarPerfil } from 'src/app/core/carregar-perfil';
 
 
 class FiltroBusca {
-  avaliacao: AvaliacaoAluno = new AvaliacaoAluno();
+  avaliacao: Avaliacao = new Avaliacao();
   atividade: Atividade = new Atividade();
 }
 
@@ -110,8 +110,8 @@ export class AvaliacaoAlunoComponent implements OnInit {
     });
   }
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  applyFilter(filterValue: any) {
+    this.dataSource.filter = filterValue.value.trim().toLowerCase();
   }
 
   limpar() {

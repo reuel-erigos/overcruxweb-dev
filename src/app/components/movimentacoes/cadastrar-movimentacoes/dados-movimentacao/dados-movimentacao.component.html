@@ -130,7 +130,7 @@
                         min=0 matInput maxlength="3" 
                         name="qtdParcelas" 
                         #qtdParcelas
-                        (blur)="validarValorNegativo(qtdParcelas.value)"
+                        (blur)="validarValorNegativo(+qtdParcelas.value)"
                         placeholder="Quantidade de parcelas:" />
             </mat-form-field>
     

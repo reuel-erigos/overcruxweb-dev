@@ -56,7 +56,7 @@
             <mat-toolbar class="subtitulo" *ngIf="grupoModulosNovos.length > 0">Módulos selecionados</mat-toolbar>
             <div *ngFor="let m of grupoModulosNovos" style="padding-top: 15px">
 
-                <formulario-grupo-modulo [perfilAcesso]="acesso"
+                <formulario-grupo-modulo [perfilAcesso]="perfilAcessoSelecionado"
                                          [grupoModulo]="m"
                                          [listaPerfilAcesso]="perfisAcesso"
                                          (onDeletar)="deletar($event)">

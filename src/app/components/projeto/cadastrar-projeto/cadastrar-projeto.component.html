@@ -5,7 +5,7 @@
         <mat-horizontal-stepper #stepper style="background: transparent; padding: 10px">
 
                 <!------------------ DADOS PROJETO ------------------------>
-                <mat-step [stepControl]="formCadastroDadosProjeto">
+                <mat-step [stepControl]="formCadastroDadosProjeto.control">
                         <form #formCadastroDadosProjeto="ngForm" state="dadosProjeto">
                                 <ng-template matStepLabel>DADOS DO PROJETO</ng-template>
 
@@ -20,7 +20,7 @@
                 </mat-step>
 
                 <!------------------  Unidade ------------------------>
-                <mat-step [stepControl]="formCadastroColaboradores">
+                <mat-step [stepControl]="formCadastroColaboradores.control">
                         <form #formCadastroColaboradores="ngForm" matStepperIcon="phone">
                                 <ng-template matStepLabel>UNIDADES</ng-template>
 
@@ -39,7 +39,7 @@
                 </mat-step>
 
                 <!------------------  Composição Recursos Humanos do Projeto ------------------------>
-                <mat-step [stepControl]="formCadastroRH">
+                <mat-step [stepControl]="formCadastroRH.control">
                         <form #formCadastroRH="ngForm" matStepperIcon="phone">
                                 <ng-template matStepLabel>COMPOSIÇÃO REC. HUMANOS</ng-template>
                                 <composicao-rh-projeto [projeto]=projeto
@@ -57,7 +57,7 @@
                 </mat-step>
 
                 <!------------------  Colaboradores do Projeto ------------------------>
-                <mat-step [stepControl]="formCadastroColaboradores">
+                <mat-step [stepControl]="formCadastroColaboradores.control">
                         <form #formCadastroColaboradores="ngForm" matStepperIcon="phone">
                                 <ng-template matStepLabel>COLABORADORES</ng-template>
                                 <colaboradores-projeto [unidades]=projeto.unidades
@@ -76,7 +76,7 @@
                 </mat-step>
 
                 <!------------------  Parcerias do Projeto ------------------------>
-                <mat-step [stepControl]="formCadastroParcerias">
+                <mat-step [stepControl]="formCadastroParcerias.control">
                         <form #formCadastroParcerias="ngForm" matStepperIcon="phone">
                                 <ng-template matStepLabel>PARCERIAS</ng-template>
                                 <parcerias-projeto [listaParceiros]=projeto.parceriasProjeto></parcerias-projeto>

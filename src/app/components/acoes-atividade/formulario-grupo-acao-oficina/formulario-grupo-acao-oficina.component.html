@@ -44,7 +44,7 @@
         <mat-form-field fxFlex="15%" fxFlexOffset="20px">
             <input #periodoAtividade 
                     matInput 
-                    [disabled]="grupoAcao.id"
+                    [disabled]="grupoAcao.id !== null"
                     [textMask]="{mask: mascaraPeriodo}"
                     [(ngModel)]="grupoAcao.numeroGrupo"
                     name="numeroGrupo" 

@@ -5,7 +5,7 @@
     <mat-horizontal-stepper #stepper style="background: transparent; padding: 10px">
 
         <!-- DADOS BÁSICOS -->
-        <mat-step [stepControl]="formCadastroDadosBasicos">
+        <mat-step [stepControl]="formCadastroDadosBasicos.control">
             <form #formCadastroDadosBasicos="ngForm" state="dadosBasicos">
                 <ng-template matStepLabel>DADOS DO BÁSICO</ng-template>
                 <dados-basicos-unidade [unidade]=unidade></dados-basicos-unidade>
@@ -19,7 +19,7 @@
         </mat-step>
 
         <!-- ESTRUTURA -->
-        <mat-step [stepControl]="formCadastroEstrutura">
+        <mat-step [stepControl]="formCadastroEstrutura.control">
             <form #formCadastroEstrutura="ngForm" matStepperIcon="phone">
                 <ng-template matStepLabel>ESTRUTURA</ng-template>
                 <estrutura-unidade [listaEstruturaUnidade]=unidade.estruturasUnidades></estrutura-unidade>
@@ -36,7 +36,7 @@
         </mat-step>
        
         <!-- CERTIFICADOS -->
-        <mat-step [stepControl]="formCertificados">
+        <mat-step [stepControl]="formCertificados.control">
             <form #formCertificados="ngForm" matStepperIcon="phone">
                 <ng-template matStepLabel>CERTIFICADOS</ng-template>
                 <div ngModelGroup="certificados">

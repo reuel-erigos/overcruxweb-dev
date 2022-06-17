@@ -61,7 +61,7 @@
                                            itemDescricao="planoConta"
                                            itemId="id"
                                            [showDisplayId]="false" 
-                                           obrigatorio="true"
+                                           [obrigatorio]="true"
                                            placeholder="Conta Destino (Débito)"
                                            [(valor)]="movimentacaoContabil.categoriaDestino01"
                                            (valorChange)="carregarContaDestino01($event.id)">
@@ -76,7 +76,7 @@
                                            itemDescricao="planoConta"
                                            itemId="id"
                                            [showDisplayId]="false" 
-                                           obrigatorio="true"
+                                           [obrigatorio]="true"
                                            placeholder="Conta Origem (Crédito)"
                                            [(valor)]="movimentacaoContabil.categoriaOrigem01"
                                            (valorChange)="carregarContaOrigem01($event.id)">
@@ -118,7 +118,7 @@
                                            itemDescricao="planoConta"
                                            itemId="id"
                                            [showDisplayId]="false" 
-                                           obrigatorio="true"
+                                           [obrigatorio]="true"
                                            placeholder="Conta Destino (Débito)"
                                            [(valor)]="movimentacaoContabil.categoriaDestino02"
                                            (valorChange)="carregarContaDestino02($event.id)">
@@ -133,7 +133,7 @@
                                            itemDescricao="planoConta"
                                            itemId="id"
                                            [showDisplayId]="false" 
-                                           obrigatorio="true"
+                                           [obrigatorio]="true"
                                            placeholder="Conta Origem (Crédito)"
                                            [(valor)]="movimentacaoContabil.categoriaOrigem02"
                                            (valorChange)="carregarContaOrigem02($event.id)">

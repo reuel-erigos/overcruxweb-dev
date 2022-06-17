@@ -27,7 +27,7 @@ export class FormularioRateioPagamentoComponent implements OnInit {
   @Input() rateio: RateiosPagamentos;
   @Input() perfilAcesso: Acesso;
   @Input() pagamentosFatura: PagamentosFatura;
-  @Input() contasBancarias: ContasCentrosCusto[];
+  @Input() contasBancarias: ContasBancaria[];
   @Output() onContaRateioValida = new EventEmitter()
   
   programas: ComboPrograma[];

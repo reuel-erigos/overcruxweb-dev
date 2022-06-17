@@ -10,7 +10,7 @@
                     <mat-select fxFlexOffset="20px"[(ngModel)]="cbo" name="cbo">
                         <mat-option></mat-option>
                         <mat-option *ngFor="let d of cbos" [value]="d">
-                            {{d.numero}} - {{d.descricaoTitulo}}
+                            {{d.numero}} - {{d.nomeTitulo}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>

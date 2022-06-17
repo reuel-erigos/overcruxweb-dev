@@ -11,7 +11,7 @@
                     [aspectRatio]="1 / 1"
                     [resizeToWidth]="128"
                     format="png"
-                    roundCropper="true"
+                    [roundCropper]="true"
                     (imageCropped)="imageCropped($event)"
                     (imageLoaded)="imageLoaded()"
                     (cropperReady)="cropperReady()"

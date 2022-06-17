@@ -92,8 +92,8 @@ export class FrequenciaAlunoComponent implements OnInit {
     });
   }
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  applyFilter(filterValue: any) {
+    this.dataSource.filter = filterValue.value.trim().toLowerCase();
   }
 
   limpar() {

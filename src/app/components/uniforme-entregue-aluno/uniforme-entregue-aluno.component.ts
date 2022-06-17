@@ -108,8 +108,8 @@ export class UniformeEntregueAlunoComponent implements OnInit {
     return filterFunction;
   }
 
-  applyFilter(filterValue: string) {
-    this.dataSource.filter = filterValue.trim().toLowerCase();
+  applyFilter(filterValue: any) {
+    this.dataSource.filter = filterValue.value.trim().toLowerCase();
   }
 
   limpar() {

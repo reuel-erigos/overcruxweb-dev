@@ -4,7 +4,7 @@
     <mat-horizontal-stepper #stepper style="background: transparent; padding: 10px">
 
         <!------------------ MOVIMENTAÇÃO ------------------------>
-        <mat-step [stepControl]="formDadosMovimentacao">
+        <mat-step [stepControl]="formDadosMovimentacao.control">
             <form #formDadosMovimentacao="ngForm">
                 <ng-template matStepLabel>MOVIMENTAÇÃO</ng-template>
                 <dados-movimentacoes-materiais
@@ -21,7 +21,7 @@
 
        
         <!-- ------------------ ITENS ------------------------ -->
-        <mat-step style="padding-bottom: 20px" [stepControl]="formFaturas">
+        <mat-step style="padding-bottom: 20px" [stepControl]="formFaturas.control">
             <form #formFaturas="ngForm">
                 <ng-template matStepLabel>ITENS</ng-template>
             </form>

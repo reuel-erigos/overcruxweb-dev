@@ -35,5 +35,6 @@ export class Funcionario {
 	horaFimJornada: string;
 	descMotivoDemissao: string;
 	dataUltimoExame: Date;
+	nome: string;
 
 }

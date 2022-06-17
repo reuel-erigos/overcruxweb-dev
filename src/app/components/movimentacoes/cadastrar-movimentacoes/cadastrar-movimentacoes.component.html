@@ -5,7 +5,7 @@
     (selectionChange)="carregarContasBancarios($event)">
 
         <!------------------ MOVIMENTAÇÃO ------------------------>
-        <mat-step [stepControl]="formDadosMovimentacao">
+        <mat-step [stepControl]="formDadosMovimentacao.control">
             <form #formDadosMovimentacao="ngForm">
                 <ng-template matStepLabel>MOVIMENTAÇÃO</ng-template>
                 <dados-movimentacao [movimentacoes]="movimentacoes" 
@@ -22,7 +22,7 @@
         </mat-step>
 
         <!-- ------------------ ITENS  ------------------------ -->
-        <mat-step style="padding-bottom: 20px" [stepControl]="formItens">
+        <mat-step style="padding-bottom: 20px" [stepControl]="formItens.control">
             <form #formItens="ngForm">
                 <ng-template matStepLabel>ITENS</ng-template>
                 <itens-movimentacao [movimentacoes]="movimentacoes"
@@ -43,7 +43,7 @@
         </mat-step>
 
         <!-- ------------------ ATIVO / PASSIVO  ------------------------ -->
-        <mat-step style="padding-bottom: 20px" [stepControl]="formAtivoPassivo">
+        <mat-step style="padding-bottom: 20px" [stepControl]="formAtivoPassivo.control">
             <form #formAtivoPassivo="ngForm">
                 <ng-template matStepLabel>MOVIMENTAÇÃO CONTÁBIL</ng-template>
                 <categorias-movimentos [movimentacoes]="movimentacoes"
@@ -63,7 +63,7 @@
         </mat-step>
         
         <!-- ------------------ FATURAS ------------------------ -->
-        <mat-step style="padding-bottom: 20px" [stepControl]="formFaturas">
+        <mat-step style="padding-bottom: 20px" [stepControl]="formFaturas.control">
             <form #formFaturas="ngForm">
                 <ng-template matStepLabel>FATURAS</ng-template>
                 <faturas-movimentacao [movimentacoes]="movimentacoes"
@@ -84,7 +84,7 @@
         </mat-step>
 
         <!------------------ PAGAMENTOS ------------------------>
-        <mat-step style="padding-bottom: 20px" [stepControl]="formPagamentos">
+        <mat-step style="padding-bottom: 20px" [stepControl]="formPagamentos.control">
             <form #formPagamentos="ngForm">
                 <ng-template matStepLabel>{{getLabelABA()}}</ng-template>
                 <pagamentos-movimentacao [idMovimentacao]="movimentacoes.id"

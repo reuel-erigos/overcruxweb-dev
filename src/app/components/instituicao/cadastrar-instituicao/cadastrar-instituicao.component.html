@@ -4,7 +4,7 @@
     <mat-horizontal-stepper #stepper style="background: transparent; padding: 10px">
 
         <!------------------ DADOS INICIAIS ------------------------>
-        <mat-step [stepControl]="formCadastroDados">
+        <mat-step [stepControl]="formCadastroDados.control">
             <form #formCadastroDados="ngForm">
                 <ng-template matStepLabel>DADOS INICIAIS</ng-template>
 
@@ -18,7 +18,7 @@
         </mat-step>
 
         <!-- ------------------ FUNCOES ------------------------ -->
-        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroFuncoes">
+        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroFuncoes.control">
             <form #formCadastroFuncoes="ngForm">
                 <ng-template matStepLabel>FUNÇÕES</ng-template>
                 <div ngModelGroup="funcoes">

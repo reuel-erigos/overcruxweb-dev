@@ -17,7 +17,7 @@
                 <mat-option>
                     <ngx-mat-select-search ngModel #itemSearch
                                 [placeholderLabel]="itensSelect.placeholder"
-                                clearSearchInput="true"
+                                [clearSearchInput]="true"
                                 noEntriesFoundLabel="Nenhum elemento encontrado."
                                 (input)="filtrarItens(itemSearch.value)"
                                 [ngModelOptions]="{standalone: true}">
