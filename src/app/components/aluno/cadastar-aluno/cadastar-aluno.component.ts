@@ -14,6 +14,8 @@ import { Acesso } from 'src/app/core/acesso';
 import { AutenticadorService } from 'src/app/services/autenticador/autenticador.service';
 import { LoadingPopupService } from 'src/app/services/loadingPopup/loading-popup.service';
 import { CarregarPerfil } from 'src/app/core/carregar-perfil';
+import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
+import { RelatorioBeneficiarioService } from '../../../services/relatorio-beneficiario/relatorio-beneficiario.service';
 
 @Component({
   selector: 'app-cadastar-aluno',
@@ -41,6 +43,8 @@ export class CadastarAlunoComponent implements OnInit {
     private fileUtils: FileUtils,
     private autenticadorService: AutenticadorService,
     private loadingPopupService: LoadingPopupService,
+    private botoesRelatorio: MatBottomSheet,
+    private relatorioBeneficiarioService: RelatorioBeneficiarioService,
   ) {
   }
   
@@ -154,4 +158,43 @@ export class CadastarAlunoComponent implements OnInit {
 
   }
 
+  abrirOpcoesRelatorio() {
+    const botoesRelatorioRef =  this.botoesRelatorio.open(BotoesRelatorioComponent);
+    botoesRelatorioRef.afterDismissed().subscribe((tipo) => {
+      this.getRelatorio(tipo);
+    });
+  }
+
+  getRelatorio(tipo: string) {
+    
+    this.loadingPopupService.mostrarMensagemDialog('Gerando relatório ..');
+
+    const listaIdsPessoaFisica = [];
+    listaIdsPessoaFisica.push(this.aluno.pessoaFisica.id);
+    this.relatorioBeneficiarioService.showRelatorio(tipo, "pdf", listaIdsPessoaFisica).subscribe(
+      response => {
+          this.fileUtils.showFilePDF(response);
+      },
+      responseError => {
+        const dataView = new DataView(responseError.error);
+        const decoder = new TextDecoder('utf8');
+        const resp = JSON.parse(decoder.decode(dataView));
+        this.toastService.showAlerta(resp.mensagem);
+
+      }).add(() => {
+        this.loadingPopupService.closeDialog();
+      });
+  }
+}
+
+@Component({
+  selector: 'botoes-relatorios',
+  templateUrl: 'botoes-relatorio.html',
+})
+export class BotoesRelatorioComponent {
+  constructor(private botoesRelatorioRef: MatBottomSheetRef<BotoesRelatorioComponent>) {}
+
+  selecionaRelatorio(tipo: string): void {
+    this.botoesRelatorioRef.dismiss(tipo);
+  }
 }

@@ -1,5 +1,5 @@
 import { ComboPesquisavelModule } from './../common/combo-pesquisavel/combo-pesquisavel.module';
-import { CadastarAlunoComponent } from './cadastar-aluno/cadastar-aluno.component';
+import { BotoesRelatorioComponent, CadastarAlunoComponent } from './cadastar-aluno/cadastar-aluno.component';
 import { AlunoComponent } from './aluno.component';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -16,7 +16,7 @@ import { ComboBeneficiarioModule } from '../common/combo-beneficiario/combo-bene
 
 @NgModule({
   declarations: [AlunoComponent, CadastarAlunoComponent, VulnerabilidadeAlunoComponent, 
-                 CadastrarVulnerabilidadeAlunoComponent, ListarVulnerabilidadeAlunoComponent],
+                 CadastrarVulnerabilidadeAlunoComponent, ListarVulnerabilidadeAlunoComponent, BotoesRelatorioComponent],
   imports: [
     CommonModule,
     AlunoRoutingModule,

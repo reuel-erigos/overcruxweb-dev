@@ -145,6 +145,14 @@
             Atualizar
     </button>
 
+    <button *ngIf="isAtualizar && mostrarBotaoAtualizar" mat-raised-button
+            name="botaoRelatorio"
+            fxFlex="20%"
+            color="primary"
+            (click)="abrirOpcoesRelatorio()">
+            Relatórios
+    </button>
+
     <button *ngIf="mostrarBotaoLimpar()"
             mat-raised-button
             fxFlex="20%"
@@ -157,5 +165,7 @@
             (click)="cancelar()">
             Cancelar
     </button>
+
+    
 
 </div>

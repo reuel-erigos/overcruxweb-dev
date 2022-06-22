@@ -38,6 +38,8 @@ import { ComboPesquisavelModule } from '../components/common/combo-pesquisavel/c
 import { LoadingPopupModule } from '../components/common/loading-popup/loading-popup.module';
 import { EditorRicoModule } from '../components/common/editor-rico/editor-rico.module';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
+
 
 
 const modulos = [
@@ -77,6 +79,7 @@ const modulos = [
     , LoadingPopupModule
     , EditorRicoModule
     , MatDialogModule
+    , MatBottomSheetModule
 ]
 
 @NgModule({
