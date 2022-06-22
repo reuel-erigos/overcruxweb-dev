@@ -29,18 +29,24 @@ export class AlunoService extends BaseService<Aluno> {
 
   getFilter(idAluno: string|number,
             nomePessoaFisicaMae: string|number,
-            cpfPessoaFisicaAluno: string|number ) {
+            cpfPessoaFisicaAluno: string|number,
+            dataInicioEntradaInstituicao: any,
+            dataFimEntradaInstituicao: any) {
 
     idAluno              = idAluno || '';
     nomePessoaFisicaMae  = nomePessoaFisicaMae || '';
     cpfPessoaFisicaAluno = cpfPessoaFisicaAluno || '';
+    const p_dataInicioEntradaInstituicao = dataInicioEntradaInstituicao ? dataInicioEntradaInstituicao.getTime() : '';
+    const p_dataFimEntradaInstituicao = dataFimEntradaInstituicao ? dataFimEntradaInstituicao.getTime() : '';
 
 
     return this.http.get(Rotas.ALUNO + 'filter', { params: {
         idAluno: `${idAluno}` ,
         nomePessoaFisicaMae: `${nomePessoaFisicaMae}` ,
-        cpfPessoaFisicaAluno: `${cpfPessoaFisicaAluno}`
-        }
+        cpfPessoaFisicaAluno: `${cpfPessoaFisicaAluno}`,
+        dataInicioEntradaInstituicao: `${p_dataInicioEntradaInstituicao}`,
+        dataFimEntradaInstituicao: `${p_dataFimEntradaInstituicao}`,
+      }
     });
   }
 

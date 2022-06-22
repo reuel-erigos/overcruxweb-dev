@@ -5,4 +5,6 @@ export class FilterAlunos{
 	aluno: ComboAluno;
 	maeAluno: ComboPessoaFisica;
 	cpfAluno: ComboPessoaFisica;
+	dataInicioEntradaInstituicao: Date;
+  	dataFimEntradaInstituicao: Date;
 }

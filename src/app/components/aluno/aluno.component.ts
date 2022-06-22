@@ -19,6 +19,7 @@ import { PessoaFisicaService } from 'src/app/services/pessoa-fisica/pessoa-fisic
 import { ComboPessoaFisica } from 'src/app/core/combo-pessoa-fisica';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { CarregarPerfil } from 'src/app/core/carregar-perfil';
+import { DataUtilService } from '../../services/commons/data-util.service';
 
 @Component({
   selector: 'app-aluno',
@@ -53,7 +54,8 @@ export class AlunoComponent implements OnInit {
     private activatedRoute:ActivatedRoute,
     private cpfPipe: CpfPipe ,
     private funcoesUteisService: FuncoesUteisService,
-    private toastService: ToastService
+    private toastService: ToastService,
+    private dataUtilService: DataUtilService,
   ) { 
     this.filtro = this.alunoService.filtro;
     this.carregarPerfil = new CarregarPerfil();
@@ -78,10 +80,12 @@ export class AlunoComponent implements OnInit {
 
   carregar() {
     this.alunoService.initFiltro();
-    if (this.filtro.aluno.id || this.filtro.maeAluno.id || this.filtro.cpfAluno.id) {
+    if (this.filtro.aluno.id || this.filtro.maeAluno.id || this.filtro.cpfAluno.id || this.filtro.dataInicioEntradaInstituicao || this.filtro.dataFimEntradaInstituicao) {
       this.alunoService.getFilter(this.filtro.aluno.id,  
                                   this.filtro.maeAluno.nomeMae, 
-                                  this.filtro.cpfAluno.cpf)
+                                  this.filtro.cpfAluno.cpf,
+                                  this.filtro.dataInicioEntradaInstituicao,
+                                  this.filtro.dataFimEntradaInstituicao)
       .subscribe((alunos: Aluno[]) => {
         this.verificaMostrarTabela(alunos);
       });
@@ -89,7 +93,7 @@ export class AlunoComponent implements OnInit {
   }
 
   consultar() { 
-    if (!this.filtro.aluno.id && !this.filtro.maeAluno.id && !this.filtro.cpfAluno.id) {
+    if (!this.filtro.aluno.id && !this.filtro.maeAluno.id && !this.filtro.cpfAluno.id && !this.filtro.dataInicioEntradaInstituicao && !this.filtro.dataFimEntradaInstituicao) {
       this.toastService.showAlerta('Informe pelo menos um critério de pesquisa.');
       return;
     }else{
@@ -186,8 +190,11 @@ export class AlunoComponent implements OnInit {
     }
   }
 
-
   onValorChange(event: any) {
     this.filtro.aluno = event;
+  }
+
+  onMascaraDataInput(event) {
+    return this.dataUtilService.onMascaraDataInput(event);
   }
 }

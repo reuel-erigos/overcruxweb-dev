@@ -44,9 +44,31 @@
                 </div>
 
             </div>
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px" fxFlexFill>
+                <mat-form-field fxFlex= "200px" fxLayoutGap="20px" fxFlexOffset="20px">
+                    <input matInput name= "dataInicioEntrada"
+                            [matDatepicker]="dataInicioEntrada" 
+                            placeholder="Data Início Entrada" 
+                            [(ngModel)]="filtro.dataInicioEntradaInstituicao"
+                            (input)="onMascaraDataInput($event)">
+                    <mat-datepicker-toggle matSuffix [for]="dataInicioEntrada"></mat-datepicker-toggle>
+                    <mat-datepicker #dataInicioEntrada></mat-datepicker>
+                </mat-form-field>
+            
+                <mat-form-field fxFlex= "200px" >
+                    <input matInput name="dataFimEntrada"
+                            [matDatepicker]="dataFimEntrada" 
+                            placeholder="Data Fim Entrada" 
+                            [(ngModel)]="filtro.dataFimEntradaInstituicao"
+                            (input)="onMascaraDataInput($event)">
+                    <mat-datepicker-toggle matSuffix [for]="dataFimEntrada"></mat-datepicker-toggle>
+                    <mat-datepicker #dataFimEntrada></mat-datepicker>
+                </mat-form-field>
+
+            </div>
 
             <div dir="rtl" class="botoes" fxLayoutGap="20px" style="padding-top: 20px; padding-bottom: 20px;" fxFlexFill>
-                <button mat-raised-button fxFlex="20%" (click)="consultar()">
+                <button mat-raised-button fxFlex="20%" (click)="consultar()" [disabled]="formConsultar.invalid">
                     CONSULTAR
                 </button>
                 <button mat-raised-button fxFlex="20%" style="padding-right: 20px" (click)="limpar()" route>
