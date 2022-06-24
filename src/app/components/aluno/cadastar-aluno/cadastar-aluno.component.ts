@@ -17,6 +17,8 @@ import { CarregarPerfil } from 'src/app/core/carregar-perfil';
 import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { RelatorioBeneficiarioService } from '../../../services/relatorio-beneficiario/relatorio-beneficiario.service';
 import { Familiares } from '../../../core/familiares';
+import { FamiliarAlunoService } from '../../../services/familiar-aluno/familiar-aluno.service';
+import { ResponsaveisAluno } from '../../../core/responsaveis-aluno';
 
 @Component({
   selector: 'app-cadastar-aluno',
@@ -27,6 +29,7 @@ export class CadastarAlunoComponent implements OnInit {
 
   aluno: Aluno = new Aluno();
   familiar: Familiares = new Familiares();
+  responsavel: ResponsaveisAluno = new ResponsaveisAluno();
 
   isAtualizar = false;
 
@@ -38,6 +41,7 @@ export class CadastarAlunoComponent implements OnInit {
 
   constructor(
     private alunoService: AlunoService,
+    private familiarAlunoService: FamiliarAlunoService,
     private activatedRoute: ActivatedRoute,
     private location: Location,
     private toastService: ToastService,
@@ -81,6 +85,11 @@ export class CadastarAlunoComponent implements OnInit {
         this.aluno.pessoaFisica.foto = foto;
         foto = this.fileUtils.convertBufferArrayToBase64(foto);
         this.aluno.pessoaFisica.urlFoto = foto ? foto.changingThisBreaksApplicationSecurity : '';
+      });
+
+      this.familiarAlunoService.getResponsavelVigente(idAluno).subscribe((responsavel: ResponsaveisAluno) => {
+          this.familiar = responsavel.familiar;
+          this.responsavel = responsavel;
       });
     }
   }
@@ -136,29 +145,30 @@ export class CadastarAlunoComponent implements OnInit {
 
   atualizar() {
     this.tratarDados();
-
-    this.loadingPopupService.mostrarMensagemDialog('Salvando dados do aluno, aguarde...');
-    this.alunoService.alterar(this.aluno).pipe(
-      switchMap((aluno: Aluno) => {
-        if (this.aluno.pessoaFisica.isFotoChanged && this.aluno.pessoaFisica.foto) {
-          return this.arquivoPessoaFisicaService.alterar(this.aluno.pessoaFisica.foto, aluno.pessoaFisica.id);
-        } else {
-         return new Observable(obs => obs.next());
-        }
-      })
-    ).subscribe(
-      () => {
-        this.loadingPopupService.closeDialog();
-        this.toastService.showSucesso('Aluno atualizado com sucesso');
-        this.autenticadorService.revalidarSessao();
+    console.log(this.aluno);
+    console.log(this.familiar);
+    // this.loadingPopupService.mostrarMensagemDialog('Salvando dados do aluno, aguarde...');
+    // this.alunoService.alterar(this.aluno).pipe(
+    //   switchMap((aluno: Aluno) => {
+    //     if (this.aluno.pessoaFisica.isFotoChanged && this.aluno.pessoaFisica.foto) {
+    //       return this.arquivoPessoaFisicaService.alterar(this.aluno.pessoaFisica.foto, aluno.pessoaFisica.id);
+    //     } else {
+    //      return new Observable(obs => obs.next());
+    //     }
+    //   })
+    // ).subscribe(
+    //   () => {
+    //     this.loadingPopupService.closeDialog();
+    //     this.toastService.showSucesso('Aluno atualizado com sucesso');
+    //     this.autenticadorService.revalidarSessao();
       
-        this.alunoService.getById(this.aluno.id).subscribe((aluno: Aluno) => {
-          Object.assign(this.aluno, aluno);
-        });
-    },
-    (error) => {
-      this.loadingPopupService.closeDialog();
-    });
+    //     this.alunoService.getById(this.aluno.id).subscribe((aluno: Aluno) => {
+    //       Object.assign(this.aluno, aluno);
+    //     });
+    // },
+    // (error) => {
+    //   this.loadingPopupService.closeDialog();
+    // });
 
   }
 

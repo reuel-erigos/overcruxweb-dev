@@ -1,4 +1,5 @@
 import { ArquivoMetadados } from './arquivo-metadado';
+import { BeneficioSocialPessoaFisica } from './beneficio-social-pessoa-fisica';
 import { CondicoesMoradia } from './condicoes-moradia';
 import { GrausInstrucao } from './graus-instrucao';
 
@@ -100,5 +101,7 @@ export class PessoaFisica{
    celular2: string;
 
    qtPessoasResidemFamilia:number;
+
+   beneficiosSociaisPessoaFisica: BeneficioSocialPessoaFisica[];
 
 }

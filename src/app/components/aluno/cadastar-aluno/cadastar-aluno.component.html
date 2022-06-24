@@ -42,7 +42,8 @@
         <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroFamiliar">
             <form #formCadastroFamiliar="ngForm">
                 <ng-template matStepLabel>FAMILIAR</ng-template>
-                <dados-pessoais-familiar-aluno [pessoaFisica]="familiar.pessoasFisica" [familiar]="familiar"></dados-pessoais-familiar-aluno>
+                <dados-pessoais-familiar-aluno [pessoaFisica]="familiar.pessoasFisica" [familiar]="familiar" [responsavel]="responsavel"></dados-pessoais-familiar-aluno>
+                <documentos-familiar-aluno [pessoaFisica]="familiar.pessoasFisica"></documentos-familiar-aluno>
                 <profissional-familiar-aluno [familiar]="familiar"></profissional-familiar-aluno>
                 <beneficio-familiar-aluno [pessoaFisica]="familiar.pessoasFisica"></beneficio-familiar-aluno>
             </form>
@@ -82,7 +83,6 @@
         <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroDocumentos">
             <form #formCadastroDocumentos="ngForm">
                 <ng-template matStepLabel>DOCUMENTOS</ng-template>
-
                 <documentos [pessoaFisica]="aluno.pessoaFisica" [validaCPF]="false" ></documentos>
             </form>
 

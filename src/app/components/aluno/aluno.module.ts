@@ -18,13 +18,15 @@ import { FamiliarAlunoModule } from '../familiar-aluno/familiar-aluno.module';
 import { CadastrarResponsavelFamiliarAlunoComponent } from './cadastrar-responsavel-familiar-aluno/cadastrar-responsavel-familiar-aluno.component';
 import { ProfissionalFamiliarAlunoComponent } from './profissional-familiar-aluno/profissional-familiar-aluno.component';
 import { BeneficioFamiliarAlunoComponent } from './beneficio-familiar-aluno/beneficio-familiar-aluno.component';
+import { DocumentosFamiliarAlunoComponent } from './documentos-familiar-aluno/documentos-familiar-aluno.component';
+import { SharedDirectivesModule } from '../../directives/shared-directives.module';
 
 
 @NgModule({
   declarations: [AlunoComponent, CadastarAlunoComponent, VulnerabilidadeAlunoComponent, 
-                 CadastrarVulnerabilidadeAlunoComponent, ListarVulnerabilidadeAlunoComponent, BotoesRelatorioComponent,
-                 DadosPessoaisFamiliarAlunoComponent, CadastrarResponsavelFamiliarAlunoComponent, ProfissionalFamiliarAlunoComponent,
-                BeneficioFamiliarAlunoComponent],
+                CadastrarVulnerabilidadeAlunoComponent, ListarVulnerabilidadeAlunoComponent, BotoesRelatorioComponent,
+                DadosPessoaisFamiliarAlunoComponent, CadastrarResponsavelFamiliarAlunoComponent, ProfissionalFamiliarAlunoComponent,
+                BeneficioFamiliarAlunoComponent, DocumentosFamiliarAlunoComponent],
   imports: [
     CommonModule,
     AlunoRoutingModule,
@@ -34,7 +36,8 @@ import { BeneficioFamiliarAlunoComponent } from './beneficio-familiar-aluno/bene
     ComboPesquisavelModule,
     ComboBeneficiarioModule,
     CadastroEnderecoModule,
-    FamiliarAlunoModule
+    FamiliarAlunoModule,
+    SharedDirectivesModule
   ]
 })
 export class AlunoModule { }

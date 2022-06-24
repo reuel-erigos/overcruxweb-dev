@@ -8,6 +8,7 @@ import { CondicoesMoradiaService } from '../../../services/condicoes-moradia/con
 import { GrausInstrucaoService } from '../../../services/graus-instrucao/graus-instrucao.service';
 import { GrausInstrucao } from '../../../core/graus-instrucao';
 import { Familiares } from '../../../core/familiares';
+import { ResponsaveisAluno } from '../../../core/responsaveis-aluno';
 
 @Component({
   selector:  'dados-pessoais-familiar-aluno',
@@ -19,6 +20,7 @@ export class DadosPessoaisFamiliarAlunoComponent implements OnInit {
 
   @Input() familiar: Familiares;
   @Input() pessoaFisica: PessoaFisica;
+  @Input() responsavel: ResponsaveisAluno;
   grausInstrucao: GrausInstrucao[];
 
   public maskCep     = [/\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
