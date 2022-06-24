@@ -17,12 +17,14 @@ import { CadastroEnderecoModule } from '../common/cadastro-endereco/cadastro-end
 import { FamiliarAlunoModule } from '../familiar-aluno/familiar-aluno.module';
 import { CadastrarResponsavelFamiliarAlunoComponent } from './cadastrar-responsavel-familiar-aluno/cadastrar-responsavel-familiar-aluno.component';
 import { ProfissionalFamiliarAlunoComponent } from './profissional-familiar-aluno/profissional-familiar-aluno.component';
+import { BeneficioFamiliarAlunoComponent } from './beneficio-familiar-aluno/beneficio-familiar-aluno.component';
 
 
 @NgModule({
   declarations: [AlunoComponent, CadastarAlunoComponent, VulnerabilidadeAlunoComponent, 
                  CadastrarVulnerabilidadeAlunoComponent, ListarVulnerabilidadeAlunoComponent, BotoesRelatorioComponent,
-                 DadosPessoaisFamiliarAlunoComponent, CadastrarResponsavelFamiliarAlunoComponent, ProfissionalFamiliarAlunoComponent],
+                 DadosPessoaisFamiliarAlunoComponent, CadastrarResponsavelFamiliarAlunoComponent, ProfissionalFamiliarAlunoComponent,
+                BeneficioFamiliarAlunoComponent],
   imports: [
     CommonModule,
     AlunoRoutingModule,

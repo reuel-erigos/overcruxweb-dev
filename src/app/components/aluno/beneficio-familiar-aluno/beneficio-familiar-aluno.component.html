@@ -1,0 +1,25 @@
+<!-- BENEFICIOS -->
+<mat-toolbar class="titulopartes">Benefícios</mat-toolbar>
+<div fxLayout="column" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill>
+    
+    <div fxFlex="100%" fxLayoutGap="20px" fxFlexOffset="20px" ngModelGroup="grupoBeneficio">
+        <div *ngFor="let beneficio of beneficiosSociaisPessoaFisica; let index = index">
+            <beneficio-social-pessoa-fisica 
+                                       [beneficio]="beneficio" 
+                                       [index]="index"
+                                       [beneficiosSociaisPessoaFisica]="beneficiosSociaisPessoaFisica"   
+                                       [perfilAcesso]="perfilAcesso"
+                                       [beneficiosSociais]="beneficiosSociais" 
+                                       >
+            </beneficio-social-pessoa-fisica>
+        </div>
+        <div *ngIf="perfilAcesso.insere" fxLayoutAlign="start center" fxLayoutGap="16px" style="padding-top: 10px; padding-left: 20px; padding-bottom: 10px;">
+            <div>
+                <button matTooltip="Novo" mat-mini-fab color="primary" (click)="addBeneficio()">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+        </div>                
+    </div>
+
+</div>

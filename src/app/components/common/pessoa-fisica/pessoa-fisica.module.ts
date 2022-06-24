@@ -55,7 +55,8 @@ import { ComboProjetoModule } from '../combo-projeto/combo-projeto.module';
     FuncionalComponent,
     AcademicoComponent,
     EscolarComponent,
-    AtendimentoApoioComponent
+    AtendimentoApoioComponent,
+    BeneficioSocialPessoaFisicaComponent
   ]
 })
 export class PessoaFisicaModule { }
