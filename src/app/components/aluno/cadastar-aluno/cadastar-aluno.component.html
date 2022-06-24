@@ -43,6 +43,7 @@
             <form #formCadastroFamiliar="ngForm">
                 <ng-template matStepLabel>FAMILIAR</ng-template>
                 <dados-pessoais-familiar-aluno [pessoaFisica]="familiar.pessoasFisica" [familiar]="familiar"></dados-pessoais-familiar-aluno>
+                <profissional-familiar-aluno [familiar]="familiar"></profissional-familiar-aluno>
             </form>
 
             <div dir="rtl" fxLayoutGap="20px" style="padding-top: 20px; padding-bottom: 10px; padding-right: 20px"

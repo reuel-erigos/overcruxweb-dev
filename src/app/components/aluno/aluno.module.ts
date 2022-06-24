@@ -16,12 +16,13 @@ import { DadosPessoaisFamiliarAlunoComponent } from './dados-pessoais-familiar-a
 import { CadastroEnderecoModule } from '../common/cadastro-endereco/cadastro-endereco.module';
 import { FamiliarAlunoModule } from '../familiar-aluno/familiar-aluno.module';
 import { CadastrarResponsavelFamiliarAlunoComponent } from './cadastrar-responsavel-familiar-aluno/cadastrar-responsavel-familiar-aluno.component';
+import { ProfissionalFamiliarAlunoComponent } from './profissional-familiar-aluno/profissional-familiar-aluno.component';
 
 
 @NgModule({
   declarations: [AlunoComponent, CadastarAlunoComponent, VulnerabilidadeAlunoComponent, 
                  CadastrarVulnerabilidadeAlunoComponent, ListarVulnerabilidadeAlunoComponent, BotoesRelatorioComponent,
-                 DadosPessoaisFamiliarAlunoComponent, CadastrarResponsavelFamiliarAlunoComponent],
+                 DadosPessoaisFamiliarAlunoComponent, CadastrarResponsavelFamiliarAlunoComponent, ProfissionalFamiliarAlunoComponent],
   imports: [
     CommonModule,
     AlunoRoutingModule,
