@@ -1,0 +1,16 @@
+.botao{
+    width: 104px;
+    height: 122px;
+    background: url(../../../../assets/img/no-profile.jpg) no-repeat 0 0;
+    background-size: cover;
+    margin: auto;
+    background-attachment: initial;
+    background-position: center;
+    background-color: aliceblue;
+}
+
+/* 354X472 */
+
+.espaco{
+    margin-bottom: 20px;
+}

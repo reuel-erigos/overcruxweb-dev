@@ -38,6 +38,24 @@
 
         </mat-step>
 
+        <!-- ------------------ FAMILIAR ------------------------ -->
+        <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroFamiliar">
+            <form #formCadastroFamiliar="ngForm">
+                <ng-template matStepLabel>FAMILIAR</ng-template>
+                <dados-pessoais-familiar-aluno [pessoaFisica]="familiar.pessoasFisica" [familiar]="familiar"></dados-pessoais-familiar-aluno>
+            </form>
+
+            <div dir="rtl" fxLayoutGap="20px" style="padding-top: 20px; padding-bottom: 10px; padding-right: 20px"
+                  fxFlexFill>
+                <button mat-mini-fab name="botaoConfirmar" color="primary" matStepperNext>
+                    <mat-icon>chevron_right</mat-icon>
+                </button>
+                <button mat-mini-fab name="botaoConfirmar" color="primary" matStepperPrevious>
+                    <mat-icon>chevron_left</mat-icon>
+                </button>
+            </div>
+        </mat-step>
+
         <!-- ------------------ ESCOLARIDADE ------------------------ -->
         <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroEscolaridade">
             <form #formCadastroEscolaridade="ngForm">

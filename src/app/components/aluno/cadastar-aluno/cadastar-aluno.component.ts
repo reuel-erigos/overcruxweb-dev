@@ -16,6 +16,7 @@ import { LoadingPopupService } from 'src/app/services/loadingPopup/loading-popup
 import { CarregarPerfil } from 'src/app/core/carregar-perfil';
 import { MatBottomSheet, MatBottomSheetRef } from '@angular/material/bottom-sheet';
 import { RelatorioBeneficiarioService } from '../../../services/relatorio-beneficiario/relatorio-beneficiario.service';
+import { Familiares } from '../../../core/familiares';
 
 @Component({
   selector: 'app-cadastar-aluno',
@@ -25,6 +26,7 @@ import { RelatorioBeneficiarioService } from '../../../services/relatorio-benefi
 export class CadastarAlunoComponent implements OnInit {
 
   aluno: Aluno = new Aluno();
+  familiar: Familiares = new Familiares();
 
   isAtualizar = false;
 
@@ -53,6 +55,8 @@ export class CadastarAlunoComponent implements OnInit {
     this.aluno.pessoaFisica = new PessoaFisica();
     this.aluno.vulnerabilidades = [];
     this.aluno.pessoaFisica.grausInstrucao = new GrausInstrucao();
+    this.familiar.pessoasFisica = new PessoaFisica();
+    this.familiar.pessoasFisica.grausInstrucao = new GrausInstrucao();
 
     this.carregarPerfil.carregar(this.activatedRoute.snapshot.data.perfilAcesso, this.perfilAcesso);
 

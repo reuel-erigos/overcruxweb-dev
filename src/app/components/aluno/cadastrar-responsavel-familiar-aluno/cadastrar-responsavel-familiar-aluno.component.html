@@ -1,0 +1,66 @@
+<form #formResponsavel="ngForm">
+  <div fxLayout="row" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill>
+
+    <mat-form-field fxFlex="18%" fxFlexOffset="20px">
+        <input matInput name="dataVinculacao" [matDatepicker]="dataVinculacao" placeholder="Data de vinculação:"
+              [(ngModel)]="responsavel.dataVinculacao">
+        <mat-datepicker-toggle matSuffix [for]="dataVinculacao"></mat-datepicker-toggle>
+        <mat-datepicker #dataVinculacao></mat-datepicker>
+    </mat-form-field>
+
+
+    <mat-form-field fxFlex="18%" fxFlexOffset="20px">
+      <input matInput name="dataDesvinculacao" [matDatepicker]="dataDesvinculacao" placeholder="Data de Desvinculação:"
+            [(ngModel)]="responsavel.dataDesvinculacao">
+      <mat-datepicker-toggle matSuffix [for]="dataDesvinculacao"></mat-datepicker-toggle>
+      <mat-datepicker #dataDesvinculacao></mat-datepicker>
+    </mat-form-field>
+
+  </div>
+
+  <div fxLayout="row"  fxLayoutGap="50px" fxFlexFill>
+    <div fxFlexOffset="20px" fxFlex= "30%"> 
+      <mat-checkbox name="transportaAluno" [(ngModel)]="responsavel.transportaAluno">Autorização para levar e buscar o aluno.</mat-checkbox>
+    </div>
+    <div fxFlex= "30%"> 
+      <mat-checkbox name="tutelaAluno" [(ngModel)]="responsavel.tutelaAluno">Tem a tutela do aluno.</mat-checkbox>
+    </div>
+    <div fxFlex= "30%"> 
+      <mat-checkbox name="responsavelFinanceiroPeloAluno" [(ngModel)]="responsavel.responsavelFinanceiroPeloAluno">Responsável financeiro pelo aluno.</mat-checkbox>
+    </div>
+  </div>
+  <br/>
+
+  
+  <div fxLayout="row" fxLayoutGap="50px" style="margin-top: 20px; margin-bottom: 10px" fxFlexFill>
+    <mat-form-field fxFlexOffset="20px" fxFlex= "50%" appearance="outline" >
+            <mat-label>Descrição do grau de parentesco</mat-label>
+            <textarea matInput #descGrauParentesco
+                      name="descGrauParentesco"
+                      [(ngModel)]="responsavel.descGrauParentesco"
+                      cdkTextareaAutosize
+                      #autosize="cdkTextareaAutosize"
+                      cdkAutosizeMinRows="2"
+                      maxlength="45"></textarea>
+      <mat-hint align="end">{{descGrauParentesco.value.length}} / 45</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field  fxFlex= "50%" appearance="outline" >
+      <mat-label>Descrição do desligamento</mat-label>
+      <textarea matInput #descDesligamento
+                name="descDesligamento"
+                [(ngModel)]="responsavel.descDesligamento"
+                cdkTextareaAutosize
+                #autosize="cdkTextareaAutosize"
+                cdkAutosizeMinRows="2"
+                maxlength="200"></textarea>
+      <mat-hint align="end">{{descDesligamento.value.length}} / 200</mat-hint>
+    </mat-form-field>
+
+  </div>
+</form>
+
+
+
+
+

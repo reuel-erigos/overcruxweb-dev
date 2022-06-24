@@ -12,11 +12,16 @@ import { CadastrarVulnerabilidadeAlunoComponent } from './vulnerabilidade-aluno/
 import { ListarVulnerabilidadeAlunoComponent } from './vulnerabilidade-aluno/listar-vulnerabilidade-aluno/listar-vulnerabilidade-aluno.component';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { ComboBeneficiarioModule } from '../common/combo-beneficiario/combo-beneficiario.module';
+import { DadosPessoaisFamiliarAlunoComponent } from './dados-pessoais-familiar-aluno/dados-pessoais-familiar-aluno.component';
+import { CadastroEnderecoModule } from '../common/cadastro-endereco/cadastro-endereco.module';
+import { FamiliarAlunoModule } from '../familiar-aluno/familiar-aluno.module';
+import { CadastrarResponsavelFamiliarAlunoComponent } from './cadastrar-responsavel-familiar-aluno/cadastrar-responsavel-familiar-aluno.component';
 
 
 @NgModule({
   declarations: [AlunoComponent, CadastarAlunoComponent, VulnerabilidadeAlunoComponent, 
-                 CadastrarVulnerabilidadeAlunoComponent, ListarVulnerabilidadeAlunoComponent, BotoesRelatorioComponent],
+                 CadastrarVulnerabilidadeAlunoComponent, ListarVulnerabilidadeAlunoComponent, BotoesRelatorioComponent,
+                 DadosPessoaisFamiliarAlunoComponent, CadastrarResponsavelFamiliarAlunoComponent],
   imports: [
     CommonModule,
     AlunoRoutingModule,
@@ -24,7 +29,9 @@ import { ComboBeneficiarioModule } from '../common/combo-beneficiario/combo-bene
     MaterialCommonModule,
     MatExpansionModule,
     ComboPesquisavelModule,
-    ComboBeneficiarioModule
+    ComboBeneficiarioModule,
+    CadastroEnderecoModule,
+    FamiliarAlunoModule
   ]
 })
 export class AlunoModule { }
