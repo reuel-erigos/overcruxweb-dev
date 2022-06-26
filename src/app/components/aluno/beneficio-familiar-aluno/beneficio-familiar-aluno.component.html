@@ -3,7 +3,7 @@
 <div fxLayout="column" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill>
     
     <div fxFlex="100%" fxLayoutGap="20px" fxFlexOffset="20px" ngModelGroup="grupoBeneficio">
-        <div *ngFor="let beneficio of beneficiosSociaisPessoaFisica; let index = index">
+        <div *ngFor="let beneficio of pessoaFisica.beneficiosSociaisPessoaFisica; let index = index">
             <beneficio-social-pessoa-fisica 
                                        [beneficio]="beneficio" 
                                        [index]="index"

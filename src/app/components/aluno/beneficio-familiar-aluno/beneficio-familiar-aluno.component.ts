@@ -26,7 +26,6 @@ export class BeneficioFamiliarAlunoComponent implements OnInit {
   @Input() atendidoOrgaoRede: string;
   @Input() encaminhamentos: EncaminhamentoAluno[];
   @Input() origemTelaAluno: boolean = true;
-  @Input() beneficiosSociaisPessoaFisica: BeneficioSocialPessoaFisica[];
 
   entidadesSociais: EntidadesSociais[];
 
@@ -112,14 +111,14 @@ export class BeneficioFamiliarAlunoComponent implements OnInit {
   }
   
   addBeneficio() {
-      if (!this.beneficiosSociaisPessoaFisica) {
-        this.beneficiosSociaisPessoaFisica = [];
+      if (!this.pessoaFisica.beneficiosSociaisPessoaFisica) {
+        this.pessoaFisica.beneficiosSociaisPessoaFisica = [];
       }
       const beneficio = new BeneficioSocialPessoaFisica();
       beneficio.beneficioSocial = new BeneficioSocial();
       beneficio.pessoaFisica = new PessoaFisica();
   
-      this.beneficiosSociaisPessoaFisica.push(beneficio);
+      this.pessoaFisica.beneficiosSociaisPessoaFisica.push(beneficio);
   }
 
 }

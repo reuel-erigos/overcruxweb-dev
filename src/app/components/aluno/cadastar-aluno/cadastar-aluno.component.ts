@@ -61,6 +61,7 @@ export class CadastarAlunoComponent implements OnInit {
     this.aluno.pessoaFisica.grausInstrucao = new GrausInstrucao();
     this.familiar.pessoasFisica = new PessoaFisica();
     this.familiar.pessoasFisica.grausInstrucao = new GrausInstrucao();
+    this.familiar.pessoasFisica.beneficiosSociaisPessoaFisica = [];
 
     this.carregarPerfil.carregar(this.activatedRoute.snapshot.data.perfilAcesso, this.perfilAcesso);
 
@@ -88,8 +89,8 @@ export class CadastarAlunoComponent implements OnInit {
       });
 
       this.familiarAlunoService.getResponsavelVigente(idAluno).subscribe((responsavel: ResponsaveisAluno) => {
+          console.log(responsavel.familiar);
           this.familiar = responsavel.familiar;
-          console.log(this.familiar);
           this.responsavel = responsavel;
       });
     }
