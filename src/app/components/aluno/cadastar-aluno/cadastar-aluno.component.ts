@@ -127,6 +127,18 @@ export class CadastarAlunoComponent implements OnInit {
     this.aluno.pessoaFisica.telefoneResidencial = this.aluno.pessoaFisica.telefoneResidencial ? this.retiraMascara(this.aluno.pessoaFisica.telefoneResidencial.toString()) : null
     this.aluno.pessoaFisica.foneRecado = this.aluno.pessoaFisica.foneRecado ? this.retiraMascara(this.aluno.pessoaFisica.foneRecado.toString()) : null
     this.aluno.pessoaFisica.celular2 = this.aluno.pessoaFisica.celular2 ? this.retiraMascara(this.aluno.pessoaFisica.celular2.toString()) : null
+
+    if(this.familiar && this.familiar.pessoasFisica) {
+      this.familiar.pessoasFisica.cep =  this.familiar.pessoasFisica.cep ? this.retiraMascara( this.familiar.pessoasFisica.cep.toString()) : null
+      this.familiar.pessoasFisica.cpf =  this.familiar.pessoasFisica.cpf ? this.retiraMascara( this.familiar.pessoasFisica.cpf.toString()) : null
+  
+      this.familiar.pessoasFisica.celular =  this.familiar.pessoasFisica.celular ? this.retiraMascara( this.familiar.pessoasFisica.celular.toString()) : null
+      this.familiar.pessoasFisica.telefoneResidencial =  this.familiar.pessoasFisica.telefoneResidencial ? this.retiraMascara( this.familiar.pessoasFisica.telefoneResidencial.toString()) : null
+      this.familiar.pessoasFisica.foneRecado =  this.familiar.pessoasFisica.foneRecado ? this.retiraMascara( this.familiar.pessoasFisica.foneRecado.toString()) : null
+      this.familiar.pessoasFisica.celular2 =  this.familiar.pessoasFisica.celular2 ? this.retiraMascara( this.familiar.pessoasFisica.celular2.toString()) : null
+      this.familiar.pessoasFisica.telefoneComercial =  this.familiar.pessoasFisica.telefoneComercial ? this.retiraMascara( this.familiar.pessoasFisica.telefoneComercial.toString()) : null
+  
+    }
   }
 
   limpar() {
@@ -145,30 +157,29 @@ export class CadastarAlunoComponent implements OnInit {
 
   atualizar() {
     this.tratarDados();
-    console.log(this.aluno);
-    console.log(this.familiar);
-    // this.loadingPopupService.mostrarMensagemDialog('Salvando dados do aluno, aguarde...');
-    // this.alunoService.alterar(this.aluno).pipe(
-    //   switchMap((aluno: Aluno) => {
-    //     if (this.aluno.pessoaFisica.isFotoChanged && this.aluno.pessoaFisica.foto) {
-    //       return this.arquivoPessoaFisicaService.alterar(this.aluno.pessoaFisica.foto, aluno.pessoaFisica.id);
-    //     } else {
-    //      return new Observable(obs => obs.next());
-    //     }
-    //   })
-    // ).subscribe(
-    //   () => {
-    //     this.loadingPopupService.closeDialog();
-    //     this.toastService.showSucesso('Aluno atualizado com sucesso');
-    //     this.autenticadorService.revalidarSessao();
+    this.aluno.familiar = this.familiar;
+    this.loadingPopupService.mostrarMensagemDialog('Salvando dados do aluno, aguarde...');
+    this.alunoService.alterar(this.aluno).pipe(
+      switchMap((aluno: Aluno) => {
+        if (this.aluno.pessoaFisica.isFotoChanged && this.aluno.pessoaFisica.foto) {
+          return this.arquivoPessoaFisicaService.alterar(this.aluno.pessoaFisica.foto, aluno.pessoaFisica.id);
+        } else {
+         return new Observable(obs => obs.next());
+        }
+      })
+    ).subscribe(
+      () => {
+        this.loadingPopupService.closeDialog();
+        this.toastService.showSucesso('Aluno atualizado com sucesso');
+        this.autenticadorService.revalidarSessao();
       
-    //     this.alunoService.getById(this.aluno.id).subscribe((aluno: Aluno) => {
-    //       Object.assign(this.aluno, aluno);
-    //     });
-    // },
-    // (error) => {
-    //   this.loadingPopupService.closeDialog();
-    // });
+        this.alunoService.getById(this.aluno.id).subscribe((aluno: Aluno) => {
+          Object.assign(this.aluno, aluno);
+        });
+    },
+    (error) => {
+      this.loadingPopupService.closeDialog();
+    });
 
   }
 
