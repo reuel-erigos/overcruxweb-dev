@@ -9,6 +9,7 @@ import { Programa } from './programa';
 import { Projeto } from './projeto';
 import { BeneficioSocialPessoaFisica } from './beneficio-social-pessoa-fisica';
 import { Familiares } from './familiares';
+import { ResponsaveisAluno } from './responsaveis-aluno';
 
 
 export class Aluno {
@@ -63,5 +64,6 @@ export class Aluno {
 
 	//Utilizado para a aba de familiar no cadastro de aluno, é o responsavel vigente
 	familiar: Familiares;
+	responsavelVigente: ResponsaveisAluno;
 	
 }

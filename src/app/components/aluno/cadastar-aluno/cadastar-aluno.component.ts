@@ -89,6 +89,7 @@ export class CadastarAlunoComponent implements OnInit {
 
       this.familiarAlunoService.getResponsavelVigente(idAluno).subscribe((responsavel: ResponsaveisAluno) => {
           this.familiar = responsavel.familiar;
+          console.log(this.familiar);
           this.responsavel = responsavel;
       });
     }
@@ -158,6 +159,7 @@ export class CadastarAlunoComponent implements OnInit {
   atualizar() {
     this.tratarDados();
     this.aluno.familiar = this.familiar;
+    this.aluno.responsavelVigente = this.responsavel;
     this.loadingPopupService.mostrarMensagemDialog('Salvando dados do aluno, aguarde...');
     this.alunoService.alterar(this.aluno).pipe(
       switchMap((aluno: Aluno) => {
