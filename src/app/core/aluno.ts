@@ -8,6 +8,7 @@ import { MotivoDesligamento } from './motivo-desligamento';
 import { Programa } from './programa';
 import { Projeto } from './projeto';
 import { BeneficioSocialPessoaFisica } from './beneficio-social-pessoa-fisica';
+import { Familiares } from './familiares';
 
 
 export class Aluno {
@@ -59,4 +60,8 @@ export class Aluno {
 	nome?: string;
 	nomeMae?: string;
 	cpf?: string;
+
+	//Utilizado para a aba de familiar no cadastro de aluno, é o responsavel vigente
+	familiar: Familiares;
+	
 }
