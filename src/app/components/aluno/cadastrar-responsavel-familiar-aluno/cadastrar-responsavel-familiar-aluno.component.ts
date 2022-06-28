@@ -5,6 +5,7 @@ import { TipoResponsaveis } from 'src/app/core/tipo-responsaveis';
 import { Aluno } from 'src/app/core/aluno';
 import { BroadcastEventService } from 'src/app/services/broadcast-event/broadcast-event.service';
 import { Familiares } from '../../../core/familiares';
+import { DataUtilService } from '../../../services/commons/data-util.service';
 
 @Component({
   selector: 'cadastrar-responsavel-familiar-aluno',
@@ -23,15 +24,11 @@ export class CadastrarResponsavelFamiliarAlunoComponent implements OnInit {
     {tipo: 'Não', flag: 'N'}
   ];
 
-  constructor(private toastService: ToastService) {
+  constructor(private toastService: ToastService,
+    private dataUtilService: DataUtilService,) {
   }
 
   ngOnInit() {
-    this.initObjetos();
-
-    BroadcastEventService.get('ON_RESPONSAVEL_VIGENTE').subscribe( (responsavel) => {
-      this.responsavelVigente = responsavel;
-    });
 
   }
 
@@ -99,13 +96,6 @@ export class CadastrarResponsavelFamiliarAlunoComponent implements OnInit {
     delete this.responsavel.familiar.responsaveis;
 
     this.familiar.responsaveis.push(this.responsavel);
-    this.initObjetos();
-  }
-
-  initObjetos() {
-    this.responsavel = new ResponsaveisAluno();
-    this.responsavel.familiar = new Familiares();
-    this.responsavel.aluno = new Aluno();
   }
 
 
@@ -121,5 +111,9 @@ export class CadastrarResponsavelFamiliarAlunoComponent implements OnInit {
 
   carregarResponsavel(responsavel) {
     this.responsavel = responsavel;
+  }
+
+  onMascaraDataInput(event) {
+    return this.dataUtilService.onMascaraDataInput(event);
   }
 }

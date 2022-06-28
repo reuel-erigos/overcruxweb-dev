@@ -3,7 +3,7 @@
 
     <mat-form-field fxFlex="18%" fxFlexOffset="20px">
         <input matInput name="dataVinculacao" [matDatepicker]="dataVinculacao" placeholder="Data de vinculação:"
-              [(ngModel)]="responsavel.dataVinculacao">
+              [(ngModel)]="responsavel.dataVinculacao" (input)="onMascaraDataInput($event)" required>
         <mat-datepicker-toggle matSuffix [for]="dataVinculacao"></mat-datepicker-toggle>
         <mat-datepicker #dataVinculacao></mat-datepicker>
     </mat-form-field>
@@ -11,7 +11,7 @@
 
     <mat-form-field fxFlex="18%" fxFlexOffset="20px">
       <input matInput name="dataDesvinculacao" [matDatepicker]="dataDesvinculacao" placeholder="Data de Desvinculação:"
-            [(ngModel)]="responsavel.dataDesvinculacao">
+            [(ngModel)]="responsavel.dataDesvinculacao" (input)="onMascaraDataInput($event)">
       <mat-datepicker-toggle matSuffix [for]="dataDesvinculacao"></mat-datepicker-toggle>
       <mat-datepicker #dataDesvinculacao></mat-datepicker>
     </mat-form-field>

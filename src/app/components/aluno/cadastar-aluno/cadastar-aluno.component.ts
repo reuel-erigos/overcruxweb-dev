@@ -62,6 +62,7 @@ export class CadastarAlunoComponent implements OnInit {
     this.familiar.pessoasFisica = new PessoaFisica();
     this.familiar.pessoasFisica.grausInstrucao = new GrausInstrucao();
     this.familiar.pessoasFisica.beneficiosSociaisPessoaFisica = [];
+    this.responsavel = new ResponsaveisAluno();
 
     this.carregarPerfil.carregar(this.activatedRoute.snapshot.data.perfilAcesso, this.perfilAcesso);
 
@@ -89,7 +90,6 @@ export class CadastarAlunoComponent implements OnInit {
       });
 
       this.familiarAlunoService.getResponsavelVigente(idAluno).subscribe((responsavel: ResponsaveisAluno) => {
-          console.log(responsavel.familiar);
           this.familiar = responsavel.familiar;
           this.responsavel = responsavel;
       });
@@ -106,7 +106,8 @@ export class CadastarAlunoComponent implements OnInit {
 
   cadastrar() {
     this.tratarDados();
-    console.log("Aluno", this.aluno);
+    this.aluno.familiar = this.familiar;
+    this.aluno.responsavelVigente = this.responsavel;
     this.alunoService.cadastrar(this.aluno).pipe(
       switchMap((alunoRetorno: Aluno) => {
         if (this.aluno.pessoaFisica.isFotoChanged && this.aluno.pessoaFisica.foto) {
@@ -154,8 +155,6 @@ export class CadastarAlunoComponent implements OnInit {
   retiraMascara(objeto) {
     return objeto.replace(/\D/g, '');
   }
-
-
 
   atualizar() {
     this.tratarDados();
