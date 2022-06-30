@@ -53,17 +53,16 @@
         </mat-form-field>
 
         <!--Imagem (like/deslike) -->
-        <container-element [ngSwitch]="grupoAcao.statusAnalise" *ngIf="showFormularioAcao">
-            <div *ngSwitchCase="'A'" style="margin-top: 21px; color: rgb(0, 128, 0);">
-                <span class="material-icons">thumb_up</span> Aprovado
-            </div>
-            <div *ngSwitchCase="'R'" style="margin-top: 21px; color: rgb(155, 15, 5);">
-                <span class="material-icons" >thumb_up</span> Reprovado
-            </div>
-            <div *ngSwitchDefault style="margin-top: 21px; color: rgb(212, 165, 8); font-weight: bold;">
-                <span class="material-icons">pan_tool</span> Em análise
-            </div>
-        </container-element>
+        <div style="margin-top: 21px; color: rgb(0, 128, 0);"  *ngIf="showFormularioAcao && grupoAcao.statusAnalise === 'A'">
+            <span class="material-icons">thumb_up</span> Aprovado
+        </div>
+        <div style="margin-top: 21px; color: rgb(155, 15, 5);" *ngIf="showFormularioAcao && grupoAcao.statusAnalise === 'R'">
+            <span class="material-icons" >thumb_up</span> Reprovado
+        </div>
+        <div style="margin-top: 21px; color: rgb(212, 165, 8); font-weight: bold;" *ngIf="showFormularioAcao && grupoAcao.statusAnalise !== 'A' && grupoAcao.statusAnalise !== 'R'">
+            <span class="material-icons">pan_tool</span> Em análise
+        </div>
+
 
 
         <!--Enviar para Analisar (Sim/Não) -->
