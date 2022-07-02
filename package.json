@@ -5,15 +5,15 @@
     "ng": "ng",
     "start": "npm run desenv",
     "producao": "node  --max_old_space_size=512 --gc_interval=100 server.js",
-    "desenv": "ng serve --proxy-config proxy.config.js --host 0.0.0.0 --disable-host-check",
+    "desenv": "ng serve --proxy-config proxy.config.js --host 0.0.0.0 --disable-host-check --prod=false",
     "build": "ng build --configuration production",
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },
   "engines": {
-    "node": "14.17.1",
-    "npm": "6.14.13"
+    "node": "14.15.4",
+    "npm": "6.14.10"
   },
   "private": true,
   "dependencies": {
