@@ -90,7 +90,8 @@ export class CadastarAlunoComponent implements OnInit {
       });
 
       this.familiarAlunoService.getResponsavelVigente(idAluno).subscribe((responsavel: ResponsaveisAluno) => {
-          if(responsavel) {
+          console.log(responsavel);
+          if(responsavel && responsavel.id) {
             this.responsavel = responsavel;
             this.familiar = responsavel.familiar;
           }
