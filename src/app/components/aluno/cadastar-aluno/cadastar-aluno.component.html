@@ -42,11 +42,29 @@
         <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroFamiliar">
             <form #formCadastroFamiliar="ngForm">
                 <ng-template matStepLabel>FAMILIAR</ng-template>
-                <dados-pessoais-familiar-aluno [pessoaFisica]="familiar.pessoasFisica" [familiar]="familiar" [responsavel]="responsavel"></dados-pessoais-familiar-aluno>
-                <documentos-familiar-aluno [pessoaFisica]="familiar.pessoasFisica"></documentos-familiar-aluno>
-                <profissional-familiar-aluno [familiar]="familiar"></profissional-familiar-aluno>
-                <beneficio-familiar-aluno [pessoaFisica]="familiar.pessoasFisica"></beneficio-familiar-aluno>
+                <div *ngIf="responsavel">
+                    <dados-pessoais-familiar-aluno [pessoaFisica]="familiar.pessoasFisica" [familiar]="familiar" [responsavel]="responsavel"></dados-pessoais-familiar-aluno>
+                    <documentos-familiar-aluno [pessoaFisica]="familiar.pessoasFisica"></documentos-familiar-aluno>
+                    <profissional-familiar-aluno [familiar]="familiar"></profissional-familiar-aluno>
+                    <beneficio-familiar-aluno [pessoaFisica]="familiar.pessoasFisica"></beneficio-familiar-aluno>
+                </div>
             </form>
+
+            <div fxLayout="row" *ngIf="!responsavel" fxLayoutAlign="end center" fxLayoutGap="16px" style="padding-top: 50px">
+                <div>
+                    <button matTooltip="Adicionar familiar" mat-fab color="primary" (click)="addFamiliar()">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+            </div>
+
+            <div fxLayout="row" *ngIf="responsavel && !responsavel.id" fxLayoutAlign="end center" fxLayoutGap="16px" style="padding-top: 50px">
+                <div>
+                    <button matTooltip="Remover familiar" mat-fab color="primary" (click)="removeFamiliar()">
+                        <mat-icon>delete_forever</mat-icon>
+                    </button>
+                </div>
+            </div>
 
             <div dir="rtl" fxLayoutGap="20px" style="padding-top: 20px; padding-bottom: 10px; padding-right: 20px"
                   fxFlexFill>

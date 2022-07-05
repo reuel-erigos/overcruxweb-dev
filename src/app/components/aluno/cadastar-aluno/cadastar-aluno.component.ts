@@ -28,8 +28,8 @@ import { ResponsaveisAluno } from '../../../core/responsaveis-aluno';
 export class CadastarAlunoComponent implements OnInit {
 
   aluno: Aluno = new Aluno();
-  familiar: Familiares = new Familiares();
-  responsavel: ResponsaveisAluno = new ResponsaveisAluno();
+  familiar: Familiares;
+  responsavel: ResponsaveisAluno;
 
   isAtualizar = false;
 
@@ -59,10 +59,6 @@ export class CadastarAlunoComponent implements OnInit {
     this.aluno.pessoaFisica = new PessoaFisica();
     this.aluno.vulnerabilidades = [];
     this.aluno.pessoaFisica.grausInstrucao = new GrausInstrucao();
-    this.familiar.pessoasFisica = new PessoaFisica();
-    this.familiar.pessoasFisica.grausInstrucao = new GrausInstrucao();
-    this.familiar.pessoasFisica.beneficiosSociaisPessoaFisica = [];
-    this.responsavel = new ResponsaveisAluno();
 
     this.carregarPerfil.carregar(this.activatedRoute.snapshot.data.perfilAcesso, this.perfilAcesso);
 
@@ -90,7 +86,6 @@ export class CadastarAlunoComponent implements OnInit {
       });
 
       this.familiarAlunoService.getResponsavelVigente(idAluno).subscribe((responsavel: ResponsaveisAluno) => {
-          console.log(responsavel);
           if(responsavel && responsavel.id) {
             this.responsavel = responsavel;
             this.familiar = responsavel.familiar;
@@ -98,7 +93,20 @@ export class CadastarAlunoComponent implements OnInit {
       });
     }
   }
+
+  addFamiliar() {
+    this.familiar = new Familiares();
+    this.familiar.pessoasFisica = new PessoaFisica();
+    this.familiar.pessoasFisica.grausInstrucao = new GrausInstrucao();
+    this.familiar.pessoasFisica.beneficiosSociaisPessoaFisica = [];
+    this.responsavel = new ResponsaveisAluno();
+  }
   
+  removeFamiliar() {
+    this.familiar = null;
+    this.responsavel = null;
+  }
+
   mostrarBotaoLimpar(){
     if(this.isAtualizar) return false;
     if(!this.mostrarBotaoAtualizar) return false;
