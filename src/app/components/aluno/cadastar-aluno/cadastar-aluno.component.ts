@@ -85,13 +85,17 @@ export class CadastarAlunoComponent implements OnInit {
         this.aluno.pessoaFisica.urlFoto = foto ? foto.changingThisBreaksApplicationSecurity : '';
       });
 
-      this.familiarAlunoService.getResponsavelVigente(idAluno).subscribe((responsavel: ResponsaveisAluno) => {
-          if(responsavel && responsavel.id) {
-            this.responsavel = responsavel;
-            this.familiar = responsavel.familiar;
-          }
-      });
+      this.recuperarResposavelVigente(idAluno);
     }
+  }
+
+  private recuperarResposavelVigente(idAluno: number) {
+    this.familiarAlunoService.getResponsavelVigente(idAluno).subscribe((responsavel: ResponsaveisAluno) => {
+      if (responsavel && responsavel.id) {
+        this.responsavel = responsavel;
+        this.familiar = responsavel.familiar;
+      }
+    });
   }
 
   addFamiliar() {
@@ -130,6 +134,7 @@ export class CadastarAlunoComponent implements OnInit {
     ).subscribe(() => {
       this.location.back();
       this.toastService.showSucesso('Aluno cadastrado com sucesso');
+      this.recuperarResposavelVigente(this.aluno.id);
     });
   }
 
@@ -189,6 +194,7 @@ export class CadastarAlunoComponent implements OnInit {
         this.alunoService.getById(this.aluno.id).subscribe((aluno: Aluno) => {
           Object.assign(this.aluno, aluno);
         });
+        this.recuperarResposavelVigente(this.aluno.id);
     },
     (error) => {
       this.loadingPopupService.closeDialog();
