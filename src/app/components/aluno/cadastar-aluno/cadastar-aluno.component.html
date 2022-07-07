@@ -168,7 +168,7 @@
             color="primary"
             [disabled]="formCadastroDadosPessoais.invalid || formCadastroEscolaridade.invalid || formCadastroDocumentos.invalid ||
                         formCadastroOutrasInformacoes.invalid || formCadastroAcademico.invalid ||
-                        formCadastroVulnerabilidade.invalid"
+                        formCadastroVulnerabilidade.invalid || formCadastroFamiliar.invalid || isDataResponsavelInvalida()"
             (click)="cadastrar()"> Cadastrar
     </button>
 
@@ -178,7 +178,7 @@
             color="primary"
             [disabled]="formCadastroDadosPessoais.invalid || formCadastroEscolaridade.invalid || formCadastroDocumentos.invalid ||
                         formCadastroOutrasInformacoes.invalid || formCadastroAcademico.invalid ||
-                        formCadastroVulnerabilidade.invalid"
+                        formCadastroVulnerabilidade.invalid || formCadastroFamiliar.invalid || isDataResponsavelInvalida()"
             (click)="atualizar()">
             Atualizar
     </button>
