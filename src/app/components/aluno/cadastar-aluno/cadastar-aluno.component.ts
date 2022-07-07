@@ -229,6 +229,10 @@ export class CadastarAlunoComponent implements OnInit {
         this.loadingPopupService.closeDialog();
       });
   }
+
+  isDataResponsavelInvalida() {
+    return this.responsavel && !this.responsavel.dataVinculacao;
+  }
 }
 
 @Component({
