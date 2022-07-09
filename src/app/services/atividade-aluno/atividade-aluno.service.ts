@@ -21,6 +21,11 @@ export class AtividadeAlunoService extends BaseService<AtividadeAluno> {
     return this.http.get(Rotas.ATIVIDADE_ALUNO + 'aluno/' + idAluno + '/matriculado/insticuicao/');
   }
 
+  getAllUniformeByAlunoAndInstituicao(idAluno: number) {
+    return this.http.get(Rotas.ATIVIDADE_ALUNO + 'aluno/uniforme/' + idAluno + '/matriculado/instituicao/');
+  }
+
+
   getFilter(idAtividade: string|number, idAluno: string|number) {
     idAtividade = idAtividade || '';
     idAluno = idAluno || '';

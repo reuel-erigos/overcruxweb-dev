@@ -150,11 +150,28 @@
 
             <div dir="rtl" fxLayoutGap="20px" style="padding-top: 20px; padding-bottom: 10px; padding-right: 20px"
                   fxFlexFill>
-                <button mat-mini-fab name="botaoConfirmar" color="primary" matStepperNext>
+                <button mat-mini-fab name="botaoConfirmar" color="primary" matStepperNext *ngIf="isAtualizar">
                     <mat-icon>chevron_right</mat-icon>
                 </button>
+                <button mat-mini-fab name="botaoConfirmar" color="primary" matStepperPrevious>
+                    <mat-icon>chevron_left</mat-icon>
+                </button>
             </div>
+        </mat-step>
 
+         <!-- OUTRAS INFORMAÇOES -->
+         <mat-step style="padding-bottom: 20px" [stepControl]="formUniformes">
+            <form #formUniformes="ngForm">
+                <ng-template matStepLabel>UNIFORMES</ng-template>
+                <app-uniforme-aluno [aluno]="aluno"></app-uniforme-aluno>
+            </form>
+
+            <div dir="rtl" fxLayoutGap="20px" style="padding-top: 20px; padding-bottom: 10px; padding-right: 20px"
+                  fxFlexFill>
+                  <button mat-mini-fab name="botaoConfirmar" color="primary" matStepperPrevious>
+                    <mat-icon>chevron_left</mat-icon>
+                </button>
+            </div>
         </mat-step>
 
     </mat-horizontal-stepper>
@@ -178,7 +195,7 @@
             color="primary"
             [disabled]="formCadastroDadosPessoais.invalid || formCadastroEscolaridade.invalid || formCadastroDocumentos.invalid ||
                         formCadastroOutrasInformacoes.invalid || formCadastroAcademico.invalid ||
-                        formCadastroVulnerabilidade.invalid || formCadastroFamiliar.invalid || isDataResponsavelInvalida()"
+                        formCadastroVulnerabilidade.invalid || formCadastroFamiliar.invalid || formUniformes.invalid || isDataResponsavelInvalida()"
             (click)="atualizar()">
             Atualizar
     </button>

@@ -20,13 +20,14 @@ import { ProfissionalFamiliarAlunoComponent } from './profissional-familiar-alun
 import { BeneficioFamiliarAlunoComponent } from './beneficio-familiar-aluno/beneficio-familiar-aluno.component';
 import { DocumentosFamiliarAlunoComponent } from './documentos-familiar-aluno/documentos-familiar-aluno.component';
 import { SharedDirectivesModule } from '../../directives/shared-directives.module';
+import { UniformeAlunoComponent } from './uniforme-aluno/uniforme-aluno.component';
 
 
 @NgModule({
   declarations: [AlunoComponent, CadastarAlunoComponent, VulnerabilidadeAlunoComponent, 
                 CadastrarVulnerabilidadeAlunoComponent, ListarVulnerabilidadeAlunoComponent, BotoesRelatorioComponent,
                 DadosPessoaisFamiliarAlunoComponent, CadastrarResponsavelFamiliarAlunoComponent, ProfissionalFamiliarAlunoComponent,
-                BeneficioFamiliarAlunoComponent, DocumentosFamiliarAlunoComponent],
+                BeneficioFamiliarAlunoComponent, DocumentosFamiliarAlunoComponent, UniformeAlunoComponent],
   imports: [
     CommonModule,
     AlunoRoutingModule,

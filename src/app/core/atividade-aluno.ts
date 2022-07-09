@@ -1,5 +1,6 @@
 import { Aluno } from './aluno';
 import { Atividade } from './atividade';
+import { UniformeAluno } from './uniforme-aluno';
 
 export class AtividadeAluno {
     id: number;
@@ -13,4 +14,5 @@ export class AtividadeAluno {
     atividade: Atividade;
     
 	usuarioAlteracao: number;
+	uniformes: UniformeAluno[];
 }

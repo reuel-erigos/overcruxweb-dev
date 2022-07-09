@@ -1,0 +1,41 @@
+<div fxLayout="column" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill>
+
+    <div fxFlex="100%" fxLayoutGap="20px" fxFlexOffset="20px" ngModelGroup="grupoBeneficio">
+        <div *ngFor="let atividadeAluno of atividadesAlunos; let index = index">
+            <mat-toolbar class="titulopartes"> {{atividadeAluno.atividade.descricao}}</mat-toolbar>
+            <div fxLayout="row" fxLayoutGap="50px" fxFlexFill *ngFor="let uniforme of atividadeAluno.uniformes; let index2 = index">
+                <mat-form-field style="width: 50%">
+                    <input matInput [ngModelOptions]="{standalone: true}" maxlength="45"
+                        [(ngModel)]="uniforme.nomeUniforme" required placeholder="Nome do Uniforme:" >
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput name="dataUniformeEntregue" [max]="maxDate"
+                        [min]="minDate" [matDatepicker]="datareferencia" [(ngModel)]="uniforme.dataUniformeEntregue" placeholder="Data da Entrega:">
+                    <mat-datepicker-toggle matSuffix [for]="datareferencia"></mat-datepicker-toggle>
+                    <mat-datepicker #datareferencia></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field>
+                    <input matInput [ngModelOptions]="{standalone: true}"
+                        maxlength="10" [(ngModel)]="uniforme.qtdUniformeEntregue" pattern="[0-9]+$"
+                        style="text-align: center" required placeholder="Quantidade Entregue:">
+                </mat-form-field>
+                
+                <button *ngIf="perfilAcesso.deleta" mat-button (click)="deletarUniforme(index, index2)">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            
+            </div>
+            <div *ngIf="perfilAcesso.insere" fxLayoutAlign="start center" fxLayoutGap="16px"
+                style="padding-top: 10px; padding-left: 20px; padding-bottom: 10px;">
+                <div>
+                    <button matTooltip="Novo" mat-mini-fab color="primary" (click)="adicionarUniforme(index)">
+                        <mat-icon>add</mat-icon>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
