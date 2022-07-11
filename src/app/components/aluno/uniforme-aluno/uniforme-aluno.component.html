@@ -10,7 +10,7 @@
                 </mat-form-field>
 
                 <mat-form-field>
-                    <input matInput name="dataUniformeEntregue" [max]="maxDate"
+                    <input matInput name="dataUniformeEntregue" [max]="maxDate" [ngModelOptions]="{standalone: true}"   
                         [min]="minDate" [matDatepicker]="datareferencia" [(ngModel)]="uniforme.dataUniformeEntregue" placeholder="Data da Entrega:">
                     <mat-datepicker-toggle matSuffix [for]="datareferencia"></mat-datepicker-toggle>
                     <mat-datepicker #datareferencia></mat-datepicker>
