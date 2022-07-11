@@ -19,6 +19,8 @@ import { RelatorioBeneficiarioService } from '../../../services/relatorio-benefi
 import { Familiares } from '../../../core/familiares';
 import { FamiliarAlunoService } from '../../../services/familiar-aluno/familiar-aluno.service';
 import { ResponsaveisAluno } from '../../../core/responsaveis-aluno';
+import { AtividadeAluno } from '../../../core/atividade-aluno';
+import { AtividadeAlunoService } from '../../../services/atividade-aluno/atividade-aluno.service';
 
 @Component({
   selector: 'app-cadastar-aluno',
@@ -51,6 +53,7 @@ export class CadastarAlunoComponent implements OnInit {
     private loadingPopupService: LoadingPopupService,
     private botoesRelatorio: MatBottomSheet,
     private relatorioBeneficiarioService: RelatorioBeneficiarioService,
+    private atividadeAlunoService: AtividadeAlunoService,
   ) {
   }
   
@@ -77,6 +80,7 @@ export class CadastarAlunoComponent implements OnInit {
       this.alunoService.getById(idAluno).pipe(
         switchMap((aluno: Aluno) => {
           this.aluno = aluno;
+          this.recuperarAtividades(idAluno);
           return this.arquivoPessoaFisicaService.get(aluno.pessoaFisica.id);
         })
       ).subscribe((foto: any) => {
@@ -87,6 +91,17 @@ export class CadastarAlunoComponent implements OnInit {
 
       this.recuperarResposavelVigente(idAluno);
     }
+  }
+
+  private recuperarAtividades(idAluno: number) {
+    this.atividadeAlunoService.getAllUniformeByAlunoAndInstituicao(idAluno)
+    .subscribe((atividadesAluno: AtividadeAluno[]) => {
+      if (atividadesAluno && atividadesAluno.length === 0) {
+        this.toastService.showAlerta('O aluno não está matriculado em nenhuma atividade.');
+      } else {
+        this.aluno.atividades = atividadesAluno;
+      }
+    });
   }
 
   private recuperarResposavelVigente(idAluno: number) {
@@ -194,6 +209,7 @@ export class CadastarAlunoComponent implements OnInit {
         this.alunoService.getById(this.aluno.id).subscribe((aluno: Aluno) => {
           Object.assign(this.aluno, aluno);
         });
+        this.recuperarAtividades(this.aluno.id);
         this.recuperarResposavelVigente(this.aluno.id);
     },
     (error) => {

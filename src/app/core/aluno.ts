@@ -10,6 +10,7 @@ import { Projeto } from './projeto';
 import { BeneficioSocialPessoaFisica } from './beneficio-social-pessoa-fisica';
 import { Familiares } from './familiares';
 import { ResponsaveisAluno } from './responsaveis-aluno';
+import { AtividadeAluno } from './atividade-aluno';
 
 
 export class Aluno {
@@ -66,4 +67,5 @@ export class Aluno {
 	familiar: Familiares;
 	responsavelVigente: ResponsaveisAluno;
 	
+	atividades: AtividadeAluno[];
 }

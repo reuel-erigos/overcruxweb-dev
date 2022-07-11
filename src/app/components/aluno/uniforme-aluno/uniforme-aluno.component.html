@@ -1,7 +1,7 @@
 <div fxLayout="column" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill>
 
     <div fxFlex="100%" fxLayoutGap="20px" fxFlexOffset="20px" ngModelGroup="grupoBeneficio">
-        <div *ngFor="let atividadeAluno of atividadesAlunos; let index = index">
+        <div *ngFor="let atividadeAluno of aluno.atividades; let index = index">
             <mat-toolbar class="titulopartes"> {{atividadeAluno.atividade.descricao}}</mat-toolbar>
             <div fxLayout="row" fxLayoutGap="50px" fxFlexFill *ngFor="let uniforme of atividadeAluno.uniformes; let index2 = index">
                 <mat-form-field style="width: 50%">
