@@ -97,7 +97,7 @@ export class CadastarAlunoComponent implements OnInit {
     this.atividadeAlunoService.getAllUniformeByAlunoAndInstituicao(idAluno)
     .subscribe((atividadesAluno: AtividadeAluno[]) => {
       if (atividadesAluno && atividadesAluno.length === 0) {
-        this.toastService.showAlerta('O aluno não está matriculado em nenhuma atividade.');
+        this.aluno.atividades = [];
       } else {
         this.aluno.atividades = atividadesAluno;
       }
