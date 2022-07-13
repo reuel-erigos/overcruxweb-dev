@@ -1,13 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { Aluno } from 'src/app/core/aluno';
 import { Acesso } from 'src/app/core/acesso';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import * as _ from 'lodash';
-import { ToastService } from 'src/app/services/toast/toast.service';
 import { CarregarPerfil } from 'src/app/core/carregar-perfil';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { UniformeAluno } from '../../../core/uniforme-aluno';
+import { DataUtilService } from '../../../services/commons/data-util.service';
 
 @Component({
   selector: 'app-uniforme-aluno',
@@ -29,9 +28,7 @@ export class UniformeAlunoComponent implements OnInit {
   minDate = new Date(1111, 1, 1);
 
   constructor(
-    private toastService: ToastService,
-    private router: Router,
-    private dialog: MatDialog,
+    private dataUtilService: DataUtilService,
     private activatedRoute: ActivatedRoute
   ) { }
 
@@ -49,4 +46,8 @@ export class UniformeAlunoComponent implements OnInit {
   deletarUniforme(indexAtividade: number, indexUniforme: number) {
     this.aluno.atividades[indexAtividade].uniformes.splice(indexUniforme, 1);
   }
+
+  onMascaraDataInput(event) {
+    return this.dataUtilService.onMascaraDataInput(event);
+}
 }
