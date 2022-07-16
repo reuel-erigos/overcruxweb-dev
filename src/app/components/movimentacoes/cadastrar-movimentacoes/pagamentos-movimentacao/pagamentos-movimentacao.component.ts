@@ -338,4 +338,9 @@ export class PagamentosMovimentacaoComponent implements OnInit {
 
     return dadosFatura;
   }
+
+  onMascaraDataInput(event) {
+    return this.dataUtilService.onMascaraDataInput(event);
+  }
+
 }

@@ -11,6 +11,7 @@
             <div fxLayout="row" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill>
                 <mat-form-field fxFlex="200px" fxFlexOffset="20px">
                     <input [(ngModel)]="fatura.dataVencimento" 
+                            (input)="onMascaraDataInput($event)" 
                             matInput name="dataVencimento" 
                             [matDatepicker]="dataVencimento"
                             [min]="movimentacoes.dataDocumento"

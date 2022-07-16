@@ -22,7 +22,7 @@ import { TributoMovimentacao } from 'src/app/core/tributo-movimentacao';
 import { Tributos } from 'src/app/core/tributos';
 import { PessoaFisicaService } from 'src/app/services/pessoa-fisica/pessoa-fisica.service';
 import { FornecedorColaborador } from 'src/app/core/fornecedor-colaborador';
-
+import { DataUtilService } from 'src/app/services/commons/data-util.service';
 
 @Component({
   selector: 'dados-movimentacao',
@@ -62,7 +62,9 @@ export class DadosMovimentacaoComponent implements OnInit {
     private contasBancariaService: ContasBancariaService,
     private doadoresService: DoadoresService,
     private drc: ChangeDetectorRef,    
-    private pessoaFisicaService: PessoaFisicaService
+    private pessoaFisicaService: PessoaFisicaService,
+    private dataUtilService: DataUtilService
+
   ) { }
 
   ngAfterContentChecked(): void {
@@ -269,5 +271,9 @@ export class DadosMovimentacaoComponent implements OnInit {
       this.movimentacoes.contaBancaria = new ContasBancaria();
     }
   } 
+
+  onMascaraDataInput(event) {
+    return this.dataUtilService.onMascaraDataInput(event);
+}
   
 }

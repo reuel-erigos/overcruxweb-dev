@@ -105,6 +105,7 @@
             <!-- DATA DOCUMENTOS -->
             <mat-form-field fxFlex="18%">
                 <input matInput [(ngModel)]=movimentacoes.dataDocumento 
+                      (input)="onMascaraDataInput($event)" 
                        name="dataDocumento" [matDatepicker]="dataDocumento" 
                        placeholder="Data do documento:">
                 <mat-datepicker-toggle matSuffix [for]="dataDocumento">

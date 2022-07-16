@@ -204,4 +204,9 @@ export class FaturasMovimentacaoComponent implements OnInit {
       }
     }
   }
+
+  onMascaraDataInput(event) {
+    return this.dataUtilService.onMascaraDataInput(event);
+  }
+
 }

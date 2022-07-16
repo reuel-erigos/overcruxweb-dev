@@ -73,6 +73,7 @@
                     <mat-form-field fxFlex="120px">
                         <input [(ngModel)]="pagamentosFatura.dataPagamento"
                                matInput 
+                               (input)="onMascaraDataInput($event)" 
                                #campoPagamentoMovimento
                                name="dataPagamentoMovimento"
                                [max]="maxDataPagamento"
