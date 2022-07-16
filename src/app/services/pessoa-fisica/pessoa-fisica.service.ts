@@ -20,4 +20,8 @@ export class PessoaFisicaService extends BaseService<PessoaFisica> {
     return this.http.get(`${Rotas.PESSOA_FISICA}fornecedor_colaborador`);
   }
 
+  getByCpf(cpf: string) {
+    const params = {'cpf': cpf};
+    return this.http.get(`${Rotas.PESSOA_FISICA}cpf`, {params: params});
+  }
 }

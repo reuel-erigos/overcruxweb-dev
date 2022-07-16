@@ -249,6 +249,10 @@ export class CadastarAlunoComponent implements OnInit {
   isDataResponsavelInvalida() {
     return this.responsavel && !this.responsavel.dataVinculacao;
   }
+
+  carregarPessoaFisica(pessoaFisica: PessoaFisica) {
+    this.aluno.pessoaFisica = pessoaFisica;
+  }
 }
 
 @Component({

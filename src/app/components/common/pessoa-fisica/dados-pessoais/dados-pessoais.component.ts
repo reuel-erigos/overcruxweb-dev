@@ -1,10 +1,13 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { CondicoesMoradia } from 'src/app/core/condicoes-moradia';
 import { PessoaFisica } from './../../../../core/pessoa-fisica';
 import { CondicoesMoradiaService } from './../../../../services/condicoes-moradia/condicoes-moradia.service';
 import { EnderecoService } from 'src/app/services/endereco/endereco.service';
 import { DataUtilService } from 'src/app/services/commons/data-util.service';
+import { PessoaFisicaService } from '../../../../services/pessoa-fisica/pessoa-fisica.service';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector:  'dados-pessoais',
@@ -15,10 +18,12 @@ import { DataUtilService } from 'src/app/services/commons/data-util.service';
 export class DadosPessoaisComponent implements OnInit {
 
   @Input() pessoaFisica: PessoaFisica;
+  @Output() pesquisaPessoaFisica: EventEmitter<PessoaFisica> = new EventEmitter();
 
   public maskCep     = [/\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
   public maskPhone   = ['(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   public maskCelular = ['(', /[1-9]/, /\d/, ')', ' ', /\d/, /\d/, /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
+  public mascaraCpf   = [/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/,];
 
   ufs: any[] =[
     {nome:  'DF'}
@@ -62,7 +67,9 @@ export class DadosPessoaisComponent implements OnInit {
   constructor(
     private condicoesMoradiaService: CondicoesMoradiaService,
     private enderecoService: EnderecoService,
-    private dataUtilService: DataUtilService
+    private pessoaFisicaService: PessoaFisicaService,
+    private dataUtilService: DataUtilService,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -99,5 +106,35 @@ export class DadosPessoaisComponent implements OnInit {
 
   onMascaraDataInput(event) {
     return this.dataUtilService.onMascaraDataInput(event);
+  }
+
+  consultaPessoaFisica() {
+    if(this.pessoaFisica.cpf && this.pessoaFisica.cpf.length === 14) {
+      this.pessoaFisicaService.getByCpf(this.pessoaFisica.cpf).subscribe((pessoaFisica: PessoaFisica) => {
+        if(pessoaFisica && pessoaFisica.id) {
+          this.chamaCaixaDialogo(pessoaFisica);
+        }
+      });
+    }
+  }
+
+  chamaCaixaDialogo(pessoaFisica: PessoaFisica) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      pergunta: `Existe uma pessoa cadastrada com o CPF informado. Deseja reutilizar seus dados?`,
+      textoConfirma: 'SIM',
+      textoCancela: 'NÃO'
+    };
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(confirma => {
+      if (confirma) {
+        this.pesquisaPessoaFisica.emit(pessoaFisica);
+      } else {
+        this.pessoaFisica.cpf = null;
+        dialogRef.close();
+      }
+    }
+    );
   }
 }

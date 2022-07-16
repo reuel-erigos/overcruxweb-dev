@@ -14,6 +14,7 @@ export class DocumentosComponent implements OnInit {
 
   @Input() pessoaFisica: PessoaFisica;
   @Input() validaCPF: boolean = true;
+  @Input() apresentaCPF: boolean = true;
 
   public mascaraCpf = [];
   public mascaraNIS = [/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, /\d/, /\d/, '.', /\d/, /\d/, '-', /\d/];
