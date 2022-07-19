@@ -2,6 +2,17 @@
     <mat-toolbar class="titulopartes">Dados Iniciais</mat-toolbar>
     <div fxLayout="row" style="margin-bottom: 20px" class="espaco" fxLayoutAlign="start start" fxLayoutGap="20px" fxFlexFill>
         <div id="row_dados" fxFlex="85%" fxFlexFill>
+            <div fxLayout="row" fxLayoutGap="20px">
+                <mat-form-field fxFlex="30%" fxFlexOffset="20px">
+                    <input matInput 
+                    [(ngModel)]="pessoaFisica.cpf" 
+                    name="cpf" (blur)="consultaPessoaFisica()"
+                    placeholder="CPF:"
+                    [textMask]="{mask: mascaraCpf}"
+                    [cpfValidator]
+                    required>
+                </mat-form-field>
+            </div>
 
             <div fxLayout="row" fxLayoutGap="20px">
                 <mat-form-field fxFlex="45%" fxFlexOffset="20px">

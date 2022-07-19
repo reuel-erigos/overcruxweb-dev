@@ -8,7 +8,7 @@
             <form #formCadastroDadosPessoais="ngForm">
                 <ng-template matStepLabel>DADOS PESSOAIS</ng-template>
 
-                <dados-pessoais [pessoaFisica]="aluno.pessoaFisica"></dados-pessoais>
+                <dados-pessoais [pessoaFisica]="aluno.pessoaFisica" (pesquisaPessoaFisica)="carregarPessoaFisica($event)"></dados-pessoais>
 
                 <div dir="rtl" fxLayoutGap="20px" style="padding-top: 20px; padding-bottom: 10px; padding-right: 20px"
                      fxFlexFill>
@@ -43,7 +43,7 @@
             <form #formCadastroFamiliar="ngForm">
                 <ng-template matStepLabel>FAMILIAR</ng-template>
                 <div *ngIf="responsavel">
-                    <dados-pessoais-familiar-aluno [pessoaFisica]="familiar.pessoasFisica" [familiar]="familiar" [responsavel]="responsavel"></dados-pessoais-familiar-aluno>
+                    <dados-pessoais-familiar-aluno [pessoaFisica]="familiar.pessoasFisica" [familiar]="familiar" [responsavel]="responsavel" (pesquisaPessoaFisica)="carregarFamiliarPessoaFisica($event)"></dados-pessoais-familiar-aluno>
                     <documentos-familiar-aluno [pessoaFisica]="familiar.pessoasFisica"></documentos-familiar-aluno>
                     <profissional-familiar-aluno [familiar]="familiar"></profissional-familiar-aluno>
                     <beneficio-familiar-aluno [pessoaFisica]="familiar.pessoasFisica"></beneficio-familiar-aluno>
@@ -101,7 +101,7 @@
         <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroDocumentos">
             <form #formCadastroDocumentos="ngForm">
                 <ng-template matStepLabel>DOCUMENTOS</ng-template>
-                <documentos [pessoaFisica]="aluno.pessoaFisica" [validaCPF]="false" ></documentos>
+                <documentos [pessoaFisica]="aluno.pessoaFisica" [validaCPF]="false" [apresentaCPF]="false"></documentos>
             </form>
 
             <div dir="rtl" fxLayoutGap="20px" style="padding-top: 20px; padding-bottom: 10px; padding-right: 20px"

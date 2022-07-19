@@ -1,29 +1,8 @@
 <mat-toolbar class="titulopartes">Documentos</mat-toolbar>
 <div fxLayout="row" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill>
-    <!-- CPF -->
-    <mat-form-field fxFlexOffset="20px" fxFlex="30%">
-        <input matInput 
-               [(ngModel)]="pessoaFisica.cpf" 
-               name="cpf" 
-               placeholder="CPF:"
-               [textMask]="{mask: mascaraCpf}"
-               [cpfValidator]
-               *ngIf="!validaCPF">
-
-        <input matInput 
-               [(ngModel)]="pessoaFisica.cpf" 
-               name="cpf" 
-               placeholder="CPF:" 
-               [textMask]="{mask: mascaraCpf}"
-               [cpfValidator] 
-               [required]=validaCPF
-               *ngIf="validaCPF">
-
-         <mat-error >Informa apenas valores numéricos</mat-error>  
-    </mat-form-field>
     
     <!-- NIS -->
-    <mat-form-field fxFlex="30%">
+    <mat-form-field fxFlexOffset="20px" fxFlex="30%">
         <input matInput [(ngModel)]="pessoaFisica.nis" name="NIS / PIS / NIT" placeholder="NIS / PIS / NIT" [textMask]="{mask: mascaraNIS}">
     </mat-form-field>
 
