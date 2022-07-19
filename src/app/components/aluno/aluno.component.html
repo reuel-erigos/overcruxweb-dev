@@ -130,6 +130,11 @@
                 <td mat-cell *matCellDef="let element"> {{element.dataDesligamento | dataSimples}} </td>
             </ng-container>
 
+            <ng-container matColumnDef="ativo">
+                <th mat-header-cell *matHeaderCellDef> Ativo:  </th>
+                <td mat-cell *matCellDef="let element"> {{element.stAtivo | simNao}} </td>
+            </ng-container>
+
             <ng-container matColumnDef="acoes">
                 <th mat-header-cell *matHeaderCellDef> Ações </th>
                 <td mat-cell *matCellDef="let element">

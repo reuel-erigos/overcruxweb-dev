@@ -40,7 +40,7 @@ export class AlunoComponent implements OnInit {
   mostrarTabela = false;
   msg: string;
 
-  displayedColumns: string[] = ['matricula', 'nome', 'turno', 'serie', 'dataEntrada', 'dataDesligamento', 'acoes'];
+  displayedColumns: string[] = ['matricula', 'nome', 'turno', 'serie', 'dataEntrada', 'dataDesligamento', 'ativo', 'acoes'];
   dataSource: MatTableDataSource<Aluno> = new MatTableDataSource();
 
   perfilAcesso: Acesso = new Acesso();

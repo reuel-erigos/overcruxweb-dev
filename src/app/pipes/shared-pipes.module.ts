@@ -8,6 +8,7 @@ import { CpfPipe } from './cpf.pipe';
 import { HighlightPipe } from './highlight.pipe';
 import { DataComHoraPipe } from './data-com-hora.pipe';
 import { BytesPipe } from './bytes/bytes.pipe';
+import { SimNaoPipe } from './sim-nao.pipe';
 
 
 
@@ -19,6 +20,7 @@ import { BytesPipe } from './bytes/bytes.pipe';
                  HighlightPipe, 
                  DataComHoraPipe,  
                  OrderByPipe,
+                 SimNaoPipe,
                  BytesPipe],
   imports: [
     CommonModule
@@ -30,6 +32,7 @@ import { BytesPipe } from './bytes/bytes.pipe';
            HighlightPipe,
            DataComHoraPipe, 
            CpfPipe,
+           SimNaoPipe,
            BytesPipe]
 })
 export class SharedPipesModule { }

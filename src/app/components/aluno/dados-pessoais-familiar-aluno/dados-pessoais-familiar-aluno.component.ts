@@ -120,12 +120,17 @@ export class DadosPessoaisFamiliarAlunoComponent implements OnInit {
   }
 
   consultaPessoaFisica() {
-    if(this.pessoaFisica.cpf && this.pessoaFisica.cpf.length === 14) {
-      this.pessoaFisicaService.getByCpf(this.pessoaFisica.cpf).subscribe((pessoaFisica: PessoaFisica) => {
-        if(pessoaFisica && pessoaFisica.id) {
-          this.chamaCaixaDialogo(pessoaFisica);
-        }
-      });
+    if(this.pessoaFisica.cpf) {
+      const cpf = this.pessoaFisica.cpf.replace(/[^0-9]/g,'');
+      if(cpf.length === 11) {
+        this.pessoaFisicaService.getByCpf(this.pessoaFisica.cpf).subscribe((pessoaFisica: PessoaFisica) => {
+          if(pessoaFisica && pessoaFisica.id) {
+            this.chamaCaixaDialogo(pessoaFisica);
+          }
+        });
+      } else {
+        this.pessoaFisica.id = null;
+      }
     }
   }
 
