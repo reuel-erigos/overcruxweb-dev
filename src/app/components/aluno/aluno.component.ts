@@ -1,8 +1,8 @@
 import { AfterContentInit, Component, OnInit, SimpleChanges, ViewChild } from '@angular/core';
 
-import { MatDialog} from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { MatDialogConfig } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
 import { Aluno } from 'src/app/core/aluno';
@@ -20,6 +20,10 @@ import { ComboPessoaFisica } from 'src/app/core/combo-pessoa-fisica';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { CarregarPerfil } from 'src/app/core/carregar-perfil';
 import { DataUtilService } from '../../services/commons/data-util.service';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { FiltroAluno } from '../../core/filtro/filtro-aluno';
+import { BaseComponent } from '../../architeture/base/base.component';
+import { PageInfo } from '../../core/page-info';
 
 @Component({
   selector: 'app-aluno',
@@ -27,15 +31,11 @@ import { DataUtilService } from '../../services/commons/data-util.service';
   styleUrls: ['./aluno.component.css'],
   providers: [CpfPipe],
 })
-export class AlunoComponent implements OnInit {
+export class AlunoComponent extends BaseComponent implements OnInit {
 
-  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
- 
-  comboMae: ComboPessoaFisica[];
-  comboCpf: ComboPessoaFisica[];
-  
+  @ViewChild(MatPaginator) paginator: MatPaginator;
+
   alunos: Aluno[];
-  filtro: FilterAlunos;
 
   mostrarTabela = false;
   msg: string;
@@ -46,60 +46,87 @@ export class AlunoComponent implements OnInit {
   perfilAcesso: Acesso = new Acesso();
   carregarPerfil: CarregarPerfil;
 
+  form: FormGroup;
+  mascaraCpf = [/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/,];
+
   constructor(
+    protected formBuilder: FormBuilder,
     private alunoService: AlunoService,
-    private pessoaFisicaService: PessoaFisicaService,
     private router: Router,
     private dialog: MatDialog,
-    private activatedRoute:ActivatedRoute,
-    private cpfPipe: CpfPipe ,
+    private activatedRoute: ActivatedRoute,
+    private cpfPipe: CpfPipe,
     private funcoesUteisService: FuncoesUteisService,
     private toastService: ToastService,
     private dataUtilService: DataUtilService,
-  ) { 
-    this.filtro = this.alunoService.filtro;
+  ) {
+    super();
     this.carregarPerfil = new CarregarPerfil();
   }
 
   ngOnInit() {
     this.carregarPerfil.carregar(this.activatedRoute.snapshot.data.perfilAcesso, this.perfilAcesso);
-    
     this.dataSource.paginator = this.paginator;
+    this.consultar();
+    this.createForm();
+  }
 
-    this.carregarCombos(); 
-    this.carregar();   
+  private createForm(): void {
+    this.form = this.formBuilder.group({
+      beneficiario: [null],
+      mae: [null],
+      cpf: [null],
+      dataInicioEntradaInstituicao: [null],
+      dataFimEntradaInstituicao: [null],
+    });
   }
 
 
   limpar() {
     this.mostrarTabela = false;
     this.dataSource.data = [];
-    this.filtro = (this.alunoService.filtro = new FilterAlunos());
-    this.alunoService.initFiltro();
+    this.form.reset();
   }
 
-  carregar() {
-    this.alunoService.initFiltro();
-    if (this.filtro.aluno.id || this.filtro.maeAluno.id || this.filtro.cpfAluno.id || this.filtro.dataInicioEntradaInstituicao || this.filtro.dataFimEntradaInstituicao) {
-      this.alunoService.getFilter(this.filtro.aluno.id,  
-                                  this.filtro.maeAluno.nomeMae, 
-                                  this.filtro.cpfAluno.cpf,
-                                  this.filtro.dataInicioEntradaInstituicao,
-                                  this.filtro.dataFimEntradaInstituicao)
-      .subscribe((alunos: Aluno[]) => {
-        this.verificaMostrarTabela(alunos);
-      });
-    } 
-  }
-
-  consultar() { 
-    if (!this.filtro.aluno.id && !this.filtro.maeAluno.id && !this.filtro.cpfAluno.id && !this.filtro.dataInicioEntradaInstituicao && !this.filtro.dataFimEntradaInstituicao) {
-      this.toastService.showAlerta('Informe pelo menos um critério de pesquisa.');
-      return;
-    }else{
-      this.carregar();
+  consultar() {
+    const pageInfo = new PageInfo();
+    if(this.paginator) {
+      this.paginator.firstPage();
     }
+    this.consultarAlunos(pageInfo);
   }
+
+  private consultarAlunos(pageInfo: PageInfo) {
+    const filtro = this.createFiltro();
+    this.alunoService.listFilteredAndPaged(pageInfo, filtro)
+      .subscribe((resp: any) => {
+        this.numberItens = resp.totalElements;
+        this.verificaMostrarTabela(resp.content);
+      });
+  }
+
+  private createFiltro() {
+    const filtro = new FiltroAluno();
+    filtro.beneficiario = this.getValueForm(this.form, 'beneficiario');
+    filtro.cpf = this.getValueForm(this.form, 'cpf');
+    filtro.mae = this.getValueForm(this.form, 'mae');
+    filtro.dataInicioEntradaInstituicao = this.getValueForm(this.form, 'dataInicioEntradaInstituicao');
+    filtro.dataFimEntradaInstituicao = this.getValueForm(this.form, 'dataFimEntradaInstituicao');
+    if(filtro.cpf) {
+      filtro.cpf = filtro.cpf.replace(/[^0-9]/g,'');
+    }
+    return filtro;
+  }
+
+  onEventPaginate(event?: PageEvent) {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    const pageInfo = new PageInfo();
+    pageInfo.pageSize = this.pageSize;
+    pageInfo.actualPage = this.pageIndex;
+    this.consultarAlunos(pageInfo);
+  }
+
 
   atualizar(aluno: Aluno) {
     this.router.navigate(['/aluno/cadastrar'], { queryParams: { id: aluno.id } });
@@ -140,59 +167,6 @@ export class AlunoComponent implements OnInit {
     this.dataSource.data = alunos ? alunos : [];
   }
 
-  carregarCombos(){
-
-    this.pessoaFisicaService.getAllPessoasByCombo().subscribe((pessoas: ComboPessoaFisica[]) => {
-      this.comboMae   = pessoas;
-      this.comboCpf   = pessoas;
-
-      this.preencherCPF();
-      this.preencherNomeMae();
-
-
-      //====================================================================================
-      this.comboMae = this.comboMae.filter(a => !!a.nomeMae);
-      this.comboMae.sort((a,b) => {
-        if (a.nomeMae > b.nomeMae) {return 1;}
-        if (a.nomeMae < b.nomeMae) {return -1;}
-        return 0;
-      });
-      this.comboMae = this.funcoesUteisService.arrayDistinct(this.comboMae, 'nomeMae');
-
-
-      //====================================================================================
-      this.comboCpf.forEach(a => {
-        a.cpf = a.cpf || '00000000000';
-        a.cpf = this.cpfPipe.transform(a.cpf);
-      })
-      this.comboCpf.sort((a,b) => {
-        if (a.cpf > b.cpf) {return 1;}
-        if (a.cpf < b.cpf) {return -1;}
-        return 0;
-      });
-      this.comboCpf = this.funcoesUteisService.arrayDistinct(this.comboCpf, 'cpf');
-    })
-
-  }
-
-
-
-  preencherCPF(){
-    if (this.alunoService.filtro.cpfAluno.id) {
-      this.filtro.cpfAluno = _.find(this.comboCpf, { id: this.alunoService.filtro.cpfAluno.id });
-    }
-  }
-
-
-  preencherNomeMae(){
-    if (this.alunoService.filtro.maeAluno.id) {
-      this.filtro.maeAluno = _.find(this.comboMae, { id: this.alunoService.filtro.maeAluno.id });
-    }
-  }
-
-  onValorChange(event: any) {
-    this.filtro.aluno = event;
-  }
 
   onMascaraDataInput(event) {
     return this.dataUtilService.onMascaraDataInput(event);
