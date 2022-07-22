@@ -21,6 +21,7 @@ import { BeneficioFamiliarAlunoComponent } from './beneficio-familiar-aluno/bene
 import { DocumentosFamiliarAlunoComponent } from './documentos-familiar-aluno/documentos-familiar-aluno.component';
 import { SharedDirectivesModule } from '../../directives/shared-directives.module';
 import { UniformeAlunoComponent } from './uniforme-aluno/uniforme-aluno.component';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -30,6 +31,7 @@ import { UniformeAlunoComponent } from './uniforme-aluno/uniforme-aluno.componen
                 BeneficioFamiliarAlunoComponent, DocumentosFamiliarAlunoComponent, UniformeAlunoComponent],
   imports: [
     CommonModule,
+    FormsModule,
     AlunoRoutingModule,
     PessoaFisicaModule,
     MaterialCommonModule,

@@ -6,6 +6,8 @@ import { Rotas } from 'src/app/core/rotas';
 import { FilterAlunos } from 'src/app/core/filter-alunos';
 import { ComboAluno } from 'src/app/core/combo-aluno';
 import { ComboPessoaFisica } from 'src/app/core/combo-pessoa-fisica';
+import { PageInfo } from '../../core/page-info';
+import { FiltroAluno } from '../../core/filtro/filtro-aluno';
 
 @Injectable({
   providedIn: 'root'
@@ -48,6 +50,14 @@ export class AlunoService extends BaseService<Aluno> {
         dataFimEntradaInstituicao: `${p_dataFimEntradaInstituicao}`,
       }
     });
+  }
+
+  listFilteredAndPaged(pageInfo: PageInfo, filtro: FiltroAluno) {
+    return this.http.post(
+      Rotas.ALUNO + 'paged/filtro', 
+      JSON.stringify(filtro),
+      this.headersWithPagination(pageInfo)
+    );
   }
 
   initFiltro() {
