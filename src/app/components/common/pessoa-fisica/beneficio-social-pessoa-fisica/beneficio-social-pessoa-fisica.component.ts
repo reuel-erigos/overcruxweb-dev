@@ -1,5 +1,5 @@
 import { DataUtilService } from 'src/app/services/commons/data-util.service';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { EncaminhamentoAluno } from 'src/app/core/encaminhamento-aluno';
 import { Acesso } from 'src/app/core/acesso';
 import { EntidadesSociais } from 'src/app/core/entidades-sociais';
@@ -21,6 +21,7 @@ export class BeneficioSocialPessoaFisicaComponent implements OnInit {
   @Input() index: number;
   @Input() perfilAcesso: Acesso;
   @Input() beneficiosSociais: BeneficioSocial[];
+  @Output() calcularValor = new EventEmitter();
 
   pinBeneficioSocial  = Date.now();
   pinValor            = Date.now();
@@ -34,6 +35,7 @@ export class BeneficioSocialPessoaFisicaComponent implements OnInit {
 
   deletar() {
     this.beneficiosSociaisPessoaFisica.splice(this.index, 1);
+    this.calcularValorRenda();
   }
 
 
@@ -47,4 +49,7 @@ export class BeneficioSocialPessoaFisicaComponent implements OnInit {
     return this.dataUtilService.onMascaraDataInput(event);
   }
 
+  calcularValorRenda() {
+    this.calcularValor.emit();
+  }
 }

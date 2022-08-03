@@ -43,10 +43,10 @@
             <form #formCadastroFamiliar="ngForm">
                 <ng-template matStepLabel>FAMILIAR</ng-template>
                 <div *ngIf="responsavel">
-                    <dados-pessoais-familiar-aluno [pessoaFisica]="familiar.pessoasFisica" [familiar]="familiar" [responsavel]="responsavel" (pesquisaPessoaFisica)="carregarFamiliarPessoaFisica($event)"></dados-pessoais-familiar-aluno>
+                    <dados-pessoais-familiar-aluno [pessoaFisica]="familiar.pessoasFisica" [familiar]="familiar" [responsavel]="responsavel" (pesquisaPessoaFisica)="carregarFamiliarPessoaFisica($event)" (copiarEndereco)="copiarEnderecoBeneficiario()"></dados-pessoais-familiar-aluno>
                     <documentos-familiar-aluno [pessoaFisica]="familiar.pessoasFisica"></documentos-familiar-aluno>
                     <profissional-familiar-aluno [familiar]="familiar"></profissional-familiar-aluno>
-                    <beneficio-familiar-aluno [pessoaFisica]="familiar.pessoasFisica"></beneficio-familiar-aluno>
+                    <beneficio-familiar-aluno [pessoaFisica]="familiar.pessoasFisica" (calcularValor)="calcularValorRenda()"></beneficio-familiar-aluno>
                 </div>
             </form>
 

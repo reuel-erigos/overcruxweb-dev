@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { PessoaFisica } from 'src/app/core/pessoa-fisica';
 import {CondicoesMoradiaService} from 'src/app/services/condicoes-moradia/condicoes-moradia.service';
 import {CondicoesMoradia} from 'src/app/core/condicoes-moradia';
@@ -26,6 +26,7 @@ export class BeneficioFamiliarAlunoComponent implements OnInit {
   @Input() atendidoOrgaoRede: string;
   @Input() encaminhamentos: EncaminhamentoAluno[];
   @Input() origemTelaAluno: boolean = true;
+  @Output() calcularValor = new EventEmitter();
 
   entidadesSociais: EntidadesSociais[];
 
@@ -121,6 +122,9 @@ export class BeneficioFamiliarAlunoComponent implements OnInit {
       this.pessoaFisica.beneficiosSociaisPessoaFisica.push(beneficio);
   }
 
+  calcularValorRenda() {
+    this.calcularValor.emit();
+  }
 }
 
 

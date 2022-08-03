@@ -83,7 +83,7 @@
         <mat-step style="padding-bottom: 20px" [stepControl]="formCadastroDocumentos">
             <form #formCadastroDocumentos="ngForm">
                 <ng-template matStepLabel>DOCUMENTOS</ng-template>
-                <documentos [pessoaFisica]="familiar.pessoasFisica"></documentos>
+                <documentos [pessoaFisica]="familiar.pessoasFisica" [apresentaCPF]="false"></documentos>
             </form>
 
             <div dir="rtl" fxLayoutGap="20px" style="padding-top: 20px; padding-bottom: 10px; padding-right: 20px"

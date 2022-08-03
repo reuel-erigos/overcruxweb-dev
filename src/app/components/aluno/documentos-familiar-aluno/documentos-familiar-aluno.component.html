@@ -1,20 +1,5 @@
 <mat-toolbar class="titulopartes">Documentos</mat-toolbar>
 <div fxLayout="row" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill>
-    
-    <!-- NIS -->
-    <mat-form-field fxFlexOffset="20px" fxFlex="30%">
-        <input matInput [(ngModel)]="pessoaFisica.nis" name="NIS / PIS / NIT" placeholder="NIS / PIS / NIT" [textMask]="{mask: mascaraNIS}">
-    </mat-form-field>
-
-    <mat-form-field fxFlex="30%">
-        <input matInput maxlength="30" 
-               [(ngModel)]="pessoaFisica.numeroPisPasep" name="numeroPisPasep"
-               placeholder="Número do PASEP">
-    </mat-form-field>
-</div>
-
-<div fxLayout="row" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill>
-
     <mat-form-field fxFlexOffset="20px" fxFlex="30%">
         <input matInput maxlength="30" [(ngModel)]="pessoaFisica.identidade" name="identidade" placeholder="Identidade">
     </mat-form-field>
@@ -40,6 +25,22 @@
         <mat-datepicker-toggle matSuffix [for]="dataEmissaoCI"></mat-datepicker-toggle>
         <mat-datepicker #dataEmissaoCI></mat-datepicker>
     </mat-form-field>
+    
+</div>
+
+<div fxLayout="row" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill>
+
+    <!-- NIS -->
+    <mat-form-field fxFlexOffset="20px" fxFlex="30%">
+        <input matInput [(ngModel)]="pessoaFisica.nis" name="NIS / PIS / NIT" placeholder="NIS / PIS / NIT" [textMask]="{mask: mascaraNIS}">
+    </mat-form-field>
+
+    <mat-form-field fxFlex="30%">
+        <input matInput maxlength="30" 
+               [(ngModel)]="pessoaFisica.numeroPisPasep" name="numeroPisPasep"
+               placeholder="Número do PASEP">
+    </mat-form-field>
+
 </div>
 
 <div fxLayout="row" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill>

@@ -25,6 +25,7 @@ export class DadosPessoaisFamiliarAlunoComponent implements OnInit {
   @Input() pessoaFisica: PessoaFisica;
   @Input() responsavel: ResponsaveisAluno;
   @Output() pesquisaPessoaFisica: EventEmitter<PessoaFisica> = new EventEmitter();
+  @Output() copiarEndereco = new EventEmitter();
   grausInstrucao: GrausInstrucao[];
 
   public maskCep     = [/\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
@@ -152,5 +153,9 @@ export class DadosPessoaisFamiliarAlunoComponent implements OnInit {
       }
     }
     );
+  }
+
+  copiarEnderecoBeneficiario() {
+    this.copiarEndereco.emit();
   }
 }

@@ -23,6 +23,7 @@
                    placeholder="Valor do benefício:" 
                    matInput 
                    maxlength="13"
+                   (blur)="calcularValorRenda()"
                    [options]="{ prefix: '', thousands: '.', decimal: ',' }" />
             <span matPrefix>R$&nbsp;</span>
         </mat-form-field>
@@ -38,6 +39,7 @@
                    [matDatepicker]="dataInicio"
                    placeholder="Data de início"
                    (input)="onMascaraDataInput($event)"
+                   (blur)="calcularValorRenda()"
                    required>
             <mat-datepicker-toggle matSuffix [for]="dataInicio"></mat-datepicker-toggle>
             <mat-datepicker #dataInicio></mat-datepicker>
@@ -50,6 +52,7 @@
                    [matDatepicker]="dataFim"
                    placeholder="Data Fim"
                    [min]="beneficio.dataInicio"
+                   (blur)="calcularValorRenda()"
                    (input)="onMascaraDataInput($event)">
             <mat-datepicker-toggle matSuffix [for]="dataFim"></mat-datepicker-toggle>
             <mat-datepicker #dataFim></mat-datepicker>

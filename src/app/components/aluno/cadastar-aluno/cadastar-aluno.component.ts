@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PessoaFisica } from 'src/app/core/pessoa-fisica';
 import { Aluno } from 'src/app/core/aluno';
 import { AlunoService } from 'src/app/services/aluno/aluno.service';
@@ -21,6 +21,7 @@ import { FamiliarAlunoService } from '../../../services/familiar-aluno/familiar-
 import { ResponsaveisAluno } from '../../../core/responsaveis-aluno';
 import { AtividadeAluno } from '../../../core/atividade-aluno';
 import { AtividadeAlunoService } from '../../../services/atividade-aluno/atividade-aluno.service';
+import { ProfissionalFamiliarAlunoComponent } from '../profissional-familiar-aluno/profissional-familiar-aluno.component';
 
 @Component({
   selector: 'app-cadastar-aluno',
@@ -40,6 +41,9 @@ export class CadastarAlunoComponent implements OnInit {
 
   mostrarBotaoCadastrar = true;
   mostrarBotaoAtualizar = true;
+
+  @ViewChild(ProfissionalFamiliarAlunoComponent) planoAplicacaoAnexoComponent: ProfissionalFamiliarAlunoComponent;
+  
 
   constructor(
     private alunoService: AlunoService,
@@ -161,6 +165,7 @@ export class CadastarAlunoComponent implements OnInit {
     this.aluno.pessoaFisica.telefoneResidencial = this.aluno.pessoaFisica.telefoneResidencial ? this.retiraMascara(this.aluno.pessoaFisica.telefoneResidencial.toString()) : null
     this.aluno.pessoaFisica.foneRecado = this.aluno.pessoaFisica.foneRecado ? this.retiraMascara(this.aluno.pessoaFisica.foneRecado.toString()) : null
     this.aluno.pessoaFisica.celular2 = this.aluno.pessoaFisica.celular2 ? this.retiraMascara(this.aluno.pessoaFisica.celular2.toString()) : null
+    this.aluno.pessoaFisica.celular3 = this.aluno.pessoaFisica.celular3 ? this.retiraMascara(this.aluno.pessoaFisica.celular3.toString()) : null
 
     if(this.familiar && this.familiar.pessoasFisica) {
       this.familiar.pessoasFisica.cep =  this.familiar.pessoasFisica.cep ? this.retiraMascara( this.familiar.pessoasFisica.cep.toString()) : null
@@ -170,6 +175,7 @@ export class CadastarAlunoComponent implements OnInit {
       this.familiar.pessoasFisica.telefoneResidencial =  this.familiar.pessoasFisica.telefoneResidencial ? this.retiraMascara( this.familiar.pessoasFisica.telefoneResidencial.toString()) : null
       this.familiar.pessoasFisica.foneRecado =  this.familiar.pessoasFisica.foneRecado ? this.retiraMascara( this.familiar.pessoasFisica.foneRecado.toString()) : null
       this.familiar.pessoasFisica.celular2 =  this.familiar.pessoasFisica.celular2 ? this.retiraMascara( this.familiar.pessoasFisica.celular2.toString()) : null
+      this.familiar.pessoasFisica.celular3 =  this.familiar.pessoasFisica.celular3 ? this.retiraMascara( this.familiar.pessoasFisica.celular3.toString()) : null
       this.familiar.pessoasFisica.telefoneComercial =  this.familiar.pessoasFisica.telefoneComercial ? this.retiraMascara( this.familiar.pessoasFisica.telefoneComercial.toString()) : null
   
     }
@@ -258,6 +264,18 @@ export class CadastarAlunoComponent implements OnInit {
     this.familiar.pessoasFisica = pessoaFisica;
   }
 
+  copiarEnderecoBeneficiario() {
+    this.familiar.pessoasFisica.cep = this.aluno.pessoaFisica.cep;
+    this.familiar.pessoasFisica.endereco = this.aluno.pessoaFisica.endereco;
+    this.familiar.pessoasFisica.complementoEndereco = this.aluno.pessoaFisica.complementoEndereco;
+    this.familiar.pessoasFisica.cidade = this.aluno.pessoaFisica.cidade;
+    this.familiar.pessoasFisica.bairro = this.aluno.pessoaFisica.bairro;
+    this.familiar.pessoasFisica.uf = this.aluno.pessoaFisica.uf;
+  }
+
+  calcularValorRenda() {
+    this.planoAplicacaoAnexoComponent.calcularValorRenda();
+  }
 }
 
 @Component({

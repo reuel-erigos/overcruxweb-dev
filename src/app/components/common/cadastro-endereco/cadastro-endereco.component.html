@@ -5,6 +5,9 @@
 
 
 <div fxLayoutAlign="end end">
+    <a mat-button role="button" (click)="copiarEnderecoBeneficiario()" *ngIf="apresentaCopiarEndereco">
+        <mat-icon>add_business</mat-icon>Copiar endereço do beneficiário
+    </a>
     <a mat-button role="button" href="http://www.buscacep.correios.com.br/" target="_blank">
         <mat-icon>open_in_new</mat-icon>Buscar CEP
     </a>
@@ -24,7 +27,7 @@
                 pattern="^\d{2}\.?\d{3}-?\d{3}$" />
     </mat-form-field>
 
-    <mat-form-field fxFlex="85%">
+    <mat-form-field fxFlex="45%">
         <input #campoEndereco
                 matInput maxlength="200"
                 [(ngModel)]="dadosEndereco.endereco"
@@ -32,6 +35,15 @@
                 placeholder="Endereço"
                 [required]="obrigatorio">
         <mat-hint align="end">{{campoEndereco.value.length}} / 200</mat-hint>
+    </mat-form-field>
+
+    <mat-form-field fxFlex="40%">
+        <input #campoComplementoEndereco
+                matInput maxlength="100"
+                [(ngModel)]="dadosEndereco.complementoEndereco"
+                name="complementoEndereco"
+                placeholder="Complemento">
+        <mat-hint align="end">{{campoComplementoEndereco.value.length}} / 100</mat-hint>
     </mat-form-field>
 
 </div>
