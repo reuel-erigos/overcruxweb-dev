@@ -1,5 +1,5 @@
 import { PessoaFisica } from 'src/app/core/pessoa-fisica';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { EnderecoService } from 'src/app/services/endereco/endereco.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
 import { of } from 'rxjs';
@@ -19,6 +19,7 @@ export class CadastroEnderecoComponent implements OnInit {
 
   @Input() dadosEndereco;
   @Input() obrigatorio = true;
+  @Output() copiarEndereco = new EventEmitter();
 
   public maskCep = [/\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];
 
@@ -63,7 +64,10 @@ export class CadastroEnderecoComponent implements OnInit {
           }
         );
     }
+  }
 
+  copiarEnderecoBeneficiario() {
+    this.copiarEndereco.emit();
   }
 
 

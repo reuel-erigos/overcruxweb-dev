@@ -22,6 +22,7 @@ export class Aluno {
 	atendidoOrgaoRede: string;
 	observacoes: string;
 	
+	dataEncaminhamento: Date;
 	dataEntrada: Date;
 	dataDesligamento: Date;
 	dataCadastro: Date;

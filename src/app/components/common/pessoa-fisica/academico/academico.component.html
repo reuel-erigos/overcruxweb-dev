@@ -65,7 +65,15 @@
 
 <div fxLayout="row" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill>
 
-  <mat-form-field fxFlexOffset="20px" fxFlex="15%">
+  <mat-form-field fxFlexOffset="20px" fxFlex="20%">
+    <input matInput name="dataEncaminhamento" [matDatepicker]="dataEncaminhamento" placeholder="Data de Encaminhamento do CRAS"
+           (input)="onMascaraDataInput($event)" 
+           [(ngModel)]="aluno.dataEncaminhamento">
+    <mat-datepicker-toggle matSuffix [for]="dataEncaminhamento"></mat-datepicker-toggle>
+    <mat-datepicker #dataEncaminhamento></mat-datepicker>
+  </mat-form-field>
+
+  <mat-form-field fxFlex="10%">
     <input matInput name="dataEntrada" [matDatepicker]="dataEntrada" placeholder="Data de entrada"
            (input)="onMascaraDataInput($event)" 
            [(ngModel)]="aluno.dataEntrada">
@@ -74,7 +82,7 @@
   </mat-form-field>
 
 
-  <mat-form-field fxFlex="15%" >
+  <mat-form-field fxFlex="10%" >
     <input matInput name="dataDesligamento" [matDatepicker]="dataDesligamento" 
            placeholder="Data de desligamento"
            (input)="onMascaraDataInput($event)"
@@ -83,7 +91,7 @@
     <mat-datepicker #dataDesligamento></mat-datepicker>
   </mat-form-field>
 
-  <mat-form-field fxFlex="20%">
+  <mat-form-field fxFlex="15%">
     <mat-label>Motivo Desligamento</mat-label>
     <mat-select [(ngModel)]="aluno.motivoDesligamento.id" name="motivoDesligamento">
       <mat-option></mat-option>
@@ -114,7 +122,7 @@
     <mat-datepicker #dataSugestaoDesligamento></mat-datepicker>
   </mat-form-field>
 
-  <mat-form-field fxFlex="80%" fxFlexOffset="20px">
+  <mat-form-field fxFlex="80%">
     <input matInput #descricaoSugestao maxlength="200" name="descricaoSugestao"
       placeholder="Descrição sugestão de desligamento" [(ngModel)]="aluno.descricaoSugestaoDesligamento">
       <mat-hint align="end">{{descricaoSugestao.value.length}} / 200</mat-hint>

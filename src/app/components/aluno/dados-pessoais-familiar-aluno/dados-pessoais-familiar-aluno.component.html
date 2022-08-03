@@ -78,29 +78,6 @@
                 </mat-form-field>
             </div>
 
-            <mat-toolbar class="titulopartes">Responsabilidade</mat-toolbar>
-            <cadastrar-responsavel-familiar-aluno #cadastrarResponsavel
-                [familiar]="familiar" [responsavel]="responsavel" >
-            </cadastrar-responsavel-familiar-aluno>
-            
-            <!-- ETAPA 1 - FILIAÇÃO -->
-            <mat-toolbar class="titulopartes">Filiação</mat-toolbar>
-            <div fxLayout="row" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill>
-
-                <mat-form-field fxFlex="45%" fxFlexOffset="20px">
-                    <input matInput maxlength="200" name="nomeMae" placeholder="Nome da Mãe:"
-                        [(ngModel)]="pessoaFisica.nomeMae">
-                </mat-form-field>
-
-                <mat-form-field fxFlex="45%" fxFlexOffset="20px">
-                    <input matInput maxlength="200" name="nomePai" placeholder="Nome do Pai:"
-                        [(ngModel)]="pessoaFisica.nomePai">
-                </mat-form-field>
-
-            </div>
-
-            <mat-toolbar class="titulopartes">Outras Informações</mat-toolbar>
-
             <div fxLayout="row" fxLayoutGap="20px" fxFlexFill>
 
                 <mat-form-field fxFlex="20%" fxFlexOffset="20px">
@@ -108,16 +85,6 @@
                     <mat-select [(ngModel)]="pessoaFisica.estadoCivil" name="estadoCivil">
                         <mat-option *ngFor="let m of estadoCivil" [value]="m.tipo">
                             {{m.tipo}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>
-
-
-                <mat-form-field fxFlex="20%" fxFlexOffset="20px">
-                    <mat-label>Tipo de sangue:</mat-label>
-                    <mat-select [(ngModel)]="pessoaFisica.tipoSangue" name="tipoSangue">
-                        <mat-option *ngFor="let m of tipoSanguineo" [value]="m">
-                            {{m}}
                         </mat-option>
                     </mat-select>
                 </mat-form-field>
@@ -132,40 +99,12 @@
                 </mat-form-field>
 
             </div>
-            <!-- <div fxLayout="row" fxLayoutGap="20px" fxFlexFill> -->
-            <!-- 
-                <mat-form-field fxFlex="15%" fxFlexOffset="20px">
-                    <mat-label>Possui deficiência:</mat-label>
-                    <mat-select [(ngModel)]="pessoaFisica.ehDeficiente" name="ehDeficiente">
-                        <mat-option *ngFor="let m of sim_nao" [value]="m.flag">
-                            {{m.tipo}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>   -->
-            <!-- 
-                <mat-form-field fxFlex="20%" >
-                    <mat-label>Cursando nível superior:</mat-label>
-                    <mat-select [(ngModel)]="pessoaFisica.cursandoNivelSuperior" name="cursandoNivelSuperior">
-                        <mat-option *ngFor="let m of sim_nao" [value]="m.flag">
-                            {{m.tipo}}
-                        </mat-option>
-                    </mat-select>
-                </mat-form-field>   -->
-            <!-- </div> -->
 
-            <!-- <div fxLayout="row" fxLayoutGap="20px" fxFlexFill>
-                <mat-form-field fxFlex="45%" fxFlexOffset="20px">
-                    <input matInput maxlength="200" name="descricaoDeficiencia" placeholder="Descrição da deficiência" 
-                            [(ngModel)]="pessoaFisica.descricaoDeficiencia">
-                </mat-form-field>                
-
-                <mat-form-field fxFlex="45%" fxFlexOffset="20px">
-                    <input matInput maxlength="200" name="tipoSangue" placeholder="Descrição do tipo de sangue" 
-                            [(ngModel)]="pessoaFisica.tipoSangue">
-                </mat-form-field>                
-            </div> -->
-
-
+            <mat-toolbar class="titulopartes">Responsabilidade</mat-toolbar>
+            <cadastrar-responsavel-familiar-aluno #cadastrarResponsavel
+                [familiar]="familiar" [responsavel]="responsavel" >
+            </cadastrar-responsavel-familiar-aluno>
+            
         </div>
 
         <!-- FOTO PERFIL -->
@@ -179,7 +118,7 @@
     </div>
 
     <!-- ETAPA 1 - ENDEREÇO -->
-    <cadastro-endereco [dadosEndereco]="pessoaFisica"></cadastro-endereco>
+    <cadastro-endereco [dadosEndereco]="pessoaFisica" (copiarEndereco)="copiarEnderecoBeneficiario()"></cadastro-endereco>
 
     <div fxLayout="row" class="espaco" fxLayoutGap="20px" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill>
         <mat-form-field fxFlex="100%" fxFlexOffset="20px">
@@ -230,6 +169,13 @@
         <mat-form-field fxFlex="20%">
             <input matInput [(ngModel)]="pessoaFisica.celular2" name="nr_fone_celular_2" 
             placeholder="Celular 2"
+                [textMask]="{mask: maskCelular}"
+                pattern="^(?:\(?([1-9][0-9])\)?\s?)?(?:((?:9\d|[2-9])\d{3})\-?(\d{4}))$">
+        </mat-form-field>
+
+        <mat-form-field fxFlexOffset="20px" fxFlex="20%">
+            <input matInput [(ngModel)]="pessoaFisica.celular3" name="nr_fone_celular_3" 
+            placeholder="Celular 3"
                 [textMask]="{mask: maskCelular}"
                 pattern="^(?:\(?([1-9][0-9])\)?\s?)?(?:((?:9\d|[2-9])\d{3})\-?(\d{4}))$">
         </mat-form-field>

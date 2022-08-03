@@ -161,6 +161,7 @@ export class CadastarAlunoComponent implements OnInit {
     this.aluno.pessoaFisica.telefoneResidencial = this.aluno.pessoaFisica.telefoneResidencial ? this.retiraMascara(this.aluno.pessoaFisica.telefoneResidencial.toString()) : null
     this.aluno.pessoaFisica.foneRecado = this.aluno.pessoaFisica.foneRecado ? this.retiraMascara(this.aluno.pessoaFisica.foneRecado.toString()) : null
     this.aluno.pessoaFisica.celular2 = this.aluno.pessoaFisica.celular2 ? this.retiraMascara(this.aluno.pessoaFisica.celular2.toString()) : null
+    this.aluno.pessoaFisica.celular3 = this.aluno.pessoaFisica.celular3 ? this.retiraMascara(this.aluno.pessoaFisica.celular3.toString()) : null
 
     if(this.familiar && this.familiar.pessoasFisica) {
       this.familiar.pessoasFisica.cep =  this.familiar.pessoasFisica.cep ? this.retiraMascara( this.familiar.pessoasFisica.cep.toString()) : null
@@ -170,6 +171,7 @@ export class CadastarAlunoComponent implements OnInit {
       this.familiar.pessoasFisica.telefoneResidencial =  this.familiar.pessoasFisica.telefoneResidencial ? this.retiraMascara( this.familiar.pessoasFisica.telefoneResidencial.toString()) : null
       this.familiar.pessoasFisica.foneRecado =  this.familiar.pessoasFisica.foneRecado ? this.retiraMascara( this.familiar.pessoasFisica.foneRecado.toString()) : null
       this.familiar.pessoasFisica.celular2 =  this.familiar.pessoasFisica.celular2 ? this.retiraMascara( this.familiar.pessoasFisica.celular2.toString()) : null
+      this.familiar.pessoasFisica.celular3 =  this.familiar.pessoasFisica.celular3 ? this.retiraMascara( this.familiar.pessoasFisica.celular3.toString()) : null
       this.familiar.pessoasFisica.telefoneComercial =  this.familiar.pessoasFisica.telefoneComercial ? this.retiraMascara( this.familiar.pessoasFisica.telefoneComercial.toString()) : null
   
     }
@@ -256,6 +258,15 @@ export class CadastarAlunoComponent implements OnInit {
 
   carregarFamiliarPessoaFisica(pessoaFisica: PessoaFisica) {
     this.familiar.pessoasFisica = pessoaFisica;
+  }
+
+  copiarEnderecoBeneficiario() {
+    this.familiar.pessoasFisica.cep = this.aluno.pessoaFisica.cep;
+    this.familiar.pessoasFisica.endereco = this.aluno.pessoaFisica.endereco;
+    this.familiar.pessoasFisica.complementoEndereco = this.aluno.pessoaFisica.complementoEndereco;
+    this.familiar.pessoasFisica.cidade = this.aluno.pessoaFisica.cidade;
+    this.familiar.pessoasFisica.bairro = this.aluno.pessoaFisica.bairro;
+    this.familiar.pessoasFisica.uf = this.aluno.pessoaFisica.uf;
   }
 
 }

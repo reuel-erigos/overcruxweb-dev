@@ -211,16 +211,23 @@
     </div>
 
     <div fxLayout="row" fxLayoutGap="30px" fxFlexFill>
-        <mat-form-field fxFlex="20%" fxFlexOffset="20px">
+        <mat-form-field fxFlexOffset="20px" fxFlex="20%">
             <input matInput [(ngModel)]="pessoaFisica.foneRecado" name="nr_fone_recado"
                    placeholder="Telefone Recado" [textMask]="{mask: maskPhone}"
                    pattern="^(?:\(?([1-9][0-9])\)?\s?)?(?:((?:9\d|[2-9])\d{3})\-?(\d{4}))$">
 
         </mat-form-field>
  
-        <mat-form-field fxFlex="20%">
+        <mat-form-field fxFlex="20%" >
             <input matInput [(ngModel)]="pessoaFisica.celular2" name="nr_fone_celular_2" 
             placeholder="Celular 2"
+                [textMask]="{mask: maskCelular}"
+                pattern="^(?:\(?([1-9][0-9])\)?\s?)?(?:((?:9\d|[2-9])\d{3})\-?(\d{4}))$">
+        </mat-form-field>
+
+        <mat-form-field fxFlexOffset="20px" fxFlex="20%">
+            <input matInput [(ngModel)]="pessoaFisica.celular3" name="nr_fone_celular_3" 
+            placeholder="Celular 3"
                 [textMask]="{mask: maskCelular}"
                 pattern="^(?:\(?([1-9][0-9])\)?\s?)?(?:((?:9\d|[2-9])\d{3})\-?(\d{4}))$">
         </mat-form-field>

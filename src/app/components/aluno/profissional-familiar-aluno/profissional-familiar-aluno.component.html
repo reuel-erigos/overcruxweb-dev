@@ -27,25 +27,52 @@
 </div>
 
 <!-- BENEFICIOS -->
-<mat-toolbar class="titulopartes">Benefícios</mat-toolbar>
+<mat-toolbar class="titulopartes">Renda</mat-toolbar>
 <div fxLayout="row" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill>
   <mat-form-field fxFlexOffset="20px" fxFlex="15%">
     <input currencyMask
-           matInput maxlength="10" name="valorRenda"
-           placeholder="Valor da renda:"
-           [(ngModel)]="familiar.pessoasFisica.valorRenda"
+           matInput maxlength="10" name="valorRendaCtps"
+           placeholder="Valor Salário:"
+           [(ngModel)]="familiar.pessoasFisica.valorRendaCtps"
            [options]="{ prefix: '', thousands: '.', decimal: ',' }" />
         <span matPrefix>R$&nbsp;</span>
   </mat-form-field>
 
-    <mat-form-field fxFlex="15%" >
-        <input currencyMask
-               matInput maxlength="10" name="valorAuxilio"
-               placeholder="Auxílio:"
-               [(ngModel)]="familiar.pessoasFisica.valorOutrosBenerficiosSoc"
-               [options]="{ prefix: '', thousands: '.', decimal: ',' }" />
-            <span matPrefix>R$&nbsp;</span>
-    </mat-form-field>
+  <mat-form-field fxFlex="15%" >
+      <input currencyMask
+              matInput maxlength="10" name="valorRendaAutonomo"
+              placeholder="Valor Renda Autônomo:"
+              [(ngModel)]="familiar.pessoasFisica.valorRendaAutonomo"
+              [options]="{ prefix: '', thousands: '.', decimal: ',' }" />
+          <span matPrefix>R$&nbsp;</span>
+  </mat-form-field>
+
+  <mat-form-field fxFlex="15%" >
+    <input currencyMask
+            matInput maxlength="10" name="valorRendaAutonomo"
+            placeholder="Valor Renda Autônomo:"
+            [(ngModel)]="familiar.pessoasFisica.valorRendaAutonomo"
+            [options]="{ prefix: '', thousands: '.', decimal: ',' }" />
+        <span matPrefix>R$&nbsp;</span>
+</mat-form-field>
+
+<mat-form-field fxFlex="15%" >
+  <input currencyMask
+          matInput maxlength="10" name="valorRendaPensaoAlimenticia"
+          placeholder="Valor Pensão Alimentícia:"
+          [(ngModel)]="familiar.pessoasFisica.valorRendaPensaoAlimenticia"
+          [options]="{ prefix: '', thousands: '.', decimal: ',' }" />
+      <span matPrefix>R$&nbsp;</span>
+</mat-form-field>
+
+<mat-form-field fxFlex="15%" >
+  <input currencyMask
+          matInput maxlength="10" name="valorRendaAposentadoria"
+          placeholder="Valor Aposentadoria:"
+          [(ngModel)]="familiar.pessoasFisica.valorRendaAposentadoria"
+          [options]="{ prefix: '', thousands: '.', decimal: ',' }" />
+      <span matPrefix>R$&nbsp;</span>
+</mat-form-field>
 
 </div>
 

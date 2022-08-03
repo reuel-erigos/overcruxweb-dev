@@ -68,6 +68,10 @@ export class PessoaFisica{
    valorBolsaFamilia:number;
    valorOutrosBenerficiosSoc:number;
    valorRenda:number;
+   valorRendaCtps:number;
+   valorRendaAutonomo:number;
+   valorRendaPensaoAlimenticia:number;
+   valorRendaAposentadoria:number;
    
    metadados: ArquivoMetadados;
 
@@ -99,6 +103,8 @@ export class PessoaFisica{
 
    foneRecado: string;
    celular2: string;
+   celular3: string;
+   complementoEndereco: string;
 
    qtPessoasResidemFamilia:number;
 
