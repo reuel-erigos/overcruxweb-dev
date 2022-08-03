@@ -5,8 +5,8 @@
 
 
 <div fxLayoutAlign="end end">
-    <a mat-button role="button" (click)="copiarEnderecoBeneficiario()">
-        <mat-icon>add_business</mat-icon>Mesmo Endereço do beneficiário
+    <a mat-button role="button" (click)="copiarEnderecoBeneficiario()" *ngIf="apresentaCopiarEndereco">
+        <mat-icon>add_business</mat-icon>Copiar endereço do beneficiário
     </a>
     <a mat-button role="button" href="http://www.buscacep.correios.com.br/" target="_blank">
         <mat-icon>open_in_new</mat-icon>Buscar CEP

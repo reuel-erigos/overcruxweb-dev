@@ -19,6 +19,7 @@ export class CadastroEnderecoComponent implements OnInit {
 
   @Input() dadosEndereco;
   @Input() obrigatorio = true;
+  @Input() apresentaCopiarEndereco = false;
   @Output() copiarEndereco = new EventEmitter();
 
   public maskCep = [/\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/];

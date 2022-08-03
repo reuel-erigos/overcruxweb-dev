@@ -118,7 +118,7 @@
     </div>
 
     <!-- ETAPA 1 - ENDEREÇO -->
-    <cadastro-endereco [dadosEndereco]="pessoaFisica" (copiarEndereco)="copiarEnderecoBeneficiario()"></cadastro-endereco>
+    <cadastro-endereco [dadosEndereco]="pessoaFisica" [apresentaCopiarEndereco]="true" (copiarEndereco)="copiarEnderecoBeneficiario()"></cadastro-endereco>
 
     <div fxLayout="row" class="espaco" fxLayoutGap="20px" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill>
         <mat-form-field fxFlex="100%" fxFlexOffset="20px">

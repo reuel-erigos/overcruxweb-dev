@@ -28,23 +28,42 @@
 <mat-toolbar class="titulopartes">Benefícios</mat-toolbar>
 <div fxLayout="row" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill>
 
-    <mat-form-field fxFlex="15%" fxFlexOffset="20px">
-        <input currencyMask
-               matInput maxlength="10" name="valorBolsaFamilia"
-               placeholder="Valor bolsa familia:"
-               [(ngModel)]="familiar.pessoasFisica.valorBolsaFamilia"
-               [options]="{ prefix: '', thousands: '.', decimal: ',' }" />
-            <span matPrefix>R$&nbsp;</span>
-    </mat-form-field>
+  <mat-form-field fxFlexOffset="20px" fxFlex="15%">
+    <input currencyMask matInput maxlength="10" name="valorRendaCtps" placeholder="Valor Salário:" (blur)="calcularValorRenda()"
+      [(ngModel)]="familiar.pessoasFisica.valorRendaCtps" [options]="{ prefix: '', thousands: '.', decimal: ',' }" />
+    <span matPrefix>R$&nbsp;</span>
+  </mat-form-field>
 
-    <mat-form-field fxFlex="15%">
-      <input currencyMask
-             matInput maxlength="10" name="valorRenda"
-             placeholder="Valor da renda:"
-             [(ngModel)]="familiar.pessoasFisica.valorRenda"
-             [options]="{ prefix: '', thousands: '.', decimal: ',' }" />
-          <span matPrefix>R$&nbsp;</span>
-    </mat-form-field>
+  <mat-form-field fxFlex="15%">
+    <input currencyMask matInput maxlength="10" name="valorRendaAutonomo" placeholder="Valor Renda Autônomo:"
+      [(ngModel)]="familiar.pessoasFisica.valorRendaAutonomo" (blur)="calcularValorRenda()"
+      [options]="{ prefix: '', thousands: '.', decimal: ',' }" />
+    <span matPrefix>R$&nbsp;</span>
+  </mat-form-field>
+
+  <mat-form-field fxFlex="15%">
+    <input currencyMask matInput maxlength="10" name="valorRendaPensaoAlimenticia" (blur)="calcularValorRenda()"
+      placeholder="Valor Pensão Alimentícia:" [(ngModel)]="familiar.pessoasFisica.valorRendaPensaoAlimenticia"
+      [options]="{ prefix: '', thousands: '.', decimal: ',' }" />
+    <span matPrefix>R$&nbsp;</span>
+  </mat-form-field>
+
+  <mat-form-field fxFlex="15%">
+    <input currencyMask matInput maxlength="10" name="valorRendaAposentadoria" placeholder="Valor Aposentadoria:"
+      [(ngModel)]="familiar.pessoasFisica.valorRendaAposentadoria" (blur)="calcularValorRenda()"
+      [options]="{ prefix: '', thousands: '.', decimal: ',' }" />
+    <span matPrefix>R$&nbsp;</span>
+  </mat-form-field>
+
+  <mat-form-field fxFlex="15%" >
+    <input currencyMask
+            matInput maxlength="10" name="valorRenda"
+            placeholder="Valor Total da Renda:"
+            disabled
+            [(ngModel)]="familiar.pessoasFisica.valorRenda"
+            [options]="{ prefix: '', thousands: '.', decimal: ',' }" />
+        <span matPrefix>R$&nbsp;</span>
+  </mat-form-field>
 </div>
 
 <!-- CONTATO -->

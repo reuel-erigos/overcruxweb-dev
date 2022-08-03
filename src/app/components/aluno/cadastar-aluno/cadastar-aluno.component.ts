@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { PessoaFisica } from 'src/app/core/pessoa-fisica';
 import { Aluno } from 'src/app/core/aluno';
 import { AlunoService } from 'src/app/services/aluno/aluno.service';
@@ -21,6 +21,7 @@ import { FamiliarAlunoService } from '../../../services/familiar-aluno/familiar-
 import { ResponsaveisAluno } from '../../../core/responsaveis-aluno';
 import { AtividadeAluno } from '../../../core/atividade-aluno';
 import { AtividadeAlunoService } from '../../../services/atividade-aluno/atividade-aluno.service';
+import { ProfissionalFamiliarAlunoComponent } from '../profissional-familiar-aluno/profissional-familiar-aluno.component';
 
 @Component({
   selector: 'app-cadastar-aluno',
@@ -40,6 +41,9 @@ export class CadastarAlunoComponent implements OnInit {
 
   mostrarBotaoCadastrar = true;
   mostrarBotaoAtualizar = true;
+
+  @ViewChild(ProfissionalFamiliarAlunoComponent) planoAplicacaoAnexoComponent: ProfissionalFamiliarAlunoComponent;
+  
 
   constructor(
     private alunoService: AlunoService,
@@ -269,6 +273,9 @@ export class CadastarAlunoComponent implements OnInit {
     this.familiar.pessoasFisica.uf = this.aluno.pessoaFisica.uf;
   }
 
+  calcularValorRenda() {
+    this.planoAplicacaoAnexoComponent.calcularValorRenda();
+  }
 }
 
 @Component({

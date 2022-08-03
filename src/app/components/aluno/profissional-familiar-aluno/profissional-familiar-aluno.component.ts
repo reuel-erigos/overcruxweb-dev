@@ -1,6 +1,7 @@
 import { Familiares } from 'src/app/core/familiares';
 import { Component, OnInit, Input } from '@angular/core';
 import { Aluno } from 'src/app/core/aluno';
+import { DataUtilService } from '../../../services/commons/data-util.service';
 
 @Component({
   selector: 'profissional-familiar-aluno',
@@ -41,9 +42,24 @@ export class ProfissionalFamiliarAlunoComponent implements OnInit {
     {tipo: 'Outros', flag: 'OU'}
   ];
 
-  constructor() { }
+  constructor(private dataUtilService: DataUtilService) { }
 
   ngOnInit() {
+  }
+
+  calcularValorRenda() {
+    const valorRendaCtps = this.familiar.pessoasFisica.valorRendaCtps? this.familiar.pessoasFisica.valorRendaCtps : 0; 
+    const valorRendaAutonomo = this.familiar.pessoasFisica.valorRendaAutonomo? this.familiar.pessoasFisica.valorRendaAutonomo : 0; 
+    const valorRendaPensaoAlimenticia = this.familiar.pessoasFisica.valorRendaPensaoAlimenticia? this.familiar.pessoasFisica.valorRendaPensaoAlimenticia : 0; 
+    const valorRendaAposentadoria = this.familiar.pessoasFisica.valorRendaAposentadoria? this.familiar.pessoasFisica.valorRendaAposentadoria : 0; 
+    this.familiar.pessoasFisica.valorRenda = valorRendaCtps + valorRendaAutonomo + valorRendaPensaoAlimenticia + valorRendaAposentadoria;
+    if(this.familiar.pessoasFisica.beneficiosSociaisPessoaFisica) {
+      this.familiar.pessoasFisica.beneficiosSociaisPessoaFisica.forEach(item => {
+        if(item.dataInicio && this.dataUtilService.getValorByDate(item.dataInicio) <= new Date() && (!item.dataFim || this.dataUtilService.getValorByDate(item.dataFim) >= new Date())) {
+          this.familiar.pessoasFisica.valorRenda = this.familiar.pessoasFisica.valorRenda + item.valor;
+        }
+      })
+    }
   }
 
 }
