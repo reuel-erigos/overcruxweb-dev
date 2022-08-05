@@ -11,8 +11,8 @@
             </mat-select>
         </mat-form-field>
 
-        
-        <div ngModelGroup="comboFamiliar" fxFlex="25%" fxLayoutGap="20px" fxFlexOffset="40px">
+
+        <div ngModelGroup="comboFamiliar" fxFlex="25%">
             <combo-pesquisavel #comboEscola nome="escola" [itens]="escolas" itemDescricao="nome" itemId="id"
                 [showDisplayId]="false" [obrigatorio]="false" placeholder="Informe o nome da escola"
                 [(valor)]="pessoaFisica.escola" (valorChange)="preencherRa($event)">
@@ -22,8 +22,17 @@
         <mat-form-field fxFlex="25%">
             <input matInput maxlength="30" [(ngModel)]="nomeRa" name="ra" placeholder="RA" disabled>
         </mat-form-field>
-
+    </div>
+    <div fxLayout="row" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill>
         <!--  <div fxLayout="row" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill> -->
+        <mat-form-field fxFlex="25%" fxFlexOffset="20px">
+            <mat-label>Série do curso da escola regular onde está matriculado:</mat-label>
+            <mat-select [(ngModel)]="pessoaFisica.serireEscola" name="serieEscolar">
+                <mat-option *ngFor="let s of seriesEcolares" [value]="s">
+                    {{s.descricao}}
+                </mat-option>
+            </mat-select>
+        </mat-form-field>
         <mat-form-field fxFlex="25%">
             <mat-label>Turno da escola regular onde está matriculado:</mat-label>
             <mat-select [(ngModel)]="pessoaFisica.turno" name="turno">
