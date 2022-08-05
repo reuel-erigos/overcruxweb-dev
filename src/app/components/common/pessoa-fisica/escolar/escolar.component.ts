@@ -4,6 +4,8 @@ import { PessoaFisica } from 'src/app/core/pessoa-fisica';
 import { CondicoesMoradia } from 'src/app/core/condicoes-moradia';
 import { Escola } from '../../../../core/escola';
 import { EscolaService } from '../../../../services/escola/escola.service';
+import { SerieEscolar } from '../../../../core/serie-escolar';
+import { SerieEscolarService } from '../../../../services/serie-escolar/serie-escolar.service';
 
 @Component({
   selector: 'escolar',
@@ -16,6 +18,7 @@ export class EscolarComponent implements OnInit {
 
   tipoEscola: any;
   condicoesMoradia: CondicoesMoradia[];
+  seriesEcolares: SerieEscolar[];
   nomeRa: string;
 
   tipoEscolaList: any[] = [
@@ -33,13 +36,17 @@ export class EscolarComponent implements OnInit {
   escolas: Escola[] = [];
 
   constructor(private condicaoMoradiaService: CondicoesMoradiaService,
-    private escolaService: EscolaService) { }
+    private escolaService: EscolaService,
+    private serieEscolarService: SerieEscolarService) { }
 
   ngOnInit() {
     this.pessoaFisica.condicoesMoradia = new CondicoesMoradia();
 
     this.condicaoMoradiaService.getAll().subscribe((condicoes: CondicoesMoradia[]) => {
       this.condicoesMoradia = condicoes;
+    });
+    this.serieEscolarService.getAll().subscribe((seriesEcolares: SerieEscolar[]) => {
+      this.seriesEcolares = seriesEcolares;
     });
   }
 

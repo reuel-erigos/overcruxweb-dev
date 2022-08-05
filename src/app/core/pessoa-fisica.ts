@@ -3,6 +3,7 @@ import { BeneficioSocialPessoaFisica } from './beneficio-social-pessoa-fisica';
 import { CondicoesMoradia } from './condicoes-moradia';
 import { Escola } from './escola';
 import { GrausInstrucao } from './graus-instrucao';
+import { SerieEscolar } from './serie-escolar';
 
 export class PessoaFisica {
 
@@ -21,6 +22,7 @@ export class PessoaFisica {
     email: string;
     endereco: string;
     escola: Escola;
+    serireEscola: SerieEscolar;
     escolaridade: string;
     estadoCivil: string;
     formaIngressoEntidade: string;

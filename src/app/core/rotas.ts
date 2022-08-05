@@ -85,4 +85,5 @@ export enum Rotas {
     GRUPO_ACOES                     = 'api/grupoacoes/',
     MOVIMENTACOES_CONTABEIS         = 'api/movimentacoescontabeis/',
     ESCOLA                          = 'api/escola/',
+    SERIE_ESCOLAR                   = 'api/serieescolar/',
 }
