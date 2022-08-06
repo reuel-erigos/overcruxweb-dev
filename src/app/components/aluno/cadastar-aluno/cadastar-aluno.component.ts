@@ -66,8 +66,6 @@ export class CadastarAlunoComponent implements OnInit {
   ngOnInit() {
     this.aluno = new Aluno();
     this.aluno.pessoaFisica = new PessoaFisica();
-    this.aluno.pessoaFisica.escola = new Escola();
-    this.aluno.pessoaFisica.escola.regiaoAdministrativa = new RegiaoAdministrativa();
     this.aluno.vulnerabilidades = [];
     this.aluno.pessoaFisica.grausInstrucao = new GrausInstrucao();
 
@@ -88,10 +86,6 @@ export class CadastarAlunoComponent implements OnInit {
       this.alunoService.getById(idAluno).pipe(
         switchMap((aluno: Aluno) => {
           this.aluno = aluno;
-          if(!this.aluno.pessoaFisica.escola) {
-            this.aluno.pessoaFisica.escola = new Escola();
-            this.aluno.pessoaFisica.escola.regiaoAdministrativa = new RegiaoAdministrativa();
-          }
           this.recuperarAtividades(idAluno);
           return this.arquivoPessoaFisicaService.get(aluno.pessoaFisica.id);
         })
