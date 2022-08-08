@@ -22,7 +22,7 @@ export class PessoaFisica {
     email: string;
     endereco: string;
     escola: Escola;
-    serireEscola: SerieEscolar;
+    serieEscolar: SerieEscolar;
     escolaridade: string;
     estadoCivil: string;
     formaIngressoEntidade: string;

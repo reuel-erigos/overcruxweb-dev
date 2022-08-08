@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { CondicoesMoradiaService } from 'src/app/services/condicoes-moradia/condicoes-moradia.service';
 import { PessoaFisica } from 'src/app/core/pessoa-fisica';
 import { CondicoesMoradia } from 'src/app/core/condicoes-moradia';
@@ -12,7 +12,7 @@ import { SerieEscolarService } from '../../../../services/serie-escolar/serie-es
   templateUrl: './escolar.component.html',
   styleUrls: ['./escolar.component.css']
 })
-export class EscolarComponent implements OnInit {
+export class EscolarComponent implements OnInit, OnChanges {
 
   @Input() pessoaFisica: PessoaFisica;
 
@@ -38,6 +38,18 @@ export class EscolarComponent implements OnInit {
   constructor(private condicaoMoradiaService: CondicoesMoradiaService,
     private escolaService: EscolaService,
     private serieEscolarService: SerieEscolarService) { }
+  
+  ngOnChanges(changes: SimpleChanges): void {
+    if(changes.pessoaFisica && changes.pessoaFisica.currentValue) {
+      if(changes.pessoaFisica.currentValue.escola) {
+        if(changes.pessoaFisica.currentValue.escola.regiaoAdministrativa) {
+          this.nomeRa = changes.pessoaFisica.currentValue.escola.regiaoAdministrativa.nome;
+        } 
+        this.tipoEscola =  changes.pessoaFisica.currentValue.escola.tipo;
+        this.carregarEscolas();
+      }
+    }
+  }
 
   ngOnInit() {
     this.pessoaFisica.condicoesMoradia = new CondicoesMoradia();
