@@ -24,6 +24,7 @@ import { AtividadeAlunoService } from '../../../services/atividade-aluno/ativida
 import { ProfissionalFamiliarAlunoComponent } from '../profissional-familiar-aluno/profissional-familiar-aluno.component';
 import { Escola } from '../../../core/escola';
 import { RegiaoAdministrativa } from '../../../core/regiao-administrativa';
+import { SerieEscolar } from '../../../core/serie-escolar';
 
 @Component({
   selector: 'app-cadastar-aluno',
@@ -66,6 +67,7 @@ export class CadastarAlunoComponent implements OnInit {
   ngOnInit() {
     this.aluno = new Aluno();
     this.aluno.pessoaFisica = new PessoaFisica();
+    this.aluno.pessoaFisica.serieEscolar = new SerieEscolar();
     this.aluno.vulnerabilidades = [];
     this.aluno.pessoaFisica.grausInstrucao = new GrausInstrucao();
 
@@ -180,6 +182,9 @@ export class CadastarAlunoComponent implements OnInit {
       this.familiar.pessoasFisica.celular3 =  this.familiar.pessoasFisica.celular3 ? this.retiraMascara( this.familiar.pessoasFisica.celular3.toString()) : null
       this.familiar.pessoasFisica.telefoneComercial =  this.familiar.pessoasFisica.telefoneComercial ? this.retiraMascara( this.familiar.pessoasFisica.telefoneComercial.toString()) : null
   
+    }
+    if(!this.aluno.pessoaFisica.serieEscolar.id) {
+      this.aluno.pessoaFisica.serieEscolar = null;
     }
   }
 

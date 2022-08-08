@@ -27,8 +27,8 @@
         <!--  <div fxLayout="row" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill> -->
         <mat-form-field fxFlex="25%" fxFlexOffset="20px">
             <mat-label>Série do curso da escola regular onde está matriculado:</mat-label>
-            <mat-select [(ngModel)]="pessoaFisica.serieEscolar" name="serieEscolar">
-                <mat-option *ngFor="let s of seriesEcolares" [value]="s">
+            <mat-select [(ngModel)]="pessoaFisica.serieEscolar.id" name="serieEscolar">
+                <mat-option *ngFor="let s of seriesEcolares" [value]="s.id">
                     {{s.descricao}}
                 </mat-option>
             </mat-select>
