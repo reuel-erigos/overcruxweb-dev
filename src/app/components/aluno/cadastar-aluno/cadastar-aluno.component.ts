@@ -88,6 +88,9 @@ export class CadastarAlunoComponent implements OnInit {
       this.alunoService.getById(idAluno).pipe(
         switchMap((aluno: Aluno) => {
           this.aluno = aluno;
+          if(!this.aluno.pessoaFisica.serieEscolar) {
+            this.aluno.pessoaFisica.serieEscolar = new SerieEscolar();
+          }
           this.recuperarAtividades(idAluno);
           return this.arquivoPessoaFisicaService.get(aluno.pessoaFisica.id);
         })
