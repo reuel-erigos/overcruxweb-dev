@@ -71,8 +71,10 @@ export class EscolarComponent implements OnInit, OnChanges {
   }
 
   preencherRa(event: Escola) {
-    if(event.regiaoAdministrativa) {
+    if(event && event.regiaoAdministrativa) {
       this.nomeRa = event.regiaoAdministrativa.nome;
+    } else {
+      this.nomeRa = null;
     }
   }
 }

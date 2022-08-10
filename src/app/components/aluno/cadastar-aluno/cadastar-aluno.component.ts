@@ -186,9 +186,6 @@ export class CadastarAlunoComponent implements OnInit {
       this.familiar.pessoasFisica.telefoneComercial =  this.familiar.pessoasFisica.telefoneComercial ? this.retiraMascara( this.familiar.pessoasFisica.telefoneComercial.toString()) : null
   
     }
-    if(!this.aluno.pessoaFisica.serieEscolar.id) {
-      this.aluno.pessoaFisica.serieEscolar = null;
-    }
   }
 
   limpar() {
@@ -224,6 +221,9 @@ export class CadastarAlunoComponent implements OnInit {
       
         this.alunoService.getById(this.aluno.id).subscribe((aluno: Aluno) => {
           Object.assign(this.aluno, aluno);
+          if(!this.aluno.pessoaFisica.serieEscolar) {
+            this.aluno.pessoaFisica.serieEscolar = new SerieEscolar();
+          }
         });
         this.recuperarAtividades(this.aluno.id);
         this.recuperarResposavelVigente(this.aluno.id);
