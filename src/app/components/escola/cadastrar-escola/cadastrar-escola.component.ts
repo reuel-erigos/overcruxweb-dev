@@ -35,6 +35,11 @@ export class CadastrarEscolaComponent extends BaseComponent implements OnInit {
     { tipo: 'Privada', flag: 'R' }
   ];
 
+  tipoLocalidadeList: any[] = [
+    { tipo: 'Rural', flag: 'R' },
+    { tipo: 'Urbana', flag: 'U' }
+  ];
+
   constructor(
     protected formBuilder: FormBuilder,
     private escolaService: EscolaService,
@@ -95,6 +100,7 @@ export class CadastrarEscolaComponent extends BaseComponent implements OnInit {
       cidade: [null],
       bairro: [null],
       uf: [null],
+      tipoLocalidade: [null],
     });
   }
 

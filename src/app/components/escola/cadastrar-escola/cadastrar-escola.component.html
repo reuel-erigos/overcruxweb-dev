@@ -102,7 +102,17 @@
                                         </mat-option>
                                 </mat-select>
                         </mat-form-field>
-
+                </div>
+                <div fxLayout="row" class="espaco" fxLayoutGap="20px" style="margin-top: 10px; margin-bottom: 10px"
+                        fxFlexFill>
+                        <mat-form-field fxFlexOffset="20px" fxFlex="15%">
+                                <mat-label>Tipo da Localidade:</mat-label>
+                                <mat-select formControlName="tipoLocalidade" name="tipoLocalidade">
+                                        <mat-option *ngFor="let m of tipoLocalidadeList" [value]="m.flag">
+                                                {{m.tipo}}
+                                        </mat-option>
+                                </mat-select>
+                        </mat-form-field>
                 </div>
 
                 <!-- BOTOES -->
