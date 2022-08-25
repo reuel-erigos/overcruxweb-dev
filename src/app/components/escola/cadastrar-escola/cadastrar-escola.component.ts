@@ -111,7 +111,7 @@ export class CadastrarEscolaComponent extends BaseComponent implements OnInit {
     this.criarObjeto();
     this.escolaService.cadastrar(this.escola).subscribe(() => {
       this.router.navigate(['escola']);
-      this.toastService.showSucesso("Região Administrativa cadastrada com sucesso");
+      this.toastService.showSucesso("Escola cadastrada com sucesso");
     });
   }
 
@@ -127,7 +127,7 @@ export class CadastrarEscolaComponent extends BaseComponent implements OnInit {
     this.criarObjeto();
     this.escolaService.alterar(this.escola).subscribe(() => {
       this.router.navigate(['escola']);
-      this.toastService.showSucesso("Região Administrativa atualizada com sucesso");
+      this.toastService.showSucesso("Escola atualizada com sucesso");
     });
   }
 
