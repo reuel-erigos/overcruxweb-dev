@@ -9,8 +9,8 @@ import { CadastrarRegiaoAdministrativaComponent } from './cadastrar-regiao-admin
 
 
 const routes: Routes = [
-  {path: 'regiaoadministrativa/cadastrar', component: CadastrarRegiaoAdministrativaComponent,canActivate: [AuthGuard],resolve: {perfilAcesso:AcessoModuloResolver}, data:{modulo:Modulos.ACESSO} },
-  {path: 'regiaoadministrativa', component:RegiaoAdministrativaComponent, canActivate: [AuthGuard], resolve: {perfilAcesso:AcessoModuloResolver}, data:{modulo:Modulos.ACESSO} }
+  {path: 'regiaoadministrativa/cadastrar', component: CadastrarRegiaoAdministrativaComponent,canActivate: [AuthGuard],resolve: {perfilAcesso:AcessoModuloResolver}, data:{modulo:Modulos.REGIAO_ADMINISTRATIVA} },
+  {path: 'regiaoadministrativa', component:RegiaoAdministrativaComponent, canActivate: [AuthGuard], resolve: {perfilAcesso:AcessoModuloResolver}, data:{modulo:Modulos.REGIAO_ADMINISTRATIVA} }
 ];
 
 @NgModule({

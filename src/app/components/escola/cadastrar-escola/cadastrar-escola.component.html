@@ -1,0 +1,48 @@
+<mat-toolbar class="subtitulo">Escola</mat-toolbar>
+
+<div style="padding: 10px;">
+        <form [formGroup]="form" role="form">
+
+                <div fxLayout="row" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill>
+
+                        <div fxLayout="column" fxFlex="45%">
+                                <mat-form-field style="width: 100%;" fxLayoutGap="20px" fxFlexOffset="20px">
+                                <input matInput type="number" min=0 name="numero" placeholder="Número:"
+                                        formControlName="numero">
+                                </mat-form-field>
+                        </div>
+
+                        <div fxLayout="column" fxFlex="55%">
+                                <mat-form-field style="width: 100%;" fxLayoutGap="20px" fxFlexOffset="20px">
+                                        <input matInput maxlength="255" name="nome" placeholder="Nome:"
+                                            formControlName="nome">
+                                    </mat-form-field>
+                        </div>
+                </div>
+
+
+                <!-- BOTOES -->
+                <div dir="rtl" fxLayoutGap="20px" style="padding-top: 20px; padding-bottom: 10px; padding-right: 20px"
+                        fxFlexFill>
+                        <button *ngIf="!isAtualizar && mostrarBotaoCadastrar" mat-raised-button name="botaoConfirmar"
+                                fxFlex="20%" color="primary" [disabled]="form.invalid" (click)="cadastrar()">
+                                Cadastrar
+                        </button>
+
+                        <button *ngIf="isAtualizar && mostrarBotaoAtualizar" mat-raised-button name="botaoConfirmar"
+                                fxFlex="20%" color="primary" [disabled]="form.invalid" (click)="atualizar()">
+                                Atualizar
+                        </button>
+
+                        <button *ngIf="mostrarBotaoLimpar()" mat-raised-button fxFlex="20%" (click)="limpar()">
+                                Limpar
+                        </button>
+                        <button mat-raised-button fxFlex="20%" (click)="cancelar()">
+                                Cancelar
+                        </button>
+
+                </div>
+        </form>
+
+
+</div>
