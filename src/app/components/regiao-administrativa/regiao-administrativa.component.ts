@@ -38,8 +38,6 @@ export class RegiaoAdministrativaComponent extends BaseComponent implements OnIn
   perfilAcesso: Acesso = new Acesso();
   carregarPerfil: CarregarPerfil;
 
-  form: FormGroup;
-
   constructor(
     protected formBuilder: FormBuilder,
     private regiaoAdministrativaService: RegiaoAdministrativaService,
