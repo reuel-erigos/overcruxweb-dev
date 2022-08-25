@@ -135,6 +135,7 @@ import { FornecedoresModule } from './components/fornecedores/fornecedores.modul
 import { RelatoriosFinanceiroModule } from './components/relatorios/relatorios-financeiro/relatorios-financeiro.module';
 import { MovimentacoesContabeisModule } from './components/movimentacoes-contabeis/movimentacoes-contabeis.module';
 import {BeneficilSocialModule} from './components/beneficio-social/beneficil-social.module';
+import { RegiaoAdministrativaModule } from './components/regiao-administrativa/regiao-administrativa.module';
 
 
 registerLocaleData(localePt, 'pt-BR');
@@ -262,7 +263,8 @@ registerLocaleData(localePt, 'pt-BR');
     FornecedoresModule,
     RelatoriosFinanceiroModule,
     MovimentacoesContabeisModule,
-    BeneficilSocialModule
+    BeneficilSocialModule,
+    RegiaoAdministrativaModule
   ],
   providers: [
     AuthGuard, UnidadeResolver, AcessoModuloResolver,

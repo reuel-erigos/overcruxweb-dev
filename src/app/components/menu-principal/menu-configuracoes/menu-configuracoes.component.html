@@ -15,6 +15,9 @@
 
         <!-- ACESSO -->
         <sub-menu *ngIf="verificaAcesso(getModulos().ACESSO)" icone="lock" titulo="Acesso" rota="acesso" toolTip="Acesso"></sub-menu>
+
+        <!-- REGIÃO ADMINISTRATIVA -->
+        <sub-menu icone="layers" titulo="Região Administrativa" rota="regiaoadministrativa" toolTip="Região Administrativa"></sub-menu>
         
         <!-- USUARIO -->
         <sub-menu *ngIf="verificaAcesso(getModulos().USUARIO)" icone="person_add" titulo="Usuário" rota="usuariosistema" toolTip="Usuário"></sub-menu>
@@ -22,8 +25,8 @@
         <!-- MODULO DA UNIDADE -->
         <sub-menu *ngIf="verificaAcesso(getModulos().GRUPO_MODULO)" icone="view_module" titulo="Módulos da Unidade" rota="grupomodulo" toolTip="Módulos da Unidade"></sub-menu>
 
-         <!-- ALTERAR SENHA -->
-         <sub-menu *ngIf="verificaAcesso(getModulos().ALTERAR_SENHA)" icone="cached" titulo="Alterar Senha" rota="novasenha" toolTip="Alterar Senha"></sub-menu>
+        <!-- ALTERAR SENHA -->
+        <sub-menu *ngIf="verificaAcesso(getModulos().ALTERAR_SENHA)" icone="cached" titulo="Alterar Senha" rota="novasenha" toolTip="Alterar Senha"></sub-menu>
 
         
         
