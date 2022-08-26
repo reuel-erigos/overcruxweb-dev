@@ -81,10 +81,10 @@ export class EscolaComponent extends BaseComponent implements OnInit {
     if(this.paginator) {
       this.paginator.firstPage();
     }
-    this.consultarRegioesAdministrativas(pageInfo);
+    this.consultarEsolas(pageInfo);
   }
 
-  private consultarRegioesAdministrativas(pageInfo: PageInfo) {
+  private consultarEsolas(pageInfo: PageInfo) {
     const filtro = this.createFiltro();
     this.escolaService.listFilteredAndPaged(pageInfo, filtro)
       .subscribe((resp: any) => {
@@ -106,12 +106,12 @@ export class EscolaComponent extends BaseComponent implements OnInit {
     const pageInfo = new PageInfo();
     pageInfo.pageSize = this.pageSize;
     pageInfo.actualPage = this.pageIndex;
-    this.consultarRegioesAdministrativas(pageInfo);
+    this.consultarEsolas(pageInfo);
   }
 
 
   atualizar(escola: Escola) {
-    this.router.navigate(['/regiaoadministrativa/cadastrar'], { queryParams: { id: escola.id } });
+    this.router.navigate(['/escola/cadastrar'], { queryParams: { id: escola.id } });
   }
 
   deletar(escola: Escola) {
@@ -121,7 +121,7 @@ export class EscolaComponent extends BaseComponent implements OnInit {
   chamaCaixaDialogo(escola: Escola) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
-      pergunta: `Certeza que deseja excluir a Região Administrativa ?`,
+      pergunta: `Certeza que deseja excluir a Escola ?`,
       textoConfirma: 'SIM',
       textoCancela: 'NÃO'
     };
@@ -139,14 +139,14 @@ export class EscolaComponent extends BaseComponent implements OnInit {
   }
 
 
-  verificaMostrarTabela(rigioesAdministrativas: Escola[]) {
-    if (!rigioesAdministrativas || rigioesAdministrativas.length === 0) {
+  verificaMostrarTabela(escolas: Escola[]) {
+    if (!escolas || escolas.length === 0) {
       this.mostrarTabela = false;
-      this.msg = 'Nenhuma região administrativa encontrada.';
+      this.msg = 'Nenhuma escola encontrada.';
     } else {
       this.mostrarTabela = true;
     }
-    this.dataSource.data = rigioesAdministrativas ? rigioesAdministrativas : [];
+    this.dataSource.data = escolas ? escolas : [];
   }
 
 

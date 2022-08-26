@@ -123,5 +123,6 @@ export enum Modulos{
     , MOVIMENTACOES_CONTABIES               = 'MOVIMENTACOES_CONTABIES'
     , BENEFICIOS_SOCIAIS                    = 'BENEFICIOS_SOCIAIS'
     , REGIAO_ADMINISTRATIVA                 = 'REGIAO_ADMINISTRATIVA'
+    , ESCOLA                                = 'ESCOLA'
 
 }

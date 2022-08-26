@@ -113,6 +113,14 @@
                                         </mat-option>
                                 </mat-select>
                         </mat-form-field>
+                        <mat-form-field fxFlex="15%">
+                                <mat-label>Região Administrativa:</mat-label>
+                                <mat-select name="regiaoAdministrativa" formControlName="regiaoAdministrativa">
+                                        <mat-option *ngFor="let e of regioesAdministrativas" [value]="e.id">
+                                                {{e.nome}}
+                                        </mat-option>
+                                </mat-select>
+                        </mat-form-field>
                 </div>
 
                 <!-- BOTOES -->

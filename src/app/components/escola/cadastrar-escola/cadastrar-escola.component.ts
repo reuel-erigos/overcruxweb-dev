@@ -8,6 +8,8 @@ import { EscolaService } from '../../../services/escola/escola.service';
 import { BaseComponent } from '../../../architeture/base/base.component';
 import { FormBuilder, Validators } from '@angular/forms';
 import { EnderecoService } from '../../../services/endereco/endereco.service';
+import { RegiaoAdministrativa } from '../../../core/regiao-administrativa';
+import { RegiaoAdministrativaService } from '../../../services/regiao-administrativa/regiao-administrativa.service';
 
 @Component({
   selector: 'app-cadastrar-escola',
@@ -17,6 +19,7 @@ import { EnderecoService } from '../../../services/endereco/endereco.service';
 export class CadastrarEscolaComponent extends BaseComponent implements OnInit {
 
   escola: Escola;
+  regioesAdministrativas: RegiaoAdministrativa[];
   ufs: any[];
   isAtualizar: boolean = false;
 
@@ -44,6 +47,7 @@ export class CadastrarEscolaComponent extends BaseComponent implements OnInit {
     protected formBuilder: FormBuilder,
     private escolaService: EscolaService,
     private enderecoService: EnderecoService,
+    private regiaoAdministrativaService: RegiaoAdministrativaService,
     private activatedRoute: ActivatedRoute,
     private router:Router,
     private toastService:ToastService
@@ -55,6 +59,7 @@ export class CadastrarEscolaComponent extends BaseComponent implements OnInit {
   ngOnInit() {
     this.createForm();
     this.carregaUf();
+    this.carregaRegiaoAdministrativa();
 
     this.carregarPerfil.carregar(this.activatedRoute.snapshot.data.perfilAcesso, this.perfilAcesso);
 
@@ -84,6 +89,12 @@ export class CadastrarEscolaComponent extends BaseComponent implements OnInit {
     });
   }
 
+  carregaRegiaoAdministrativa() {
+    this.regiaoAdministrativaService.getAllCombo().subscribe((resp: any) => {
+      this.regioesAdministrativas = resp;
+    });
+  }
+
   private createForm(): void {
     this.form = this.formBuilder.group({
       codigo: [null, Validators.required],
@@ -101,6 +112,7 @@ export class CadastrarEscolaComponent extends BaseComponent implements OnInit {
       bairro: [null],
       uf: [null],
       tipoLocalidade: [null],
+      regiaoAdministrativa: [null]
     });
   }
 
@@ -138,14 +150,59 @@ export class CadastrarEscolaComponent extends BaseComponent implements OnInit {
   }
 
   pupularForm() {
+    this.setValue(this.form, 'codigo', this.escola.codigo);
     this.setValue(this.form, 'nome', this.escola.nome);
+    this.setValue(this.form, 'tipo', this.escola.tipo);
+    this.setValue(this.form, 'etapaEnsino', this.escola.etapaEnsino);
+    this.setValue(this.form, 'telefone', this.escola.telefone);
+    this.setValue(this.form, 'celular', this.escola.celular);
+    this.setValue(this.form, 'email', this.escola.email);
+    this.setValue(this.form, 'homePage', this.escola.homePage);
+    this.setValue(this.form, 'cep', this.escola.cep);
+    this.setValue(this.form, 'endereco', this.escola.endereco);
+    this.setValue(this.form, 'complementoEndereco', this.escola.complemento);
+    this.setValue(this.form, 'cidade', this.escola.cidade);
+    this.setValue(this.form, 'bairro', this.escola.bairro);
+    this.setValue(this.form, 'uf', this.escola.uf);
+    this.setValue(this.form, 'tipoLocalidade', this.escola.tipoLocalidade);
+    if(this.escola.regiaoAdministrativa) {
+      this.setValue(this.form, 'regiaoAdministrativa', this.escola.regiaoAdministrativa.id);
+    }
   }
 
   criarObjeto() {
     if(!this.escola) {
       this.escola = new Escola();
     }
+    this.escola.codigo = this.getValueForm(this.form, 'codigo');
     this.escola.nome = this.getValueForm(this.form, 'nome');
+    this.escola.tipo = this.getValueForm(this.form, 'tipo');
+    this.escola.etapaEnsino = this.getValueForm(this.form, 'etapaEnsino');
+    const telefone = this.getValueForm(this.form, 'telefone');
+    const celular = this.getValueForm(this.form, 'celular');
+    if(telefone) {
+      this.escola.telefone = this.retiraMascara(telefone.toString());
+    }
+    if(celular) {
+      this.escola.celular = this.retiraMascara(celular.toString());
+    }
+    this.escola.email = this.getValueForm(this.form, 'email');
+    this.escola.homePage = this.getValueForm(this.form, 'homePage');
+    const cep = this.getValueForm(this.form, 'cep');
+    if(cep) {
+      this.escola.cep = this.retiraMascara(cep.toString());
+    }
+    this.escola.endereco = this.getValueForm(this.form, 'endereco');
+    this.escola.complemento = this.getValueForm(this.form, 'complementoEndereco');
+    this.escola.cidade = this.getValueForm(this.form, 'cidade');
+    this.escola.bairro = this.getValueForm(this.form, 'bairro');
+    this.escola.uf = this.getValueForm(this.form, 'uf');
+    this.escola.tipoLocalidade = this.getValueForm(this.form, 'tipoLocalidade');
+    const regiaoAdministrativa = this.getValueForm(this.form, 'regiaoAdministrativa');
+    if(regiaoAdministrativa) {
+      this.escola.regiaoAdministrativa = new RegiaoAdministrativa();
+      this.escola.regiaoAdministrativa.id = regiaoAdministrativa;
+    }
   }
 
   onChangeCep() {
