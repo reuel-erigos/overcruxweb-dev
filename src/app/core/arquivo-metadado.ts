@@ -6,4 +6,5 @@ export class ArquivoMetadados {
 	dtCriacao: Date;
 	hash: string
 	idInstituicao: number;
+	tipo: string;
 }

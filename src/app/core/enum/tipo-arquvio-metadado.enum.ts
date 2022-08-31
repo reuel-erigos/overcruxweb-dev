@@ -1,0 +1,6 @@
+export enum TipoAquivoMetadado {
+    CABECALHO_RELATORIO = 'CR',
+    RODAPE_RELATORIO = 'RR',
+    LOGOMARCA_INSTITUICAO = 'LI',
+    LOGOMARCA_UNIDADE = 'LU'
+}
