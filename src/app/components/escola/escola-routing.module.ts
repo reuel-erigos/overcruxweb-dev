@@ -9,8 +9,8 @@ import { CadastrarEscolaComponent } from './cadastrar-escola/cadastrar-escola.co
 
 
 const routes: Routes = [
-  {path: 'escola/cadastrar', component: CadastrarEscolaComponent,canActivate: [AuthGuard],resolve: {perfilAcesso:AcessoModuloResolver}, data:{modulo:Modulos.REGIAO_ADMINISTRATIVA} },
-  {path: 'escola', component:EscolaComponent, canActivate: [AuthGuard], resolve: {perfilAcesso:AcessoModuloResolver}, data:{modulo:Modulos.REGIAO_ADMINISTRATIVA} }
+  {path: 'escola/cadastrar', component: CadastrarEscolaComponent,canActivate: [AuthGuard],resolve: {perfilAcesso:AcessoModuloResolver}, data:{modulo:Modulos.ESCOLA} },
+  {path: 'escola', component:EscolaComponent, canActivate: [AuthGuard], resolve: {perfilAcesso:AcessoModuloResolver}, data:{modulo:Modulos.ESCOLA} }
 ];
 
 @NgModule({

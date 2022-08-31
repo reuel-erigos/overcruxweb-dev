@@ -137,6 +137,7 @@ import { MovimentacoesContabeisModule } from './components/movimentacoes-contabe
 import {BeneficilSocialModule} from './components/beneficio-social/beneficil-social.module';
 import { RegiaoAdministrativaModule } from './components/regiao-administrativa/regiao-administrativa.module';
 import { EscolaModule } from './components/escola/escola.module';
+import { ImagemModule } from './components/imagem/imagem.module';
 
 
 registerLocaleData(localePt, 'pt-BR');
@@ -266,7 +267,8 @@ registerLocaleData(localePt, 'pt-BR');
     MovimentacoesContabeisModule,
     BeneficilSocialModule,
     RegiaoAdministrativaModule,
-    EscolaModule
+    EscolaModule,
+    ImagemModule
   ],
   providers: [
     AuthGuard, UnidadeResolver, AcessoModuloResolver,

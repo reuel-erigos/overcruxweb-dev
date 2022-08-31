@@ -124,5 +124,6 @@ export enum Modulos{
     , BENEFICIOS_SOCIAIS                    = 'BENEFICIOS_SOCIAIS'
     , REGIAO_ADMINISTRATIVA                 = 'REGIAO_ADMINISTRATIVA'
     , ESCOLA                                = 'ESCOLA'
+    , IMAGEM                                = 'IMAGEM'
 
 }

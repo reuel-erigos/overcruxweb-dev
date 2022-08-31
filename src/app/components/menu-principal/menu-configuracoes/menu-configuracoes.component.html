@@ -25,6 +25,9 @@
         <!-- MODULO DA UNIDADE -->
         <sub-menu *ngIf="verificaAcesso(getModulos().GRUPO_MODULO)" icone="view_module" titulo="Módulos da Unidade" rota="grupomodulo" toolTip="Módulos da Unidade"></sub-menu>
 
+        <!-- MODULO DA UNIDADE -->
+        <sub-menu *ngIf="verificaAcesso(getModulos().GRUPO_MODULO)" icone="image" titulo="Imagens" rota="imagem" toolTip="Imagens"></sub-menu>
+
         <!-- ALTERAR SENHA -->
         <sub-menu *ngIf="verificaAcesso(getModulos().ALTERAR_SENHA)" icone="cached" titulo="Alterar Senha" rota="novasenha" toolTip="Alterar Senha"></sub-menu>
 
