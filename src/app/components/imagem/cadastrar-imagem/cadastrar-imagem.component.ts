@@ -9,6 +9,8 @@ import { ArquivoMetadados } from '../../../core/arquivo-metadado';
 import { DisplayConfig, ImageData } from '@creativeacer/ngx-image-display';
 import { ArquivoInstituicaoService } from '../../../services/arquivo/arquivo-instituicao.service';
 import { TipoAquivoMetadado } from '../../../core/enum/tipo-arquivo-metadado.enum';
+import { FileUtils } from '../../../utils/file-utils';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-cadastrar-imagem',
@@ -24,7 +26,7 @@ export class CadastrarImagemComponent extends BaseComponent implements OnInit {
   isAtualizar: boolean = false;
 
   perfilAcesso: Acesso = new Acesso();
-  carregarPerfil: CarregarPerfil  = new CarregarPerfil();
+  carregarPerfil: CarregarPerfil = new CarregarPerfil();
 
   mostrarBotaoCadastrar = true
   mostrarBotaoAtualizar = true;
@@ -36,14 +38,15 @@ export class CadastrarImagemComponent extends BaseComponent implements OnInit {
 
   images: Array<ImageData> = [];
   displayconfig: DisplayConfig;
-  
+
 
   constructor(
     protected formBuilder: FormBuilder,
     private arquivoInstituicaoService: ArquivoInstituicaoService,
     private activatedRoute: ActivatedRoute,
-    private router:Router,
-    private toastService:ToastService
+    private router: Router,
+    private toastService: ToastService,
+    private fileUtils: FileUtils
   ) {
     super();
     this.displayconfig = {
@@ -60,23 +63,34 @@ export class CadastrarImagemComponent extends BaseComponent implements OnInit {
 
     this.carregarPerfil.carregar(this.activatedRoute.snapshot.data.perfilAcesso, this.perfilAcesso);
 
-    if(!this.perfilAcesso.insere){
+    if (!this.perfilAcesso.insere) {
       this.mostrarBotaoCadastrar = false;
     }
-    
-    if(!this.perfilAcesso.altera){
+
+    if (!this.perfilAcesso.altera) {
       this.mostrarBotaoAtualizar = false;
     }
 
     let idImagem: number;
     idImagem = this.activatedRoute.snapshot.queryParams.id ? this.activatedRoute.snapshot.queryParams.id : null;
-    // if (idImagem) {
-    //   this.isAtualizar = true;
-    //   this.escolaService.getById(idImagem).subscribe((escola: Escola) => {
-    //     this.escola = escola
-    //     this.pupularForm();
-    //   });
-    // }
+    if (idImagem) {
+      this.isAtualizar = true;
+      this.arquivoInstituicaoService.getById(idImagem).subscribe((arquivo: any) => {
+        this.setValue(this.form, 'tipo', arquivo.metadados.tipo);
+        this.getControl(this.form, 'tipo').disable();
+      });
+      this.arquivoInstituicaoService.getBytePorIdArquivo(idImagem).subscribe((foto: any) => {
+        foto = this.fileUtils.convertBufferArrayToBase64(foto);
+        this.urlFoto = foto ? foto.changingThisBreaksApplicationSecurity : '';
+        this.images = [];
+        this.images.push({
+          type: 'base64',
+          imageData: {
+            value: this.urlFoto
+          }
+        })
+      });
+    }
   }
 
   private createForm(): void {
@@ -86,17 +100,17 @@ export class CadastrarImagemComponent extends BaseComponent implements OnInit {
   }
 
 
-  mostrarBotaoLimpar(){
-    if(this.isAtualizar) return false;
-    if(!this.mostrarBotaoAtualizar) return false;
-    if(!this.mostrarBotaoCadastrar) return false;
+  mostrarBotaoLimpar() {
+    if (this.isAtualizar) return false;
+    if (!this.mostrarBotaoAtualizar) return false;
+    if (!this.mostrarBotaoCadastrar) return false;
 
     return true;
   }
-  
+
   cadastrar() {
     const tipo = this.getValueForm(this.form, 'tipo');
-    if(!this.foto) {
+    if (!this.foto) {
       this.toastService.showAlerta("Necessário realizar o upload de uma imagem.")
       return;
     }
@@ -114,13 +128,6 @@ export class CadastrarImagemComponent extends BaseComponent implements OnInit {
 
   cancelar() {
     this.router.navigate(['imagem']);
-  }
-
-  atualizar() {
-    // this.escolaService.alterar(this.escola).subscribe(() => {
-    //   this.router.navigate(['escola']);
-    //   this.toastService.showSucesso("Escola atualizada com sucesso");
-    // });
   }
 
   getBackground() {

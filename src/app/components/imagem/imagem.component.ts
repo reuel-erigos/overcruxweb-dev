@@ -91,6 +91,10 @@ export class ImagemComponent extends BaseComponent implements OnInit {
     this.consultarImagens(pageInfo);
   }
 
+  atualizar(imagem: ArquivoMetadados) {
+    this.router.navigate(['/imagem/cadastrar'], { queryParams: { id: imagem.id } });
+  }
+
 
   deletar(imagem: ArquivoMetadados) {
     this.chamaCaixaDialogo(imagem);
@@ -107,9 +111,9 @@ export class ImagemComponent extends BaseComponent implements OnInit {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(confirma => {
       if (confirma) {
-        // this.arquivoInstituicaoService.excluir(imagem.id).subscribe(() => {
-        //   this.consultar();
-        // });
+        this.arquivoInstituicaoService.excluir(imagem.id).subscribe(() => {
+          this.consultar();
+        });
       } else {
         dialogRef.close();
       }

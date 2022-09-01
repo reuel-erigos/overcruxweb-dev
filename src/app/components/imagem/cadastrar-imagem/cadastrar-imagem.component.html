@@ -12,7 +12,7 @@
                                         </mat-option>
                                 </mat-select>
                         </mat-form-field>
-                        <button matTooltip="Adicionar imagem" mat-fab color="primary" (click)="uploadFile.click()">
+                        <button matTooltip="Adicionar imagem" mat-fab color="primary" (click)="uploadFile.click()" *ngIf="!isAtualizar">
                                 <mat-icon>add</mat-icon>
                         </button>
                         <input #uploadFile type="file" style="display:none;" (change)="fileChangeEvent($event)" />
@@ -31,12 +31,7 @@
                                 Cadastrar
                         </button>
 
-                        <button *ngIf="isAtualizar && mostrarBotaoAtualizar" mat-raised-button name="botaoConfirmar"
-                                fxFlex="20%" color="primary" [disabled]="form.invalid" (click)="atualizar()">
-                                Atualizar
-                        </button>
-
-                        <button *ngIf="mostrarBotaoLimpar()" mat-raised-button fxFlex="20%" (click)="limpar()">
+                        <button *ngIf="!isAtualizar" mat-raised-button fxFlex="20%" (click)="limpar()" >
                                 Limpar
                         </button>
                         <button mat-raised-button fxFlex="20%" (click)="cancelar()">

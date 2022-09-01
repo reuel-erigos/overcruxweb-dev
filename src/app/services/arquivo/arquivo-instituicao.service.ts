@@ -53,12 +53,24 @@ export class ArquivoInstituicaoService {
     return this.http.get(rootPath + `${id}`, httpOptions);
   }
 
+  getById(id: number) {
+    return this.http.get(rootPath + `id/${id}`);
+  }
+
+  getBytePorIdArquivo(id: number) {
+    return this.http.get(rootPath + `byte/arquivo/${id}`, httpOptions);
+  }
+
   listFilteredAndPaged(pageInfo: PageInfo, filtro: FiltroArquivo) {
     return this.http.post(
       rootPath + 'paged/filtro', 
       JSON.stringify(filtro),
       this.headersWithPagination(pageInfo)
     );
+  }
+
+  excluir(id: number) {
+    return this.http.delete(rootPath +`${id}`);
   }
 
   private headersWithPagination(pageInfo: PageInfo) {

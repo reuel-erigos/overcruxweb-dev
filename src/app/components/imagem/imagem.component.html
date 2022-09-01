@@ -29,6 +29,9 @@
                     <button *ngIf="perfilAcesso.deleta"  mat-button (click)="deletar(element)">
                         <mat-icon>delete</mat-icon>
                     </button>
+                    <button *ngIf="perfilAcesso.consulta" mat-button (click)="atualizar(element)">
+                        <mat-icon>search</mat-icon>
+                    </button>
                 </td>
             </ng-container>
 
