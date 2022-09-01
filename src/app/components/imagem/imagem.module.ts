@@ -7,6 +7,7 @@ import { ImagemComponent } from './imagem.component';
 import { ImagemRoutingModule } from './imagem-routing.module';
 import { CadastrarImagemComponent } from './cadastrar-imagem/cadastrar-imagem.component';
 import { NgxImageDisplayModule } from '@creativeacer/ngx-image-display';
+import { SharedPipesModule } from '../../pipes/shared-pipes.module';
 
 
 @NgModule({
@@ -16,6 +17,7 @@ import { NgxImageDisplayModule } from '@creativeacer/ngx-image-display';
     ImagemRoutingModule,
     MaterialCommonModule,
     MatExpansionModule,
+    SharedPipesModule,
     NgxImageDisplayModule.forRoot()
   ]
 })

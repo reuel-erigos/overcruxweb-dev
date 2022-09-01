@@ -43,16 +43,10 @@ export class ArquivoInstituicaoService {
     return this.http.put(`${rootPath}/instituicao/${id}`, formData);
   }
 
-  gravarComIdInstituicaoTipo(file: File, id: number, tipo: string) {
+  gravarComIdInstituicaoTipo(file: File, tipo: string) {
     const formData = new FormData();
     formData.append('file', file);
-    return this.http.post(`${rootPath}/instituicao/${id}/${tipo}`, formData);
-  }
-
-  alterarComIdInstituicaoTipo(file: File, id: number, tipo: string) {
-    const formData = new FormData();
-    formData.append('file', file);
-    return this.http.put(`${rootPath}/instituicao/${id}/${tipo}`, formData);
+    return this.http.post(`${rootPath}/instituicao/tipo/${tipo}`, formData);
   }
 
   get(id: number) {

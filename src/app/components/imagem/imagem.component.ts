@@ -10,13 +10,13 @@ import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.
 import * as _ from 'lodash';
 import { CarregarPerfil } from 'src/app/core/carregar-perfil';
 import { BaseComponent } from '../../architeture/base/base.component';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { ToastService } from '../../services/toast/toast.service';
 import { PageInfo } from '../../core/page-info';
 import { ArquivoMetadados } from '../../core/arquivo-metadado';
 import { ArquivoInstituicaoService } from '../../services/arquivo/arquivo-instituicao.service';
 import { FiltroArquivo } from '../../core/filtro/filtro-arquivo';
-import { TipoAquivoMetadado } from '../../core/enum/tipo-arquvio-metadado.enum';
+import { TipoAquivoMetadado } from '../../core/enum/tipo-arquivo-metadado.enum';
 
 
 @Component({
