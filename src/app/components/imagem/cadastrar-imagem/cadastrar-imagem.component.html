@@ -1,0 +1,49 @@
+<mat-toolbar class="subtitulo">Imagem</mat-toolbar>
+
+<div class="painel-principal" style="padding: 10px;">
+        <form [formGroup]="form" role="form">
+                <div fxLayout="row" class="espaco" fxLayoutGap="20px" style="margin-top: 10px; margin-bottom: 10px"
+                        fxFlexFill>
+                        <mat-form-field fxFlexOffset="20px" fxFlex="15%">
+                                <mat-label>Tipo da Imagem:</mat-label>
+                                <mat-select formControlName="tipo" name="tipo">
+                                        <mat-option *ngFor="let m of tipoImagemList" [value]="m.flag">
+                                                {{m.tipo}}
+                                        </mat-option>
+                                </mat-select>
+                        </mat-form-field>
+                </div>
+                <div fxLayout="row" class="espaco" fxLayoutGap="20px" style="margin-top: 10px; margin-bottom: 10px"
+                        fxFlexFill>
+                        <button name="fotoPerfil" class="botao" (click)="uploadFile.click()"
+                                [style.background-image]="getBackground()" style="width: 1100px; height: 177px;">
+                                <mat-icon class="nao-foto"></mat-icon>
+                        </button>
+                        <input #uploadFile type="file" style="display:none;" (change)="fileChangeEvent($event)" />
+                </div>
+
+                <!-- BOTOES -->
+                <div dir="rtl" fxLayoutGap="20px" style="padding-top: 20px; padding-bottom: 10px; padding-right: 20px"
+                        fxFlexFill>
+                        <button *ngIf="!isAtualizar && mostrarBotaoCadastrar" mat-raised-button name="botaoConfirmar"
+                                fxFlex="20%" color="primary" [disabled]="form.invalid" (click)="cadastrar()">
+                                Cadastrar
+                        </button>
+
+                        <button *ngIf="isAtualizar && mostrarBotaoAtualizar" mat-raised-button name="botaoConfirmar"
+                                fxFlex="20%" color="primary" [disabled]="form.invalid" (click)="atualizar()">
+                                Atualizar
+                        </button>
+
+                        <button *ngIf="mostrarBotaoLimpar()" mat-raised-button fxFlex="20%" (click)="limpar()">
+                                Limpar
+                        </button>
+                        <button mat-raised-button fxFlex="20%" (click)="cancelar()">
+                                Cancelar
+                        </button>
+
+                </div>
+        </form>
+
+
+</div>

@@ -5,10 +5,11 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MaterialCommonModule } from 'src/app/material-modules/material-common.module';
 import { ImagemComponent } from './imagem.component';
 import { ImagemRoutingModule } from './imagem-routing.module';
+import { CadastrarImagemComponent } from './cadastrar-imagem/cadastrar-imagem.component';
 
 
 @NgModule({
-  declarations: [ImagemComponent],
+  declarations: [ImagemComponent, CadastrarImagemComponent],
   imports: [
     CommonModule,
     ImagemRoutingModule,

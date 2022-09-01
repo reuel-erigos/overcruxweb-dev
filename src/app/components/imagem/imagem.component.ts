@@ -15,6 +15,8 @@ import { ToastService } from '../../services/toast/toast.service';
 import { PageInfo } from '../../core/page-info';
 import { ArquivoMetadados } from '../../core/arquivo-metadado';
 import { ArquivoInstituicaoService } from '../../services/arquivo/arquivo-instituicao.service';
+import { FiltroArquivo } from '../../core/filtro/filtro-arquivo';
+import { TipoAquivoMetadado } from '../../core/enum/tipo-arquvio-metadado.enum';
 
 
 @Component({
@@ -70,12 +72,13 @@ export class ImagemComponent extends BaseComponent implements OnInit {
   }
 
   private consultarImagens(pageInfo: PageInfo) {
-    this.verificaMostrarTabela([]);
-    // this.imagemService.listFilteredAndPaged(pageInfo, filtro)
-    //   .subscribe((resp: any) => {
-    //     this.numberItens = resp.totalElements;
-    //     this.verificaMostrarTabela(resp.content);
-    //   });
+    const filtro = new FiltroArquivo();
+    filtro.tipos = [TipoAquivoMetadado.CABECALHO_RELATORIO, TipoAquivoMetadado.RODAPE_RELATORIO]
+    this.arquivoInstituicaoService.listFilteredAndPaged(pageInfo, filtro)
+      .subscribe((resp: any) => {
+        this.numberItens = resp.totalElements;
+        this.verificaMostrarTabela(resp.content);
+      });
   }
 
 
@@ -104,7 +107,7 @@ export class ImagemComponent extends BaseComponent implements OnInit {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe(confirma => {
       if (confirma) {
-        // this.imagemService.excluir(imagem.id).subscribe(() => {
+        // this.arquivoInstituicaoService.excluir(imagem.id).subscribe(() => {
         //   this.consultar();
         // });
       } else {
