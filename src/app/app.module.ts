@@ -125,7 +125,6 @@ import { ComboPesquisavelModule } from './components/common/combo-pesquisavel/co
 import { ConciliacaoModule } from './components/conciliacao/conciliacao.module';
 import { ProvisionamentoModule } from './components/provisionamento/provisionamento.module';
 import { ExportarDadosAlunoModule } from './components/relatorios/exportar-dados-aluno/exportar-dados-aluno.module';
-import { SituacaoExAlunoComponent } from './components/situacao-ex-aluno/situacao-ex-aluno.component';
 import { TiposPublicoPrioritarioModule } from './components/tipos-publico-prioritario/tipos-publico-prioritario.module';
 import { DoadoresModule } from './components/doadores/doadores.module';
 import { RelatoriosBeneficiariosModule } from './components/relatorios/relatorios-beneficiarios/relatorios-beneficiarios.module';
@@ -138,7 +137,7 @@ import {BeneficilSocialModule} from './components/beneficio-social/beneficil-soc
 import { RegiaoAdministrativaModule } from './components/regiao-administrativa/regiao-administrativa.module';
 import { EscolaModule } from './components/escola/escola.module';
 import { ImagemModule } from './components/imagem/imagem.module';
-
+import { NgxImageDisplayModule } from '@creativeacer/ngx-image-display';
 
 registerLocaleData(localePt, 'pt-BR');
 @NgModule({
@@ -268,7 +267,8 @@ registerLocaleData(localePt, 'pt-BR');
     BeneficilSocialModule,
     RegiaoAdministrativaModule,
     EscolaModule,
-    ImagemModule
+    ImagemModule,
+    NgxImageDisplayModule.forRoot()
   ],
   providers: [
     AuthGuard, UnidadeResolver, AcessoModuloResolver,

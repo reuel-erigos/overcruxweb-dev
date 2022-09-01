@@ -32,6 +32,7 @@
     "@angular/platform-browser": "12.2.16",
     "@angular/platform-browser-dynamic": "12.2.16",
     "@angular/router": "12.2.16",
+    "@creativeacer/ngx-image-display": "^1.0.12",
     "@types/ckeditor": "^4.9.10",
     "@types/jwt-decode": "^2.2.1",
     "@types/mocha": "^5.2.7",

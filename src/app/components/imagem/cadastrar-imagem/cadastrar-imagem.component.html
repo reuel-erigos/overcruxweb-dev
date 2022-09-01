@@ -12,14 +12,15 @@
                                         </mat-option>
                                 </mat-select>
                         </mat-form-field>
-                </div>
-                <div fxLayout="row" class="espaco" fxLayoutGap="20px" style="margin-top: 10px; margin-bottom: 10px"
-                        fxFlexFill>
-                        <button name="fotoPerfil" class="botao" (click)="uploadFile.click()"
-                                [style.background-image]="getBackground()" style="width: 1100px; height: 177px;">
-                                <mat-icon class="nao-foto"></mat-icon>
+                        <button matTooltip="Adicionar imagem" mat-fab color="primary" (click)="uploadFile.click()">
+                                <mat-icon>add</mat-icon>
                         </button>
                         <input #uploadFile type="file" style="display:none;" (change)="fileChangeEvent($event)" />
+                </div>
+                <br/>
+                <div fxLayout="row" class="espaco" fxLayoutGap="20px" style="margin-top: 10px; margin-bottom: 10px"
+                        fxFlexFill>
+                        <ngx-image-display [images]="images" [displayconfig]="displayconfig" style="width: 100%;"></ngx-image-display>
                 </div>
 
                 <!-- BOTOES -->

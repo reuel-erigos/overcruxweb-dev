@@ -6,6 +6,7 @@ import { MaterialCommonModule } from 'src/app/material-modules/material-common.m
 import { ImagemComponent } from './imagem.component';
 import { ImagemRoutingModule } from './imagem-routing.module';
 import { CadastrarImagemComponent } from './cadastrar-imagem/cadastrar-imagem.component';
+import { NgxImageDisplayModule } from '@creativeacer/ngx-image-display';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { CadastrarImagemComponent } from './cadastrar-imagem/cadastrar-imagem.co
     CommonModule,
     ImagemRoutingModule,
     MaterialCommonModule,
-    MatExpansionModule
+    MatExpansionModule,
+    NgxImageDisplayModule.forRoot()
   ]
 })
 export class ImagemModule { }

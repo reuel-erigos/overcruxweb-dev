@@ -12,6 +12,7 @@ import { RegiaoAdministrativa } from '../../../core/regiao-administrativa';
 import { RegiaoAdministrativaService } from '../../../services/regiao-administrativa/regiao-administrativa.service';
 import { TipoAquivoMetadado } from '../../../core/enum/tipo-arquvio-metadado.enum';
 import { ArquivoMetadados } from '../../../core/arquivo-metadado';
+import { DisplayConfig, ImageData } from '@creativeacer/ngx-image-display';
 
 @Component({
   selector: 'app-cadastrar-imagem',
@@ -36,6 +37,10 @@ export class CadastrarImagemComponent extends BaseComponent implements OnInit {
     { tipo: 'Rodapé', flag: TipoAquivoMetadado.RODAPE_RELATORIO }
   ];
 
+  images: Array<ImageData> = [];
+  displayconfig: DisplayConfig;
+  
+
   constructor(
     protected formBuilder: FormBuilder,
     private escolaService: EscolaService,
@@ -46,6 +51,12 @@ export class CadastrarImagemComponent extends BaseComponent implements OnInit {
     private toastService:ToastService
   ) {
     super();
+    this.displayconfig = {
+      imageminwidth: '250px',
+      containerwidth: '80%',
+      containerheight: '500px',
+      fullScreenView: false
+    };
   }
 
 
@@ -166,6 +177,13 @@ export class CadastrarImagemComponent extends BaseComponent implements OnInit {
 
     myReader.onloadend = (e) => {
       this.urlFoto = myReader.result;
+      this.images = [];
+      this.images.push({
+        type: 'base64',
+        imageData: {
+          value: this.urlFoto,
+        }
+      })
     }
     myReader.readAsDataURL(file);
   }
