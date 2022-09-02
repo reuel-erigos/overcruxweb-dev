@@ -9,8 +9,8 @@ import { CadastrarImagemComponent } from './cadastrar-imagem/cadastrar-imagem.co
 
 
 const routes: Routes = [
-  {path: 'imagem/cadastrar', component: CadastrarImagemComponent,canActivate: [AuthGuard],resolve: {perfilAcesso:AcessoModuloResolver}, data:{modulo:Modulos.REGIAO_ADMINISTRATIVA} },
-  {path: 'imagem', component:ImagemComponent, canActivate: [AuthGuard], resolve: {perfilAcesso:AcessoModuloResolver}, data:{modulo:Modulos.REGIAO_ADMINISTRATIVA} }
+  {path: 'imagem/cadastrar', component: CadastrarImagemComponent,canActivate: [AuthGuard],resolve: {perfilAcesso:AcessoModuloResolver}, data:{modulo:Modulos.IMAGEM} },
+  {path: 'imagem', component:ImagemComponent, canActivate: [AuthGuard], resolve: {perfilAcesso:AcessoModuloResolver}, data:{modulo:Modulos.IMAGEM} }
 ];
 
 @NgModule({
