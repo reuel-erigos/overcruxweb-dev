@@ -122,5 +122,8 @@ export enum Modulos{
     , RELATORIO_FINANCEIRO                  = 'RELATORIO_FINANCEIRO'
     , MOVIMENTACOES_CONTABIES               = 'MOVIMENTACOES_CONTABIES'
     , BENEFICIOS_SOCIAIS                    = 'BENEFICIOS_SOCIAIS'
+    , REGIAO_ADMINISTRATIVA                 = 'REGIAO_ADMINISTRATIVA'
+    , ESCOLA                                = 'ESCOLA'
+    , IMAGEM                                = 'IMAGEM'
 
 }

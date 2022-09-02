@@ -1,4 +1,3 @@
-import { Fatura } from './fatura';
 export enum Rotas {
     DEPARTAMENTO                    = 'api/departamento/',
     ALUNO_TRABALHANDO               = 'api/alunostrabalhando/',
@@ -86,4 +85,5 @@ export enum Rotas {
     MOVIMENTACOES_CONTABEIS         = 'api/movimentacoescontabeis/',
     ESCOLA                          = 'api/escola/',
     SERIE_ESCOLAR                   = 'api/serieescolar/',
+    REGIAO_ADMINISTRATIVA           = 'api/regiaoadministrativa/',
 }

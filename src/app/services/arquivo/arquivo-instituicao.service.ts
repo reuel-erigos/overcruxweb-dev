@@ -1,6 +1,10 @@
 import { Cacheable } from 'ngx-cacheable';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { ArquivoMetadados } from '../../core/arquivo-metadado';
+import { BaseService } from '../base/base.service';
+import { PageInfo } from '../../core/page-info';
+import { FiltroArquivo } from '../../core/filtro/filtro-arquivo';
 
 const rootPath = 'api/arquivoinstituicao/';
 
@@ -39,8 +43,42 @@ export class ArquivoInstituicaoService {
     return this.http.put(`${rootPath}/instituicao/${id}`, formData);
   }
 
+  gravarComIdInstituicaoTipo(file: File, tipo: string) {
+    const formData = new FormData();
+    formData.append('file', file);
+    return this.http.post(`${rootPath}/instituicao/tipo/${tipo}`, formData);
+  }
+
   get(id: number) {
     return this.http.get(rootPath + `${id}`, httpOptions);
+  }
+
+  getById(id: number) {
+    return this.http.get(rootPath + `id/${id}`);
+  }
+
+  getBytePorIdArquivo(id: number) {
+    return this.http.get(rootPath + `byte/arquivo/${id}`, httpOptions);
+  }
+
+  listFilteredAndPaged(pageInfo: PageInfo, filtro: FiltroArquivo) {
+    return this.http.post(
+      rootPath + 'paged/filtro', 
+      JSON.stringify(filtro),
+      this.headersWithPagination(pageInfo)
+    );
+  }
+
+  excluir(id: number) {
+    return this.http.delete(rootPath +`${id}`);
+  }
+
+  private headersWithPagination(pageInfo: PageInfo) {
+    return {headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      'page': pageInfo.actualPage.toString(),
+      'pageSize': pageInfo.pageSize.toString(),
+    })};
   }
 }
 

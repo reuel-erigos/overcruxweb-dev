@@ -1,0 +1,150 @@
+<mat-toolbar class="subtitulo">Escola</mat-toolbar>
+
+<div class="painel-principal" style="padding: 10px;">
+        <form [formGroup]="form" role="form">
+                <mat-toolbar class="titulopartes">Dados Gerais</mat-toolbar>
+                <div fxLayout="row" style="margin-bottom: 20px" class="espaco" fxLayoutAlign="start start"
+                        fxLayoutGap="20px" fxFlexFill>
+                        <mat-form-field fxFlexOffset="20px" fxFlex="15%">
+                                <input matInput name="codigo" placeholder="Código:" formControlName="codigo">
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="35%">
+                                <input matInput maxlength="100" name="nome" placeholder="Nome:" formControlName="nome">
+                        </mat-form-field>
+
+                        <mat-form-field fxFlexOffset="20px" fxFlex="15%">
+                                <mat-label>Tipo:</mat-label>
+                                <mat-select formControlName="tipo" name="tipo">
+                                        <mat-option *ngFor="let m of tipoEscolaList" [value]="m.flag">
+                                                {{m.tipo}}
+                                        </mat-option>
+                                </mat-select>
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="35%">
+                                <input matInput maxlength="100" name="etapaEnsino" placeholder="Etapa do Ensino:"
+                                        formControlName="etapaEnsino">
+                        </mat-form-field>
+                </div>
+                <mat-toolbar class="titulopartes">Contato</mat-toolbar>
+                <div fxLayout="row" style="margin-bottom: 20px" class="espaco" fxLayoutAlign="start start"
+                        fxLayoutGap="20px" fxFlexFill>
+                        <div fxLayout="row" fxLayoutGap="30px" fxFlexFill>
+                                <mat-form-field fxFlexOffset="20px" fxFlex="10%">
+                                        <input matInput formControlName="telefone" name="telefone"
+                                                placeholder="Telefone:" [textMask]="{mask: maskPhone}"
+                                                pattern="^(?:\(?([1-9][0-9])\)?\s?)?(?:((?:9\d|[2-9])\d{3})\-?(\d{4}))$">
+                                </mat-form-field>
+
+                                <mat-form-field fxFlex="10%">
+                                        <input matInput formControlName="celular" name="celular" placeholder="Celular:"
+                                                [textMask]="{mask: maskCelular}"
+                                                pattern="^(?:\(?([1-9][0-9])\)?\s?)?(?:((?:9\d|[2-9])\d{3})\-?(\d{4}))$">
+                                </mat-form-field>
+
+                                <mat-form-field fxFlexOffset="20px" fxFlex="40%">
+                                        <input maxlength="200" matInput formControlName="email" type="email"
+                                                name="email" placeholder="Email:">
+                                </mat-form-field>
+
+                                <mat-form-field fxFlexOffset="20px" fxFlex="40%">
+                                        <input maxlength="200" matInput formControlName="homePage" type="homePage"
+                                                name="homePage" placeholder="Home Page:">
+                                </mat-form-field>
+                        </div>
+                </div>
+                <mat-toolbar class="titulopartes">Endereço</mat-toolbar>
+                <div fxLayout="row" class="espaco" fxLayoutGap="20px" style="margin-top: 10px; margin-bottom: 10px"
+                        fxFlexFill>
+
+                        <mat-form-field fxFlex="15%" fxFlexOffset="20px">
+                                <input type="text" matInput formControlName="cep" name="cep" placeholder="CEP:"
+                                        (change)="onChangeCep()" [textMask]="{mask: maskCep}"
+                                        pattern="^\d{2}\.?\d{3}-?\d{3}$" />
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="45%">
+                                <input #campoEndereco matInput maxlength="200" formControlName="endereco"
+                                        name="endereco" placeholder="Endereço:">
+                                <mat-hint align="end">{{campoEndereco.value.length}} / 200</mat-hint>
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="40%">
+                                <input #campoComplementoEndereco matInput maxlength="100"
+                                        formControlName="complementoEndereco" name="complementoEndereco"
+                                        placeholder="Complemento:">
+                                <mat-hint align="end">{{campoComplementoEndereco.value.length}} / 100</mat-hint>
+                        </mat-form-field>
+
+                </div>
+
+                <div fxLayout="row" class="espaco" fxLayoutGap="20px" style="margin-top: 10px; margin-bottom: 10px"
+                        fxFlexFill>
+
+                        <mat-form-field fxFlex="45%" fxFlexOffset="20px">
+                                <input #campoCidade matInput maxlength="200" formControlName="cidade"
+                                        name="cidade" placeholder="Cidade:">
+                                <mat-hint align="end">{{campoCidade.value.length}} / 200</mat-hint>
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="45%" style="padding-right: 20px">
+                                <input #campoBairro matInput maxlength="200" formControlName="bairro"
+                                        name="bairro" placeholder="Bairro:">
+                                <mat-hint align="end">{{campoBairro.value.length}} / 200</mat-hint>
+                        </mat-form-field>
+
+                        <mat-form-field fxFlex="10%">
+                                <mat-label>UF:</mat-label>
+                                <mat-select name="uf" formControlName="uf">
+                                        <mat-option *ngFor="let e of ufs" [value]="e">
+                                                {{e}}
+                                        </mat-option>
+                                </mat-select>
+                        </mat-form-field>
+                </div>
+                <div fxLayout="row" class="espaco" fxLayoutGap="20px" style="margin-top: 10px; margin-bottom: 10px"
+                        fxFlexFill>
+                        <mat-form-field fxFlexOffset="20px" fxFlex="15%">
+                                <mat-label>Tipo da Localidade:</mat-label>
+                                <mat-select formControlName="tipoLocalidade" name="tipoLocalidade">
+                                        <mat-option *ngFor="let m of tipoLocalidadeList" [value]="m.flag">
+                                                {{m.tipo}}
+                                        </mat-option>
+                                </mat-select>
+                        </mat-form-field>
+                        <mat-form-field fxFlex="15%">
+                                <mat-label>Região Administrativa:</mat-label>
+                                <mat-select name="regiaoAdministrativa" formControlName="regiaoAdministrativa">
+                                        <mat-option *ngFor="let e of regioesAdministrativas" [value]="e.id">
+                                                {{e.nome}}
+                                        </mat-option>
+                                </mat-select>
+                        </mat-form-field>
+                </div>
+
+                <!-- BOTOES -->
+                <div dir="rtl" fxLayoutGap="20px" style="padding-top: 20px; padding-bottom: 10px; padding-right: 20px"
+                        fxFlexFill>
+                        <button *ngIf="!isAtualizar && mostrarBotaoCadastrar" mat-raised-button name="botaoConfirmar"
+                                fxFlex="20%" color="primary" [disabled]="form.invalid" (click)="cadastrar()">
+                                Cadastrar
+                        </button>
+
+                        <button *ngIf="isAtualizar && mostrarBotaoAtualizar" mat-raised-button name="botaoConfirmar"
+                                fxFlex="20%" color="primary" [disabled]="form.invalid" (click)="atualizar()">
+                                Atualizar
+                        </button>
+
+                        <button *ngIf="mostrarBotaoLimpar()" mat-raised-button fxFlex="20%" (click)="limpar()">
+                                Limpar
+                        </button>
+                        <button mat-raised-button fxFlex="20%" (click)="cancelar()">
+                                Cancelar
+                        </button>
+
+                </div>
+        </form>
+
+
+</div>

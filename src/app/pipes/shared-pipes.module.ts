@@ -9,6 +9,8 @@ import { HighlightPipe } from './highlight.pipe';
 import { DataComHoraPipe } from './data-com-hora.pipe';
 import { BytesPipe } from './bytes/bytes.pipe';
 import { SimNaoPipe } from './sim-nao.pipe';
+import { TipoEscolaPipe } from './tipo-escola.pipe';
+import { TipoArquivoMetadadoPipe } from './tipo-arquivo-metadado.pipe';
 
 
 
@@ -21,7 +23,9 @@ import { SimNaoPipe } from './sim-nao.pipe';
                  DataComHoraPipe,  
                  OrderByPipe,
                  SimNaoPipe,
-                 BytesPipe],
+                 BytesPipe,
+                 TipoEscolaPipe,
+                 TipoArquivoMetadadoPipe],
   imports: [
     CommonModule
   ],
@@ -33,6 +37,8 @@ import { SimNaoPipe } from './sim-nao.pipe';
            DataComHoraPipe, 
            CpfPipe,
            SimNaoPipe,
-           BytesPipe]
+           BytesPipe,
+           TipoEscolaPipe,
+           TipoArquivoMetadadoPipe]
 })
 export class SharedPipesModule { }

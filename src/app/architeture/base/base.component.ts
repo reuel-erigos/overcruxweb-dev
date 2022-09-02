@@ -92,4 +92,8 @@ export abstract class BaseComponent{
     obj.target.value = val;
   }
 
+  retiraMascara(objeto) {
+    return objeto.replace(/\D/g, '');
+  }
+
 }

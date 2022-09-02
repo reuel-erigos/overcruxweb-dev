@@ -2,26 +2,22 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BaseService } from '../base/base.service';
 import { Rotas } from 'src/app/core/rotas';
-import { Escola } from '../../core/escola';
+import { RegiaoAdministrativa } from '../../core/regiao-administrativa';
 import { PageInfo } from '../../core/page-info';
-import { FiltroEscola } from '../../core/filtro/filtro-escola';
+import { FiltroRegiaoAdministrativa } from '../../core/filtro/filtro-regiao-administrativa';
 
 @Injectable({
   providedIn: 'root'
 })
-export class EscolaService extends BaseService<Escola> {
+export class RegiaoAdministrativaService extends BaseService<RegiaoAdministrativa> {
 
   constructor(http: HttpClient) {
-    super(http, Rotas.ESCOLA);
+    super(http, Rotas.REGIAO_ADMINISTRATIVA);
   }
 
-  getAllEscolasByCombo(tipo: string) {
-    return this.http.get(`${Rotas.ESCOLA}dados/combo/${tipo}`);
-  }
-
-  listFilteredAndPaged(pageInfo: PageInfo, filtro: FiltroEscola) {
+  listFilteredAndPaged(pageInfo: PageInfo, filtro: FiltroRegiaoAdministrativa) {
     return this.http.post(
-      Rotas.ESCOLA + 'paged/filtro', 
+      Rotas.REGIAO_ADMINISTRATIVA + 'paged/filtro', 
       JSON.stringify(filtro),
       this.headersWithPagination(pageInfo)
     );
