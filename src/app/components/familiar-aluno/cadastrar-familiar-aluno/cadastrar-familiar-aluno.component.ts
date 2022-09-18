@@ -19,6 +19,7 @@ import { CondicoesMoradia } from 'src/app/core/condicoes-moradia';
 import { Acesso } from 'src/app/core/acesso';
 import { BroadcastEventService } from 'src/app/services/broadcast-event/broadcast-event.service';
 import { CondicoesMoradiaService } from 'src/app/services/condicoes-moradia/condicoes-moradia.service';
+import { SerieEscolar } from '../../../core/serie-escolar';
 
 @Component({
   selector: 'app-cadastrar-familiar-aluno',
@@ -50,6 +51,7 @@ export class CadastrarFamiliarAlunoComponent implements OnInit {
     this.familiar.pessoasFisica = new PessoaFisica();
     this.familiar.pessoasFisica.grausInstrucao = new GrausInstrucao();
     this.familiar.pessoasFisica.condicoesMoradia = new CondicoesMoradia();
+    this.familiar.pessoasFisica.serieEscolar = new SerieEscolar();
     this.familiar.responsaveis = [];
     this.familiar.vulnerabilidades = [];
 
