@@ -20,6 +20,7 @@ import { Acesso } from 'src/app/core/acesso';
 import { BroadcastEventService } from 'src/app/services/broadcast-event/broadcast-event.service';
 import { CondicoesMoradiaService } from 'src/app/services/condicoes-moradia/condicoes-moradia.service';
 import { SerieEscolar } from '../../../core/serie-escolar';
+import { GrausParentesco } from '../../../core/graus-parentesco';
 
 @Component({
   selector: 'app-cadastrar-familiar-aluno',
@@ -48,6 +49,7 @@ export class CadastrarFamiliarAlunoComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.familiar.grauParentesco = new GrausParentesco();
     this.familiar.pessoasFisica = new PessoaFisica();
     this.familiar.pessoasFisica.grausInstrucao = new GrausInstrucao();
     this.familiar.pessoasFisica.condicoesMoradia = new CondicoesMoradia();
@@ -73,6 +75,12 @@ export class CadastrarFamiliarAlunoComponent implements OnInit {
       this.familiarAlunoService.getById(idFamiliaAluno).pipe(
         switchMap((familiar: Familiares) => {
           this.familiar = familiar;
+          if(!this.familiar.grauParentesco) {
+            this.familiar.grauParentesco = new GrausParentesco();
+          }
+          if(!this.familiar.pessoasFisica.serieEscolar) {
+            this.familiar.pessoasFisica.serieEscolar = new SerieEscolar();
+          }
           return this.arquivoPessoaFisicaService.get(familiar.pessoasFisica.id);
         })
       ).subscribe((foto: any) => {
@@ -138,6 +146,9 @@ export class CadastrarFamiliarAlunoComponent implements OnInit {
     this.familiar.pessoasFisica.celular = this.familiar.pessoasFisica.celular ? this.retiraMascara(this.familiar.pessoasFisica.celular.toString()) : null
     this.familiar.pessoasFisica.cpf = this.familiar.pessoasFisica.cpf ? this.retiraMascara(this.familiar.pessoasFisica.cpf.toString()) : null
     this.familiar.pessoasFisica.telefoneResidencial = this.familiar.pessoasFisica.telefoneResidencial ? this.retiraMascara(this.familiar.pessoasFisica.telefoneResidencial.toString()) : null
+    if(!this.familiar.grauParentesco.id) {
+      this.familiar.grauParentesco = null;
+    }
   }
 
 
@@ -151,6 +162,7 @@ export class CadastrarFamiliarAlunoComponent implements OnInit {
 
   limpar() {
     this.familiar = new Familiares();
+    this.familiar.grauParentesco = new GrausParentesco();
   }
 
   cancelar() {

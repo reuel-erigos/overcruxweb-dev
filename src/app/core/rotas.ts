@@ -86,4 +86,5 @@ export enum Rotas {
     ESCOLA                          = 'api/escola/',
     SERIE_ESCOLAR                   = 'api/serieescolar/',
     REGIAO_ADMINISTRATIVA           = 'api/regiaoadministrativa/',
+    GRAUS_PARENTESCO                = 'api/grausparentesco/',
 }
