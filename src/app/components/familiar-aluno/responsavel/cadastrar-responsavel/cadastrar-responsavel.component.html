@@ -42,18 +42,6 @@
 
   
   <div fxLayout="row" fxLayoutGap="50px" style="margin-top: 20px; margin-bottom: 10px" fxFlexFill>
-    <mat-form-field fxFlexOffset="20px" fxFlex= "50%" appearance="outline" >
-            <mat-label>Descrição do grau de parentesco</mat-label>
-            <textarea matInput #descGrauParentesco
-                      name="descGrauParentesco"
-                      [(ngModel)]="responsavel.descGrauParentesco"
-                      cdkTextareaAutosize
-                      #autosize="cdkTextareaAutosize"
-                      cdkAutosizeMinRows="2"
-                      maxlength="45"></textarea>
-      <mat-hint align="end">{{descGrauParentesco.value.length}} / 45</mat-hint>
-    </mat-form-field>
-
     <mat-form-field  fxFlex= "50%" appearance="outline" >
       <mat-label>Descrição do desligamento</mat-label>
       <textarea matInput #descDesligamento

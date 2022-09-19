@@ -1,11 +1,11 @@
 import { Aluno } from './aluno';
+import { GrausParentesco } from './graus-parentesco';
 import { PessoaFisica } from './pessoa-fisica';
 import { ResponsaveisAluno } from './responsaveis-aluno';
 import { VulnerabilidadesFamiliar } from './vulnerabilidades-familiar';
 
 export class Familiares {
     id: number;
-	descGrauParentesco: string;
 	descOutrasInformacoes: string;
 	descDesligamento: string;
     situacaoParentesco: string;
@@ -22,4 +22,6 @@ export class Familiares {
     vulnerabilidades: VulnerabilidadesFamiliar[];
 
     nome?:string;
+
+    grauParentesco: GrausParentesco;
 }

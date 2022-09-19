@@ -2,7 +2,6 @@ import { ToastService } from 'src/app/services/toast/toast.service';
 import { Familiares } from './../../../../core/familiares';
 import { Component, OnInit, Input } from '@angular/core';
 import { ResponsaveisAluno } from 'src/app/core/responsaveis-aluno';
-import { TipoResponsaveis } from 'src/app/core/tipo-responsaveis';
 import { Aluno } from 'src/app/core/aluno';
 import { BroadcastEventService } from 'src/app/services/broadcast-event/broadcast-event.service';
 
@@ -114,7 +113,6 @@ export class CadastrarResponsavelComponent implements OnInit {
           (formulario.controls.dataVinculacao.value !== undefined ||
            formulario.controls.dataDesvinculacao.value !== undefined ||
            formulario.controls.mesmoEnderResponsavel.value !== undefined ||
-           formulario.controls.descGrauParentesco.value !== undefined ||
            formulario.controls.descDesligamento.value !== undefined);
   }
 

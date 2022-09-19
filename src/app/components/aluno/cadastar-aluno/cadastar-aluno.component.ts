@@ -25,6 +25,7 @@ import { ProfissionalFamiliarAlunoComponent } from '../profissional-familiar-alu
 import { Escola } from '../../../core/escola';
 import { RegiaoAdministrativa } from '../../../core/regiao-administrativa';
 import { SerieEscolar } from '../../../core/serie-escolar';
+import { GrausParentesco } from '../../../core/graus-parentesco';
 
 @Component({
   selector: 'app-cadastar-aluno',
@@ -120,12 +121,16 @@ export class CadastarAlunoComponent implements OnInit {
       if (responsavel && responsavel.id) {
         this.responsavel = responsavel;
         this.familiar = responsavel.familiar;
+        if(!this.familiar.grauParentesco || !this.familiar.grauParentesco.id) {
+          this.familiar.grauParentesco = new GrausParentesco();
+        }
       }
     });
   }
 
   addFamiliar() {
     this.familiar = new Familiares();
+    this.familiar.grauParentesco = new GrausParentesco();
     this.familiar.pessoasFisica = new PessoaFisica();
     this.familiar.pessoasFisica.grausInstrucao = new GrausInstrucao();
     this.familiar.pessoasFisica.beneficiosSociaisPessoaFisica = [];
@@ -223,6 +228,9 @@ export class CadastarAlunoComponent implements OnInit {
           Object.assign(this.aluno, aluno);
           if(!this.aluno.pessoaFisica.serieEscolar) {
             this.aluno.pessoaFisica.serieEscolar = new SerieEscolar();
+          }
+          if(!this.aluno.familiar.grauParentesco) {
+            this.aluno.familiar.grauParentesco = new GrausParentesco();
           }
         });
         this.recuperarAtividades(this.aluno.id);

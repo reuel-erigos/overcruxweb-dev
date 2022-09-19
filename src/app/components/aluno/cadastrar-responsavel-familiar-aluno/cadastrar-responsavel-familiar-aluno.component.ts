@@ -6,6 +6,8 @@ import { Aluno } from 'src/app/core/aluno';
 import { BroadcastEventService } from 'src/app/services/broadcast-event/broadcast-event.service';
 import { Familiares } from '../../../core/familiares';
 import { DataUtilService } from '../../../services/commons/data-util.service';
+import { GrausParentescoService } from '../../../services/graus-parentesco/graus-parentesco.service';
+import { GrausParentesco } from '../../../core/graus-parentesco';
 
 @Component({
   selector: 'cadastrar-responsavel-familiar-aluno',
@@ -16,7 +18,7 @@ export class CadastrarResponsavelFamiliarAlunoComponent implements OnInit {
 
   @Input() responsavel: ResponsaveisAluno = new ResponsaveisAluno();
   @Input() familiar: Familiares;
-
+  grausParentesco: GrausParentesco[];
   responsavelVigente: ResponsaveisAluno = new ResponsaveisAluno();
 
   sim_nao: any[] = [
@@ -25,11 +27,12 @@ export class CadastrarResponsavelFamiliarAlunoComponent implements OnInit {
   ];
 
   constructor(private toastService: ToastService,
-    private dataUtilService: DataUtilService,) {
+    private dataUtilService: DataUtilService,
+    private grausParentescoService: GrausParentescoService,) {
   }
 
   ngOnInit() {
-
+    this.loadGrausParentesco();
   }
 
   isPeriodoVigente(): boolean {
@@ -115,5 +118,9 @@ export class CadastrarResponsavelFamiliarAlunoComponent implements OnInit {
 
   onMascaraDataInput(event) {
     return this.dataUtilService.onMascaraDataInput(event);
+  }
+
+  loadGrausParentesco() {
+    this.grausParentescoService.getAll().subscribe((graus: GrausParentesco[]) => this.grausParentesco = graus);
   }
 }
