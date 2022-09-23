@@ -381,5 +381,8 @@ export class CadastrarMatriculaComponent implements OnInit {
     }
   }
   
+  onMascaraDataInput(event) {
+    return this.dataUtilService.onMascaraDataInput(event);
+  }
 
 }

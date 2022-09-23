@@ -1,11 +1,9 @@
 import { Turmas } from './../../core/turmas';
 import { Component, OnInit, ViewChild } from '@angular/core';
-
 import { MatDialog } from '@angular/material/dialog';
 import { MatDialogConfig } from '@angular/material/dialog';
-import { MatPaginator } from '@angular/material/paginator';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
-
 import { AlunosTurma } from 'src/app/core/alunos-turma';
 import { Aluno } from 'src/app/core/aluno';
 import { Atividade } from 'src/app/core/atividade';
@@ -21,13 +19,17 @@ import { ToastService } from 'src/app/services/toast/toast.service';
 import { FilterAlunos } from 'src/app/core/filter-alunos';
 import { ComboAluno } from 'src/app/core/combo-aluno';
 import { CarregarPerfil } from 'src/app/core/carregar-perfil';
+import { BaseComponent } from '../../architeture/base/base.component';
+import { FormBuilder } from '@angular/forms';
+import { PageInfo } from '../../core/page-info';
+import { FiltroAlunoTurma } from '../../core/filtro/filtro-aluno-turma';
 
 @Component({
   selector: 'matricula',
   templateUrl: './matricula.component.html',
   styleUrls: ['./matricula.component.css']
 })
-export class MatriculaComponent implements OnInit {
+export class MatriculaComponent extends BaseComponent implements OnInit {
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
@@ -37,23 +39,23 @@ export class MatriculaComponent implements OnInit {
   matricula: AlunosTurma = new AlunosTurma();
 
   atividades: Atividade[];
-  atividade: Atividade;
+  atividadesFiltrada: Atividade[];
 
   turmas: Turmas[];
-  turma: Turmas;
 
 
   msg: string;
   perfilAcesso: Acesso = new Acesso();
-  carregarPerfil: CarregarPerfil  = new CarregarPerfil();
+  carregarPerfil: CarregarPerfil = new CarregarPerfil();
 
-
+  mascaraCpf = [/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/,];
   mostrarTabela = false;
 
   displayedColumns: string[] = ['turma', 'aluno', 'dataInicio', 'acoes'];
   dataSource: MatTableDataSource<AlunosTurma> = new MatTableDataSource();
 
   constructor(
+    private formBuilder: FormBuilder,
     private matriculasService: MatriculaService,
     private turmasService: TurmasService,
     private atividadeService: AtividadeService,
@@ -62,57 +64,81 @@ export class MatriculaComponent implements OnInit {
     private router: Router,
     private dialog: MatDialog,
     private activatedRoute: ActivatedRoute
-  ) { }
+  ) {
+    super();
+  }
 
   ngOnInit() {
-    this.limpar();
-
     this.carregarPerfil.carregar(this.activatedRoute.snapshot.data.perfilAcesso, this.perfilAcesso);
 
     this.dataSource.paginator = this.paginator;
 
-    this.atividadeService.getAll().subscribe((atividades: Atividade[]) => {
+    this.atividadeService.getAllCombo().subscribe((atividades: Atividade[]) => {
       this.atividades = atividades.filter(atividade => atividade.idTurma);
+      this.atividadesFiltrada = this.atividades;
     });
 
-    this.turmasService.getAll().subscribe((turmas: Turmas[]) => {
+    this.turmasService.getAllCombo().subscribe((turmas: Turmas[]) => {
       this.turmas = turmas;
     });
+    this.createForm();
+    this.limpar();
+  }
 
+  private createForm(): void {
+    this.form = this.formBuilder.group({
+      beneficiario: [null],
+      cpf: [null],
+      idTurma: [null],
+      idOficina: [null],
+    });
   }
 
 
   limpar() {
     this.mostrarTabela = false;
-
-    this.filtro = new FilterAlunos();
-    this.filtro.aluno = new ComboAluno();
-
-    this.turma = new Turmas();
-    this.atividade = new Atividade();
     this.dataSource.data = [];
+    this.atividadesFiltrada = this.atividades;
+    this.form.reset();
   }
 
   consultar() {
-    if ( this.turma?.id || this.atividade?.id || this.filtro.aluno.id) {
-      this.matriculasService.getFilter(this.turma?.id, this.filtro.aluno.id, this.atividade?.id)
-      .subscribe((matriculas: AlunosTurma[]) => {
-        this.carregar(matriculas);
-      });
-    } else {
-      this.toastService.showAlerta('Selecione pelo menos um critério de pesquisa.');
+    const pageInfo = new PageInfo();
+    if(this.paginator) {
+      this.paginator.firstPage();
     }
+    this.consultarMatriculas(pageInfo);
   }
 
-  private carregar(matriculas: AlunosTurma[]) {
-    if (_.isEmpty(matriculas)) {
-      this.mostrarTabela = false;
-      this.msg = 'Nenhum registro para a pesquisa selecionada';
-    } else {
-      this.dataSource.data = matriculas;
-      this.mostrarTabela = true;
-    }
+  consultarMatriculas(pageInfo: PageInfo) {
+    const filtro = this.createFiltro();
+    this.matriculasService.listFilteredAndPaged(pageInfo, filtro).subscribe((resp: any) => {
+        this.numberItens = resp.totalElements;
+        this.verificaMostrarTabela(resp.content);
+      });
   }
+
+  private createFiltro() {
+    const filtro = new FiltroAlunoTurma();
+    filtro.beneficiario = this.getValueForm(this.form, 'beneficiario');
+    filtro.cpf = this.getValueForm(this.form, 'cpf');
+    filtro.idOficina = this.getValueForm(this.form, 'idOficina');
+    filtro.idTurma = this.getValueForm(this.form, 'idTurma');
+    if(filtro.cpf) {
+      filtro.cpf = filtro.cpf.replace(/[^0-9]/g,'');
+    }
+    return filtro;
+  }
+
+  onEventPaginate(event?: PageEvent) {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    const pageInfo = new PageInfo();
+    pageInfo.pageSize = this.pageSize;
+    pageInfo.actualPage = this.pageIndex;
+    this.consultarMatriculas(pageInfo);
+  }
+
 
   atualizar(matricula: AlunosTurma) {
     this.router.navigate(['/matriculas/cadastrar'], { queryParams: { id: matricula.id } });
@@ -153,16 +179,25 @@ export class MatriculaComponent implements OnInit {
     } else {
       this.mostrarTabela = true;
     }
+    this.dataSource.data = matriculas ? matriculas : [];
   }
 
 
   onValorChange(registro: any) {
-    if(registro) {
+    if (registro) {
       this.filtro.aluno = registro;
     } else {
       this.filtro.aluno = new ComboAluno();
     }
   }
 
-
+  changeTurma() {
+    const idTurma = this.getValueForm(this.form, 'idTurma');
+    if(idTurma) {
+      this.atividadesFiltrada = this.atividades.filter(atividade => atividade.idTurma === idTurma);
+    } else {
+      this.atividadesFiltrada = this.atividades;
+    }
+    this.setValue(this.form, 'idOficina', null)
+  }
 }

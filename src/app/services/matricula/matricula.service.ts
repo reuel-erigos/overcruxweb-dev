@@ -1,8 +1,10 @@
+import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
+import { FiltroAlunoTurma } from '../../core/filtro/filtro-aluno-turma';
+import { PageInfo } from '../../core/page-info';
 import { AlunosTurma } from './../../core/alunos-turma';
 import { Rotas } from './../../core/rotas';
 import { BaseService } from './../base/base.service';
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -26,4 +28,11 @@ export class MatriculaService extends BaseService<AlunosTurma> {
     });
   }
 
+  listFilteredAndPaged(pageInfo: PageInfo, filtro: FiltroAlunoTurma) {
+    return this.http.post(
+      Rotas.MATRICULAS + 'paged/filtro', 
+      JSON.stringify(filtro),
+      this.headersWithPagination(pageInfo)
+    );
+  }
 }

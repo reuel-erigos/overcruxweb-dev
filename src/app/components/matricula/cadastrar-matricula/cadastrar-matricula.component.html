@@ -40,9 +40,10 @@
 
         <div fxLayout="row">
             <mat-form-field style="margin: 0 0 0 20px" fxFlex="15%">
-                <input style="margin-left: 20px" matInput 
+                <input matInput 
                        name="dataInicio" 
                        [matDatepicker]="dataInicio"
+                       (input)="onMascaraDataInput($event)"
                        (change)="carregarDataInicioOficinas()"
                        placeholder="Data início matricula"
                        [(ngModel)]="matricula.dataInicio" required>
@@ -51,10 +52,10 @@
             </mat-form-field>
 
             <mat-form-field style="margin: 0 0 0 20px" fxFlex="15%">
-                <input style="margin-left: 20px" 
-                       matInput 
+                <input matInput 
                        name="dataDesvinculacao" 
                        [min]="matricula.dataInicio"
+                       (input)="onMascaraDataInput($event)"
                        [matDatepicker]="dataDesvinculacao"
                        (change)="carregarDataInicioOficinas()"
                        placeholder="Data de desvinculação" [(ngModel)]="matricula.dataDesvinculacao">
