@@ -10,6 +10,7 @@ import { DadosAlunoModule } from '../common/dados-aluno/dados-aluno.module';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { DadosOficinaComponent } from './dados-oficina/dados-oficina.component';
 import { ComboBeneficiarioModule } from '../common/combo-beneficiario/combo-beneficiario.module';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import { ComboBeneficiarioModule } from '../common/combo-beneficiario/combo-bene
                  DadosOficinaComponent],
   imports: [
     CommonModule,
+    FormsModule,
     MatriculaRoutingModule,
     MaterialCommonModule,
     DadosAlunoModule,

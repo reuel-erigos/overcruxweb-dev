@@ -4,6 +4,7 @@ import { Atividade } from 'src/app/core/atividade';
 import { ControlContainer, NgForm } from '@angular/forms';
 import { Acesso } from 'src/app/core/acesso';
 import * as _ from 'lodash';
+import { DataUtilService } from '../../../services/commons/data-util.service';
 
 @Component({
   selector: 'dados-oficina',
@@ -23,7 +24,7 @@ export class DadosOficinaComponent implements OnInit {
   pinDataDesvinculacao = Date.now();
   pinDescricao = Date.now();
 
-  constructor() { }
+  constructor(private dataUtilService: DataUtilService) { }
 
   ngOnInit() {
   }
@@ -38,6 +39,10 @@ export class DadosOficinaComponent implements OnInit {
     } else {
       this.oficina.atividade = new Atividade();
     }
+  }
+
+  onMascaraDataInput(event) {
+    return this.dataUtilService.onMascaraDataInput(event);
   }
 
 }

@@ -12,7 +12,7 @@
     </mat-form-field>
 
     <mat-form-field style="margin: 0 0 0 20px" fxFlex="15%">
-        <input style="margin-left: 10px" matInput name="dataInicio_{{pinDataInicio}}"
+        <input matInput name="dataInicio_{{pinDataInicio}}" (input)="onMascaraDataInput($event)"
             [matDatepicker]="dataInicioAtividade" placeholder="Data Início:" [(ngModel)]="oficina.dataInicioAtividade"
             required>
         <mat-datepicker-toggle matSuffix [for]="dataInicioAtividade"></mat-datepicker-toggle>
@@ -20,9 +20,9 @@
     </mat-form-field>
 
     <mat-form-field style="margin: 0 0 0 20px" fxFlex="15%">
-        <input style="margin-left: 20px" matInput name="dataDesvinculacao_{{pinDataDesvinculacao}}"
+        <input matInput name="dataDesvinculacao_{{pinDataDesvinculacao}}"
                [min]="oficina.dataInicioAtividade"
-               [matDatepicker]="dataDesvinculacao" placeholder="Data de desvinculação"
+               [matDatepicker]="dataDesvinculacao" placeholder="Data de desvinculação" (input)="onMascaraDataInput($event)"
                [(ngModel)]="oficina.dataDesvinculacao">
         <mat-datepicker-toggle matSuffix [for]="dataDesvinculacao"></mat-datepicker-toggle>
         <mat-datepicker #dataDesvinculacao></mat-datepicker>
