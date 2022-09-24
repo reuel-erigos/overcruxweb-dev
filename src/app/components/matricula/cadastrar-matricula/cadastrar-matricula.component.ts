@@ -88,7 +88,6 @@ export class CadastrarMatriculaComponent implements OnInit {
       this.matriculasService.getById(id).subscribe((matricula: AlunosTurma) => {
         this.matricula = matricula;
         this.filtro.aluno.id = this.matricula.aluno.id;
-
         this.matricula.oficinas.sort((a,b) => {
           if (a.dataInicioAtividade > b.dataInicioAtividade) {return 1;}
           if (a.dataInicioAtividade < b.dataInicioAtividade) {return -1;}
@@ -109,25 +108,25 @@ export class CadastrarMatriculaComponent implements OnInit {
   }
 
   cadastrar() {
-    if (!this.validarDatasInicioMatriculadasNaTurma() ) { return; }
-
-    this.atividadeAlunoService.getAllByAlunoAndInstituicao(this.matricula.aluno.id)
-    .subscribe((matriculas: AtividadeAluno[]) => {
-      let hasDataMatriculaConflitando = this.validarConflitosDeMatriculas(matriculas);
-
-      if(hasDataMatriculaConflitando) {
-        this.toastService.showAlerta('Essas matrículas estão conflitando com outras matrículas no mesmo período.');
+    this.matriculasService.getFilter(this.matricula.turma.id, this.matricula.aluno.id, null).subscribe((resp: AlunosTurma[]) => {
+      if(resp && resp.length > 0) {
+        this.toastService.showAlerta('O aluno já possui uma matrícula para a turma selecionada.');
       } else {
-        this.matriculasService.cadastrar(this.matricula).subscribe(
-          (matriculaSalva: AlunosTurma) => {
-
-          this.toastService.showSucesso('Matricula do aluno cadastrada com sucesso!');
-          this.autenticadorService.revalidarSessao();
-
-          this.matriculasService.getById(matriculaSalva.id)
-          .subscribe((matricula: AlunosTurma) => {          
-            Object.assign(this.matricula, matricula);
-          });
+        if (!this.validarDatasInicioMatriculadasNaTurma() ) { 
+              return; 
+        }
+        this.atividadeAlunoService.getAllByAlunoAndInstituicao(this.matricula.aluno.id).subscribe((matriculas: AtividadeAluno[]) => {
+          let hasDataMatriculaConflitando = this.validarConflitosDeMatriculas(matriculas);
+          if(hasDataMatriculaConflitando) {
+            this.toastService.showAlerta('Essas matrículas estão conflitando com outras matrículas no mesmo período.');
+          } else {
+            this.matriculasService.cadastrar(this.matricula).subscribe(
+              (matriculaSalva: AlunosTurma) => {
+              this.toastService.showSucesso('Matricula do aluno cadastrada com sucesso!');
+              this.autenticadorService.revalidarSessao();
+              this.cancelar();
+            });
+          }
         });
       }
     });
@@ -208,7 +207,11 @@ export class CadastrarMatriculaComponent implements OnInit {
     const outrasMatriculas  = matriculas;
     
     matriculasTurma.forEach(oficina => {
-      let temp: any[] = outrasMatriculas.filter(om => ((om.atividade.domingo && oficina.atividade.domingo) || 
+      let outrasMatriculasFiltrada = outrasMatriculas;
+      if(oficina.id) {
+        outrasMatriculasFiltrada = outrasMatriculas.filter(item => item.id !== oficina.id);
+      }
+      let temp: any[] = outrasMatriculasFiltrada.filter(om => ((om.atividade.domingo && oficina.atividade.domingo) || 
                                                        (om.atividade.segunda && oficina.atividade.segunda) || 
                                                        (om.atividade.terca   && oficina.atividade.terca)   || 
                                                        (om.atividade.quarta  && oficina.atividade.quarta)  || 
@@ -248,11 +251,7 @@ export class CadastrarMatriculaComponent implements OnInit {
         this.matriculasService.alterar(this.matricula).subscribe(() => {
           this.toastService.showSucesso('Matricula do aluno atualizada com sucesso!');
           this.autenticadorService.revalidarSessao();
-
-          this.matriculasService.getById(this.matricula.id)
-          .subscribe((matricula: AlunosTurma) => {          
-            Object.assign(this.matricula, matricula);
-          });
+          this.cancelar();
         });
       }
     });
@@ -307,6 +306,12 @@ export class CadastrarMatriculaComponent implements OnInit {
     })
   }
 
+  carregaDescricaoDesligamento() {
+    this.matricula.oficinas.forEach(oficina => {
+      oficina.descDesligamento = oficina.descDesligamento || this.matricula.descricaoDesligamento;
+    })
+  }
+
   novaMatricula() {
     const nova: AtividadeAluno = new AtividadeAluno();
     nova.aluno = this.matricula.aluno;
@@ -331,7 +336,7 @@ export class CadastrarMatriculaComponent implements OnInit {
     
           if (oficina.id) {
             this.atividadeAlunoService.excluir(oficina.id).subscribe(() => {
-              this.toastService.showSucesso('Matrícula apagada com sucesso.');
+              this.toastService.showSucesso('Matrícula excluída com sucesso.');
             });
           }
         }
