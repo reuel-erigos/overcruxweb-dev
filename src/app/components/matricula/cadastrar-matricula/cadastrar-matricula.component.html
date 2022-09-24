@@ -6,7 +6,7 @@
             <dados-aluno [aluno]="matricula.aluno"></dados-aluno>
         </div>        
 
-        <div fxLayout="row" fxLayoutGap="50px" fxFlexFill>
+        <div fxLayout="row" fxLayoutGap="50px" fxFlexFill *ngIf="!isAtualizar">
 
             <!-- ALUNO-->
             <div fxLayout="column" fxFlex="45%">
@@ -19,14 +19,30 @@
                     </combo-beneficiario>
                 </div>
             </div>
-
-            
+            <div fxLayout="column" fxFlex="45%">
+                <mat-toolbar class="titulopartes">Turma</mat-toolbar>
+                <div fxFlex="100" fxLayoutGap="20px" style="padding-top: 15px;">
+                    <mat-form-field style="width: 100%;">
+                        <mat-label>Turma</mat-label>
+                        <mat-select [(ngModel)]="matricula.turma.id" name="turma" 
+                                    (selectionChange)="carregarDadosTurma()"
+                                    required>
+                            <mat-option></mat-option>                                
+                            <mat-option *ngFor="let i of turmas" [value]="i.id">
+                                {{getDadosTurma(i)}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-hint *ngIf="turmas?.length === 0" align="start">Nenhuma turma cadastrada</mat-hint>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayoutGap="50px" fxFlexFill *ngIf="isAtualizar">
             <div fxLayout="column" fxFlex="45%">
                 <mat-toolbar class="titulopartes">Turma</mat-toolbar>
                 <mat-form-field style="margin: 0 20px 20px 20px">
                     <mat-select [(ngModel)]="matricula.turma.id" name="turma" 
-                                (selectionChange)="carregarDadosTurma()"
-                                required>
+                                disabled="">
                         <mat-option></mat-option>                                
                         <mat-option *ngFor="let i of turmas" [value]="i.id">
                             {{getDadosTurma(i)}}
@@ -35,7 +51,6 @@
                     <mat-hint *ngIf="turmas?.length === 0" align="start">Nenhuma turma cadastrada</mat-hint>
                 </mat-form-field>
             </div>
-            
         </div>
 
         <div fxLayout="row">
@@ -66,7 +81,7 @@
             <mat-form-field style="margin: 0 0 0 20px" fxFlex="70%">
                 <mat-label>Descrição desligamento:</mat-label>
                 <input #descricaoDesligamento matInput name="descricaoDesligamento"
-                    [(ngModel)]="matricula.descricaoDesligamento" maxlength="200">
+                    [(ngModel)]="matricula.descricaoDesligamento" maxlength="200" (blur)="carregaDescricaoDesligamento()">
                 <mat-hint align="start">{{descricaoDesligamento.value.length}} / 200</mat-hint>
             </mat-form-field>
 
