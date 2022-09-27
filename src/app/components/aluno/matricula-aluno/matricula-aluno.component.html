@@ -1,0 +1,49 @@
+<div fxLayout="column" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill>
+    <form #formCadastro="ngForm">
+        <div fxLayout="row" fxLayoutGap="50px" fxFlexFill>
+            <div fxLayout="column" fxFlex="100%">
+                <mat-toolbar class="titulopartes">Turma</mat-toolbar>
+                <div fxFlex="100%" fxLayoutGap="20px" style="padding-top: 15px;">
+                    <mat-form-field style="width: 100%;">
+                        <mat-label>Turma</mat-label>
+                        <mat-select [(ngModel)]="turma.id" name="turma" 
+                                    (selectionChange)="carregarDadosTurma()"
+                                    required>
+                            <mat-option></mat-option>                                
+                            <mat-option *ngFor="let i of turmas" [value]="i.id">
+                                {{getDadosTurma(i)}}
+                            </mat-option>
+                        </mat-select>
+                        <mat-hint *ngIf="turmas?.length === 0" align="start">Nenhuma turma cadastrada</mat-hint>
+                    </mat-form-field>
+                    <mat-form-field style="margin: 0 0 0 20px" fxFlex="15%">
+                        <input matInput 
+                            name="dataInicio" 
+                            [matDatepicker]="dataInicio"
+                            (input)="onMascaraDataInput($event)"
+                            placeholder="Data início matricula"
+                            [(ngModel)]="dataInicioMatricula" required>
+                        <mat-datepicker-toggle matSuffix [for]="dataInicio"></mat-datepicker-toggle>
+                        <mat-datepicker #dataInicio></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+        </div>
+        <div fxFlex="100%" fxLayoutGap="20px" fxFlexOffset="20px" ngModelGroup="grupoBeneficio" class="grupo">
+            <div *ngFor="let matricula of matriculas; let index = index">
+                <mat-toolbar class="titulopartes"> {{matricula.turma.descricao}}</mat-toolbar>
+                <div fxLayout="row" fxLayoutGap="50px" fxFlexFill *ngFor="let item of matricula.oficinas">
+                    <mat-form-field style="width: 50%">
+                        <input matInput [ngModelOptions]="{standalone: true}" maxlength="45"
+                            [(ngModel)]="item.atividade.descricao" disabled placeholder="Oficina:" >
+                    </mat-form-field>
+                    <button  mat-button>
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+

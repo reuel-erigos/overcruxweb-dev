@@ -22,13 +22,14 @@ import { DocumentosFamiliarAlunoComponent } from './documentos-familiar-aluno/do
 import { SharedDirectivesModule } from '../../directives/shared-directives.module';
 import { UniformeAlunoComponent } from './uniforme-aluno/uniforme-aluno.component';
 import { FormsModule } from '@angular/forms';
+import { MatriculaAlunoComponent } from './matricula-aluno/matricula-aluno.component';
 
 
 @NgModule({
   declarations: [AlunoComponent, CadastarAlunoComponent, VulnerabilidadeAlunoComponent, 
                 CadastrarVulnerabilidadeAlunoComponent, ListarVulnerabilidadeAlunoComponent, BotoesRelatorioComponent,
                 DadosPessoaisFamiliarAlunoComponent, CadastrarResponsavelFamiliarAlunoComponent, ProfissionalFamiliarAlunoComponent,
-                BeneficioFamiliarAlunoComponent, DocumentosFamiliarAlunoComponent, UniformeAlunoComponent],
+                BeneficioFamiliarAlunoComponent, DocumentosFamiliarAlunoComponent, UniformeAlunoComponent, MatriculaAlunoComponent],
   imports: [
     CommonModule,
     FormsModule,

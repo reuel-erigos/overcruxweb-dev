@@ -1,0 +1,25 @@
+.campoPeticao{
+    padding: 10px;
+}
+
+
+.mat-input-element:disabled, .mat-form-field-type-mat-native-select.mat-form-field-disabled .mat-form-field-infix::after {
+    color: rgba(0, 0, 0, 0.78);
+}
+
+.mat-select-disabled .mat-select-value {
+    color: rgba(0, 0, 0, 0.78);
+}
+
+
+th.mat-sort-header-sorted {
+   color: black;
+}
+  
+form {
+    display: block !important; 
+}
+
+.grupo {
+    margin-left: 0px !important;
+}
