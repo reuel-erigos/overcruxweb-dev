@@ -167,6 +167,7 @@ export class CadastarAlunoComponent implements OnInit {
     this.tratarDados();
     this.aluno.familiar = this.familiar;
     this.aluno.responsavelVigente = this.responsavel;
+    this.aluno.matriculas = this.matriculas;
     this.alunoService.cadastrar(this.aluno).pipe(
       switchMap((alunoRetorno: Aluno) => {
         if (this.aluno.pessoaFisica.isFotoChanged && this.aluno.pessoaFisica.foto) {
