@@ -26,6 +26,8 @@ import { Escola } from '../../../core/escola';
 import { RegiaoAdministrativa } from '../../../core/regiao-administrativa';
 import { SerieEscolar } from '../../../core/serie-escolar';
 import { GrausParentesco } from '../../../core/graus-parentesco';
+import { MatriculaService } from '../../../services/matricula/matricula.service';
+import { AlunosTurma } from '../../../core/alunos-turma';
 
 @Component({
   selector: 'app-cadastar-aluno',
@@ -37,6 +39,7 @@ export class CadastarAlunoComponent implements OnInit {
   aluno: Aluno = new Aluno();
   familiar: Familiares;
   responsavel: ResponsaveisAluno;
+  matriculas: AlunosTurma[] = [];
 
   isAtualizar = false;
 
@@ -52,6 +55,7 @@ export class CadastarAlunoComponent implements OnInit {
   constructor(
     private alunoService: AlunoService,
     private familiarAlunoService: FamiliarAlunoService,
+    private matriculaService: MatriculaService,
     private activatedRoute: ActivatedRoute,
     private location: Location,
     private toastService: ToastService,
@@ -102,6 +106,7 @@ export class CadastarAlunoComponent implements OnInit {
       });
 
       this.recuperarResposavelVigente(idAluno);
+      this.recuperarMatriculaAluno(idAluno);
     }
   }
 
@@ -124,6 +129,14 @@ export class CadastarAlunoComponent implements OnInit {
         if(!this.familiar.grauParentesco || !this.familiar.grauParentesco.id) {
           this.familiar.grauParentesco = new GrausParentesco();
         }
+      }
+    });
+  }
+
+  private recuperarMatriculaAluno(idAluno: number) {
+    this.matriculaService.getByAluno(idAluno).subscribe((resp: AlunosTurma[]) => {
+      if (resp) {
+        this.matriculas = resp;
       }
     });
   }
@@ -154,6 +167,7 @@ export class CadastarAlunoComponent implements OnInit {
     this.tratarDados();
     this.aluno.familiar = this.familiar;
     this.aluno.responsavelVigente = this.responsavel;
+    this.aluno.matriculas = this.matriculas;
     this.alunoService.cadastrar(this.aluno).pipe(
       switchMap((alunoRetorno: Aluno) => {
         if (this.aluno.pessoaFisica.isFotoChanged && this.aluno.pessoaFisica.foto) {

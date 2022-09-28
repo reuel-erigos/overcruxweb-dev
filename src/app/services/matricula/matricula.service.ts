@@ -35,4 +35,8 @@ export class MatriculaService extends BaseService<AlunosTurma> {
       this.headersWithPagination(pageInfo)
     );
   }
+
+  getByAluno(idAluno: number) {
+    return this.http.get(Rotas.MATRICULAS + 'aluno/' + idAluno);
+  }
 }
