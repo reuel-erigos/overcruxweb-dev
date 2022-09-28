@@ -7,7 +7,6 @@
                     <mat-form-field style="width: 100%;">
                         <mat-label>Turma</mat-label>
                         <mat-select [(ngModel)]="turma.id" name="turma" 
-                                    (selectionChange)="carregarDadosTurma()"
                                     required>
                             <mat-option></mat-option>                                
                             <mat-option *ngFor="let i of turmas" [value]="i.id">
@@ -26,6 +25,9 @@
                         <mat-datepicker-toggle matSuffix [for]="dataInicio"></mat-datepicker-toggle>
                         <mat-datepicker #dataInicio></mat-datepicker>
                     </mat-form-field>
+                    <button matTooltip="Adicionar nova turma" mat-fab color="primary" (click)="adicionarTurma()" [disabled]="formCadastro.invalid">
+                        <mat-icon>add</mat-icon>
+                    </button>
                 </div>
             </div>
         </div>
