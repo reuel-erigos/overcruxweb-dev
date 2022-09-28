@@ -32,12 +32,19 @@
         <div fxFlex="100%" fxLayoutGap="20px" fxFlexOffset="20px" ngModelGroup="grupoBeneficio" class="grupo">
             <div *ngFor="let matricula of matriculas; let index = index">
                 <mat-toolbar class="titulopartes"> {{matricula.turma.descricao}}</mat-toolbar>
-                <div fxLayout="row" fxLayoutGap="50px" fxFlexFill *ngFor="let item of matricula.oficinas">
+                <div fxLayout="row" fxLayoutGap="50px" fxFlexFill *ngFor="let item of matricula.oficinas; let index2 = index">
                     <mat-form-field style="width: 50%">
                         <input matInput [ngModelOptions]="{standalone: true}" maxlength="45"
                             [(ngModel)]="item.atividade.descricao" disabled placeholder="Oficina:" >
                     </mat-form-field>
-                    <button  mat-button>
+                    <mat-form-field style="margin: 0 0 0 20px" fxFlex="15%">
+                        <input matInput name="dataInicio_{{pinDataInicio}}" (input)="onMascaraDataInput($event)"
+                            [matDatepicker]="dataInicioAtividade" placeholder="Data Início:" disabled [(ngModel)]="item.dataInicioAtividade"
+                            required>
+                        <mat-datepicker-toggle matSuffix [for]="dataInicioAtividade"></mat-datepicker-toggle>
+                        <mat-datepicker #dataInicioAtividade></mat-datepicker>
+                    </mat-form-field>
+                    <button  mat-button (click)="deletar(item, index, index2)">
                         <mat-icon>delete</mat-icon>
                     </button>
                 </div>

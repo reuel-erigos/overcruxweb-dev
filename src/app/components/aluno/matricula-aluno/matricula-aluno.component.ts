@@ -8,6 +8,12 @@ import { DataUtilService } from '../../../services/commons/data-util.service';
 import { AlunosTurma } from '../../../core/alunos-turma';
 import { Turmas } from '../../../core/turmas';
 import { TurmasService } from '../../../services/turmas/turmas.service';
+import { AtividadeAluno } from '../../../core/atividade-aluno';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { ConfirmDialogComponent } from '../../common/confirm-dialog/confirm-dialog.component';
+import { ToastService } from '../../../services/toast/toast.service';
+import { AtividadeAlunoService } from '../../../services/atividade-aluno/atividade-aluno.service';
+import { MatriculaService } from '../../../services/matricula/matricula.service';
 
 @Component({
   selector: 'app-matricula-aluno',
@@ -26,11 +32,17 @@ export class MatriculaAlunoComponent implements OnInit {
   mostrarTabela = false;
   turmas: Turmas[];
   dataInicioMatricula: Date = new Date();
+  
+  pinDataInicio = Date.now();
 
   constructor(
     private dataUtilService: DataUtilService,
     private activatedRoute: ActivatedRoute,
     private turmasService: TurmasService,
+    private matriculaService: MatriculaService,
+    private dialog: MatDialog,
+    private toastService: ToastService,
+    private atividadeAlunoService: AtividadeAlunoService,
   ) { }
 
   ngOnInit() {
@@ -67,5 +79,35 @@ export class MatriculaAlunoComponent implements OnInit {
     //     this.matricula.oficinas.push(atividade);
     //   })
     // }
+  }
+
+  deletar(oficina: AtividadeAluno, indexMatricula: number, indexOficina: number) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      pergunta: `Certeza que deseja excluir a matrícula?`,
+      textoConfirma: 'SIM',
+      textoCancela: 'NÃO'
+    };
+
+    const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
+    dialogRef.afterClosed().subscribe(confirma => {
+      if (confirma) {
+        this.matriculas[indexMatricula].oficinas.splice(indexOficina, 1);
+        if (oficina.id) {
+          this.atividadeAlunoService.excluir(oficina.id).subscribe(() => {
+            this.toastService.showSucesso('Matrícula excluída com sucesso.');
+          });
+          if(this.matriculas[indexMatricula].oficinas.length === 0) {
+            if(this.matriculas[indexMatricula].id) {
+              this.matriculaService.excluir(this.matriculas[indexMatricula].id).subscribe(() => {
+              });
+            }
+            this.matriculas.splice(indexMatricula, 1);
+          }
+        }
+      } else {
+        dialogRef.close();
+      }
+    });
   }
 }
