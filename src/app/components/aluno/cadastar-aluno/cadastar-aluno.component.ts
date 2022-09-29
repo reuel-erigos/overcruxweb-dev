@@ -168,6 +168,7 @@ export class CadastarAlunoComponent implements OnInit {
     this.aluno.familiar = this.familiar;
     this.aluno.responsavelVigente = this.responsavel;
     this.aluno.matriculas = this.matriculas;
+    this.loadingPopupService.mostrarMensagemDialog('Salvando dados do aluno, aguarde...');
     this.alunoService.cadastrar(this.aluno).pipe(
       switchMap((alunoRetorno: Aluno) => {
         if (this.aluno.pessoaFisica.isFotoChanged && this.aluno.pessoaFisica.foto) {
@@ -178,6 +179,7 @@ export class CadastarAlunoComponent implements OnInit {
       })
     ).subscribe(() => {
       this.location.back();
+      this.loadingPopupService.closeDialog();
       this.toastService.showSucesso('Aluno cadastrado com sucesso');
       this.recuperarResposavelVigente(this.aluno.id);
     });
@@ -223,6 +225,7 @@ export class CadastarAlunoComponent implements OnInit {
     this.tratarDados();
     this.aluno.familiar = this.familiar;
     this.aluno.responsavelVigente = this.responsavel;
+    this.aluno.matriculas = this.matriculas;
     this.loadingPopupService.mostrarMensagemDialog('Salvando dados do aluno, aguarde...');
     this.alunoService.alterar(this.aluno).pipe(
       switchMap((aluno: Aluno) => {

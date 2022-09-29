@@ -11,6 +11,7 @@ import { BeneficioSocialPessoaFisica } from './beneficio-social-pessoa-fisica';
 import { Familiares } from './familiares';
 import { ResponsaveisAluno } from './responsaveis-aluno';
 import { AtividadeAluno } from './atividade-aluno';
+import { AlunosTurma } from './alunos-turma';
 
 
 export class Aluno {
@@ -69,4 +70,6 @@ export class Aluno {
 	responsavelVigente: ResponsaveisAluno;
 	
 	atividades: AtividadeAluno[];
+
+	matriculas: AlunosTurma[];
 }
