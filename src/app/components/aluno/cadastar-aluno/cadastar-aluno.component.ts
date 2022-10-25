@@ -182,6 +182,7 @@ export class CadastarAlunoComponent implements OnInit {
       this.loadingPopupService.closeDialog();
       this.toastService.showSucesso('Aluno cadastrado com sucesso');
       this.recuperarResposavelVigente(this.aluno.id);
+      this.recuperarMatriculaAluno(this.aluno.id);
     });
   }
 
@@ -252,6 +253,7 @@ export class CadastarAlunoComponent implements OnInit {
         });
         this.recuperarAtividades(this.aluno.id);
         this.recuperarResposavelVigente(this.aluno.id);
+        this.recuperarMatriculaAluno(this.aluno.id);
     },
     (error) => {
       this.loadingPopupService.closeDialog();
