@@ -24,6 +24,7 @@
                 placeholder="CEP"
                 (change)="onChangeCep()"
                 [textMask]="{mask: maskCep}"
+                [required]="obrigatorio"
                 pattern="^\d{2}\.?\d{3}-?\d{3}$" />
     </mat-form-field>
 
@@ -42,6 +43,7 @@
                 matInput maxlength="100"
                 [(ngModel)]="dadosEndereco.complementoEndereco"
                 name="complementoEndereco"
+                [required]="obrigatorio"
                 placeholder="Complemento">
         <mat-hint align="end">{{campoComplementoEndereco.value.length}} / 100</mat-hint>
     </mat-form-field>
@@ -57,6 +59,7 @@
                matInput maxlength="200"
                [(ngModel)]="dadosEndereco.cidade"
                name="cidade"
+               [required]="obrigatorio"
                placeholder="Cidade">
         <mat-hint align="end">{{campoCidade.value.length}} / 200</mat-hint>
     </mat-form-field>
@@ -66,13 +69,14 @@
                matInput maxlength="200"
                [(ngModel)]="dadosEndereco.bairro"
                name="bairro"
+               [required]="obrigatorio"
                placeholder="Bairro">
         <mat-hint align="end">{{campoBairro.value.length}} / 200</mat-hint>
     </mat-form-field>
 
     <mat-form-field fxFlex="10%">
         <mat-label>UF</mat-label>
-        <mat-select name="uf" [(ngModel)]="dadosEndereco.uf">
+        <mat-select name="uf" [(ngModel)]="dadosEndereco.uf" [required]="obrigatorio">
             <mat-option *ngFor="let e of ufs" [value]="e">
                 {{e}}
             </mat-option>

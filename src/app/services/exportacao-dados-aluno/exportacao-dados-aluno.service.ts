@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { ExportacaoDadosAluno } from 'src/app/core/exportacao-dados-aluno';
 import { ListaCompletaDadosExportar } from 'src/app/core/lista-completa-dados-exportar';
 import { Rotas } from 'src/app/core/rotas';
+import { FiltroExportacao } from '../../core/filtro/filtro-exportacao';
 import { BaseService } from '../base/base.service';
 
 const httpOptions = {
@@ -66,5 +67,12 @@ export class ExportacaoDadosAlunoService  extends BaseService<ExportacaoDadosAlu
     });
   }
 
+  listFiltered(filtro: FiltroExportacao) {
+    return this.http.post(
+      Rotas.EXPORTAR_DADOS_ALUNO + 'filtro', 
+      JSON.stringify(filtro),
+      this.headers()
+    );
+  }
 
 }
