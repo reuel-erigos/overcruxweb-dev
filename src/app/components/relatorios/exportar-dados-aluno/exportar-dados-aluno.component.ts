@@ -2,19 +2,13 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Acesso } from 'src/app/core/acesso';
-import { Aluno } from 'src/app/core/aluno';
 import { CarregarPerfil } from 'src/app/core/carregar-perfil';
-import { ComboAluno } from 'src/app/core/combo-aluno';
 import { ComboPessoaFisica } from 'src/app/core/combo-pessoa-fisica';
 import { Unidade } from 'src/app/core/unidade';
 import { CpfPipe } from 'src/app/pipes/cpf.pipe';
 import { DataUtilService } from 'src/app/services/commons/data-util.service';
-import { FuncoesUteisService } from 'src/app/services/commons/funcoes-uteis.service';
-import { PessoaFisicaService } from 'src/app/services/pessoa-fisica/pessoa-fisica.service';
 import { UnidadeService } from 'src/app/services/unidade/unidade.service';
 import { ToastService } from 'src/app/services/toast/toast.service';
-import { ComboPrograma } from 'src/app/core/combo-programa';
-import { ComboProjeto } from 'src/app/core/combo-projeto';
 import { ExportacaoDadosAlunoService } from 'src/app/services/exportacao-dados-aluno/exportacao-dados-aluno.service';
 import { ExportacaoDadosAluno } from 'src/app/core/exportacao-dados-aluno';
 import { MatTableDataSource } from '@angular/material/table';
@@ -28,23 +22,13 @@ import { ListaCompletaDadosExportar } from 'src/app/core/lista-completa-dados-ex
 import { Coluna } from 'src/app/core/coluna';
 import { DadosExportar } from 'src/app/core/dados-exportar';
 import { GrupoDadosExportar } from 'src/app/core/grupo-dados-exportar';
-
-
-export class FilterExportacao{
-  beneficiario: ComboAluno;
-  cpfAluno: ComboPessoaFisica;
-  maeAluno: ComboPessoaFisica;
-  paiAluno: ComboPessoaFisica;
-  responsavel: ComboPessoaFisica;
-  dataInicioEntradaInstituicao: Date;
-  dataFimEntradaInstituicao: Date;
-  dataInicioVigenciaInstituicao: Date;
-  dataFimVigenciaInstituicao: Date;
-  programa: ComboPrograma;
-  projeto: ComboProjeto;
-  unidade: Unidade;
-}
-
+import { BaseComponent } from '../../../architeture/base/base.component';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { FiltroExportacao } from '../../../core/filtro/filtro-exportacao';
+import { ProgramaService } from '../../../services/programa/programa.service';
+import { ProjetoService } from '../../../services/projeto/projeto.service';
+import { ComboPrograma } from '../../../core/combo-programa';
+import { ComboProjeto } from '../../../core/combo-projeto';
 
 @Component({
   selector: 'exportar-dados-aluno',
@@ -52,16 +36,15 @@ export class FilterExportacao{
   styleUrls: ['./exportar-dados-aluno.component.css'],
   providers: [CpfPipe],
 })
-export class ExportarDadosAlunoComponent implements OnInit {
+export class ExportarDadosAlunoComponent extends BaseComponent implements OnInit {
   
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
 
-  comboCpf: ComboPessoaFisica[];
-  comboMae: ComboPessoaFisica[];
-  comboPai: ComboPessoaFisica[];
-  comboResponsaveis: ComboPessoaFisica[];
   comboUnidades: Unidade[];
+  compoPrograma: ComboPrograma[];
+  compoProjeto: ComboProjeto[];
+  comboResponsaveis: ComboPessoaFisica[];
 
   perfilAcesso: Acesso = new Acesso();
   carregarPerfil: CarregarPerfil;
@@ -73,14 +56,14 @@ export class ExportarDadosAlunoComponent implements OnInit {
 
   selection = new SelectionModel<ExportacaoDadosAluno>(true, []);
 
-  filtro: FilterExportacao = new FilterExportacao();
   exportacaoDadosAlunos: ExportacaoDadosAluno[]
 
   dadosExportar: DadosExportar = new DadosExportar();
-
-
   panelBeneficiarioOpenState = false;
   panelFamiliarOpenState     = false;
+
+  form: FormGroup;
+  mascaraCpf = [/\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '.', /\d/, /\d/, /\d/, '-', /\d/, /\d/,];
 
   constructor(private toastService: ToastService,
               private exportacaoDadosAlunoService: ExportacaoDadosAlunoService,
@@ -88,13 +71,14 @@ export class ExportarDadosAlunoComponent implements OnInit {
               private fileUtils: FileUtils,
               private dialog: MatDialog,
               private loadingPopupService: LoadingPopupService,          
-              private cpfPipe: CpfPipe,
               private dataUtilService: DataUtilService,
-              private funcoesUteisService: FuncoesUteisService,
-              private pessoaFisicaService: PessoaFisicaService,
-              private unidadeService: UnidadeService
-              ) { 
+              private unidadeService: UnidadeService,
+              protected formBuilder: FormBuilder,
+              private programaService: ProgramaService,
+              private projetoService: ProjetoService) { 
+    super();
     this.carregarPerfil = new CarregarPerfil();
+    this.createForm();
   }
 
   ngOnInit(): void {
@@ -121,20 +105,25 @@ export class ExportarDadosAlunoComponent implements OnInit {
     this.addColunasFamiliarOutrasInformacoes();
   }
 
+  private createForm(): void {
+    this.form = this.formBuilder.group({
+      cpf: [null],
+      dataInicioEntradaInstituicao: [null],
+      dataFimEntradaInstituicao: [null],
+      dataInicioVigenciaInstituicao: [null],
+      dataFimVigenciaInstituicao: [null],
+      ativo: [null],
+      beneficiario: [null],
+      nomeMae: [null],
+      nomePai: [null],
+      unidade: [null],
+      programa: [null],
+      projeto: [null],
+    });
+  }
 
   consultar() {
-    this.exportacaoDadosAlunoService.getFilter(this.filtro.cpfAluno.cpf,
-                                               this.filtro.beneficiario.id,
-                                               this.filtro.maeAluno.id,
-                                               this.filtro.paiAluno.id,
-                                               this.filtro.programa.id,
-                                               this.filtro.projeto.id,
-                                               this.filtro.unidade.idUnidade,
-                                               this.filtro.responsavel.id,
-                                               this.filtro.dataInicioEntradaInstituicao,
-                                               this.filtro.dataFimEntradaInstituicao,
-                                               this.filtro.dataInicioVigenciaInstituicao,
-                                               this.filtro.dataFimVigenciaInstituicao)
+    this.exportacaoDadosAlunoService.listFiltered(this.createFiltro())
       .subscribe((dados: ExportacaoDadosAluno[]) => {
       this.exportacaoDadosAlunos = dados;
       
@@ -147,6 +136,22 @@ export class ExportarDadosAlunoComponent implements OnInit {
     })
   }
 
+  createFiltro() {
+    const filtro = new FiltroExportacao();
+    filtro.beneficiario = this.getValueForm(this.form, 'beneficiario');
+    filtro.cpfAluno = this.getValueForm(this.form, 'cpf');
+    filtro.dataFimEntradaInstituicao = this.getValueForm(this.form, 'dataFimEntradaInstituicao');
+    filtro.dataFimVigenciaInstituicao = this.getValueForm(this.form, 'dataFimVigenciaInstituicao');
+    filtro.dataInicioEntradaInstituicao = this.getValueForm(this.form, 'dataInicioEntradaInstituicao');
+    filtro.dataInicioVigenciaInstituicao = this.getValueForm(this.form, 'dataInicioVigenciaInstituicao');
+    filtro.maeAluno = this.getValueForm(this.form, 'nomeMae');
+    filtro.paiAluno = this.getValueForm(this.form, 'nomePai');
+    filtro.ativo = this.getValueForm(this.form, 'ativo');
+    filtro.unidade = this.getValueForm(this.form, 'unidade');
+    filtro.programa = this.getValueForm(this.form, 'programa');
+    filtro.projeto = this.getValueForm(this.form, 'projeto');
+    return filtro;
+  }
 
     
   /** Whether the number of selected elements matches the total number of rows. */
@@ -221,84 +226,39 @@ export class ExportarDadosAlunoComponent implements OnInit {
 
 
   limpar() {
-    this.filtro = new FilterExportacao();
-
-    this.filtro.beneficiario = new ComboAluno();
-    this.filtro.cpfAluno     = new ComboPessoaFisica();
-    this.filtro.maeAluno     = new ComboPessoaFisica();
-    this.filtro.paiAluno     = new ComboPessoaFisica();
-    this.filtro.responsavel  = new ComboPessoaFisica();
-    this.filtro.programa     = new ComboPrograma();
-    this.filtro.projeto      = new ComboProjeto();
-    this.filtro.unidade      = new Unidade();
-
+    this.form.reset();
     this.selection.clear();
     this.exportacaoDadosAlunos = [];
     this.dataSource.data = [];
-
   }
   
-  onValorChange(event: any) {
-    this.filtro.beneficiario = event;
-  }
-
-
-
-
   private carregarCombos(){
     this.unidadeService.getAllByInstituicaoDaUnidadeLogada().subscribe((unidades: Unidade[]) => {
       this.comboUnidades = unidades;
     });
-
-    this.pessoaFisicaService.getAllPessoasByCombo().subscribe((pessoas: ComboPessoaFisica[]) => {
-      this.comboMae   = pessoas;
-      this.comboPai   = pessoas;
-      this.comboCpf   = pessoas;
-      
-      this.comboMae = this.ordenarComboMaeDistinct(this.comboMae);
-      this.comboPai = this.ordenarComboPaiDistinct(this.comboPai);
-      this.comboCpf = this.ordenarComboCpfDistinct(this.comboCpf);
+    this.programaService.getAllCombo().subscribe((programas: ComboPrograma[]) => {
+      this.compoPrograma = programas;
+      this.compoPrograma.forEach(a => a.nome = a.nome);
+      this.compoPrograma.sort((a,b) => {
+        if (a.nome > b.nome) {return 1;}
+        if (a.nome < b.nome) {return -1;}
+        return 0;
+      });
+    });
+    this.projetoService.getAllCombo().subscribe((projetos: ComboProjeto[]) => {
+      this.compoProjeto = projetos;
+      this.compoProjeto.forEach(a => a.nome = a.nome);
+      this.compoProjeto.sort((a,b) => {
+        if (a.nome > b.nome) {return 1;}
+        if (a.nome < b.nome) {return -1;}
+        return 0;
+      });
     });
   }
 
-  private ordenarComboCpfDistinct(comboCpf: any): any[] {
-    comboCpf.forEach(a => {
-      a.cpf = a.cpf || '00000000000';
-      a.cpf = this.cpfPipe.transform(a.cpf);
-    });
-    comboCpf = this.funcoesUteisService.ordernarArray(comboCpf, 'cpf');
-    comboCpf = this.funcoesUteisService.arrayDistinct(comboCpf, 'cpf');
-    return comboCpf;
-  }
-
-  private ordenarComboMaeDistinct(comboMae: any): any[] {
-    comboMae = comboMae.filter(a => !!a.nomeMae);
-    comboMae = this.funcoesUteisService.ordernarArray(comboMae, 'nomeMae');
-    comboMae = this.funcoesUteisService.arrayDistinct(comboMae, 'nomeMae');
-    return comboMae;
-  }
-
-  private ordenarComboPaiDistinct(comboPai: any): any[] {
-    comboPai = this.comboPai.filter(a => !!a.nomePai);
-    comboPai = this.funcoesUteisService.ordernarArray(comboPai, 'nomePai');
-    comboPai = this.funcoesUteisService.arrayDistinct(comboPai, 'nomePai');
-    return comboPai;
-  }
-  
   onMascaraDataInput(event) {
     return this.dataUtilService.onMascaraDataInput(event);
   }
-
-  onValorChangePrograma(registro: any) {
-    this.filtro.programa = registro;
-  }
-
-  onValorChangeProjeto(registro: any) {
-    this.filtro.projeto = registro;
-  }
-
-
-
 
   updateAllComplete(dados: GrupoDadosExportar) {
     dados.exportar = dados.colunas != null && dados.colunas.every(t => t.exportar);

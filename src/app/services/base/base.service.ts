@@ -44,4 +44,10 @@ export class BaseService<T> {
       'pageSize': pageInfo.pageSize.toString(),
     })};
   }
+
+  protected headers() {
+    return {headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    })};
+  }
 }

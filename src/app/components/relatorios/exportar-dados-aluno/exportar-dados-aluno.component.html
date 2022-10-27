@@ -1,144 +1,105 @@
 <mat-toolbar class="subtitulo">Exportação de dados do Beneficiário/Familiar</mat-toolbar>
 <div class="painel-principal" style="padding: 10px;">
     <div class="painel-consultar">
-        <form #formulario="ngForm">
-
+        <form [formGroup]="form" role="form">
             <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px" fxFlexFill>
-                <div ngModelGroup="comboCpfBeneficiario" fxFlex="250px" fxLayoutGap="20px" fxFlexOffset="20px">
-                    <combo-pesquisavel #comboCpfBeneficiario 
-                                       nome="cpf" 
-                                       [itens]="comboCpf" 
-                                       itemDescricao="cpf"
-                                       itemId="id"
-                                       [showDisplayId]="false" 
-                                       [obrigatorio]="false"
-                                       placeholder="CPF do beneficiário"
-                                       [(valor)]="filtro.cpfAluno">
-                    </combo-pesquisavel>
-                </div> 
-
+                <mat-form-field fxFlex="200px" fxLayoutGap="20px">
+                    <input matInput name="cpf" placeholder="CPF:" formControlName="cpf"
+                        [textMask]="{mask: mascaraCpf}">
+                </mat-form-field>
                 <mat-form-field fxFlex= "200px" fxLayoutGap="20px" fxFlexOffset="20px">
                     <input matInput name= "dataInicioEntrada"
                             [matDatepicker]="dataInicioEntrada" 
                             placeholder="Data Início Entrada" 
-                            [(ngModel)]="filtro.dataInicioEntradaInstituicao"
+                            formControlName="dataInicioEntradaInstituicao"
                             (input)="onMascaraDataInput($event)">
                     <mat-datepicker-toggle matSuffix [for]="dataInicioEntrada"></mat-datepicker-toggle>
                     <mat-datepicker #dataInicioEntrada></mat-datepicker>
                 </mat-form-field>
-            
-                <mat-form-field fxFlex= "200px" >
+                <mat-form-field fxFlex= "200px" fxLayoutGap="20px" >
                     <input matInput name="dataFimEntrada"
                             [matDatepicker]="dataFimEntrada" 
                             placeholder="Data Fim Entrada" 
-                            [(ngModel)]="filtro.dataFimEntradaInstituicao"
+                            formControlName="dataFimEntradaInstituicao"
                             (input)="onMascaraDataInput($event)">
                     <mat-datepicker-toggle matSuffix [for]="dataFimEntrada"></mat-datepicker-toggle>
                     <mat-datepicker #dataFimEntrada></mat-datepicker>
                 </mat-form-field>
-
-
-                <mat-form-field fxFlex= "220px" fxLayoutGap="20px" fxFlexOffset="20px">
+                <mat-form-field fxFlex= "200px" fxLayoutGap="20px" fxFlexOffset="20px">
                     <input matInput name= "dataInicioVigencia"
                            [matDatepicker]="dataInicioVigencia" 
                            placeholder="Data Início Vigência" 
-                           [required]="filtro.dataFimVigenciaInstituicao"
-                           [(ngModel)]="filtro.dataInicioVigenciaInstituicao"
+                           formControlName="dataInicioVigenciaInstituicao"
                            (input)="onMascaraDataInput($event)">
                     <mat-datepicker-toggle matSuffix [for]="dataInicioVigencia"></mat-datepicker-toggle>
                     <mat-datepicker #dataInicioVigencia></mat-datepicker>
                 </mat-form-field>
-            
-                <mat-form-field fxFlex= "220px" >
+                <mat-form-field fxFlex= "200px" fxLayoutGap="20px">
                     <input matInput name="dataFimVigencia"
                             [matDatepicker]="dataFimVigencia" 
                             placeholder="Data Fim Vigência" 
-                            [required]="filtro.dataInicioVigenciaInstituicao"
-                            [(ngModel)]="filtro.dataFimVigenciaInstituicao"
+                            formControlName="dataFimVigenciaInstituicao"
                             (input)="onMascaraDataInput($event)">
                     <mat-datepicker-toggle matSuffix [for]="dataFimVigencia"></mat-datepicker-toggle>
                     <mat-datepicker #dataFimVigencia></mat-datepicker>
                 </mat-form-field>
-
+                <mat-form-field fxFlex= "200px" fxLayoutGap="20px">
+                    <mat-label>Situação:</mat-label>
+                    <mat-select formControlName="ativo" name="situacao">
+                        <mat-option [value]="null">Ambos</mat-option>
+                        <mat-option [value]="true">Ativo</mat-option>
+                        <mat-option [value]="false">Inativo</mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
-
             <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px" fxFlexFill>
-                <div ngModelGroup="comboBeneficiario" fxFlex="34" fxLayoutGap="20px">
-                    <combo-beneficiario [showDisplayId]="false" 
-                                        [obrigatorio]="false" 
-                                        [selecionado]="filtro.beneficiario"
-                                        (valorChange)="onValorChange($event)">
-                    </combo-beneficiario>
-                </div>
-                
-                <div ngModelGroup="comboMaeBeneficiario" fxFlex="33%" fxLayoutGap="20px" fxFlexOffset="20px">
-                    <combo-pesquisavel #comboMaeBeneficiario 
-                                       nome="maeBeneficiario" 
-                                       [itens]="comboMae" 
-                                       itemDescricao="nomeMae"
-                                       itemId="id"
-                                       [showDisplayId]="false" 
-                                       [obrigatorio]="false"
-                                       placeholder="Mãe do beneficiário"
-                                       [(valor)]="filtro.maeAluno">
-                    </combo-pesquisavel>
-                </div>
-
-                <div ngModelGroup="comboPaiBeneficiario" fxFlex="33%" fxLayoutGap="20px" fxFlexOffset="20px">
-                    <combo-pesquisavel #comboPaiBeneficiario 
-                                       nome="paiBeneficiario" 
-                                       [itens]="comboPai" 
-                                       itemDescricao="nomePai"
-                                       itemId="id"
-                                       [showDisplayId]="false" 
-                                       [obrigatorio]="false"
-                                       placeholder="Pai do beneficiário"
-                                       [(valor)]="filtro.paiAluno">
-                    </combo-pesquisavel>
-                </div>
+                <mat-form-field fxFlex="33%" fxLayoutGap="20px">
+                    <input matInput name="beneficiario" placeholder="Beneficário:" formControlName="beneficiario">
+                </mat-form-field>
+                <mat-form-field fxFlex="33%" fxLayoutGap="20px">
+                    <input matInput name="nomeMae" placeholder="Mãe do beneficiário:" formControlName="nomeMae">
+                </mat-form-field>
+                <mat-form-field fxFlex="33%" fxLayoutGap="20px">
+                    <input matInput name="nomePai" placeholder="Pai do beneficiário:" formControlName="nomePai">
+                </mat-form-field>
             </div>
-
-
-            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="20px" fxFlexFill>   
-                <div ngModelGroup="cbPrograma" fxFlex="34" fxLayoutGap="20px">
-                    <combo-programa [showDisplayId]="false" #campoPrograma
-                                    [obrigatorio]="false" 
-                                    [selecionado]="filtro.programa"
-                                    (valorChange)="onValorChangePrograma($event)">
-                    </combo-programa>
-                </div>
-                
-                <div ngModelGroup="cbProjeto" fxFlex="33%" >
-                    <combo-projeto [showDisplayId]="false" #campoProjeto
-                                   [obrigatorio]="false" 
-                                   [selecionado]="filtro.projeto"
-                                   (valorChange)="onValorChangeProjeto($event)">
-                    </combo-projeto>
-                </div> 
-
-                <div ngModelGroup="cbUnidade" fxFlex="33%" fxFlexOffset="20px">
-                    <div ngModelGroup="comboProjeto-" fxFlex="100">
-                        <combo-pesquisavel #comboUnidade 
-                                            nome="unidade" 
-                                            [itens]="comboUnidades" 
-                                            itemDescricao="nomeUnidade"
-                                            itemId="id"
-                                            [showDisplayId]="false" 
-                                            placeholder="Unidade"
-                                            [obrigatorio]="false"
-                                            [(valor)]="filtro.unidade">
-                        </combo-pesquisavel>
-                    </div>
-                </div>
+            <div fxLayout="row" fxLayoutAlign="start center" fxFlexFill>
+                <mat-form-field fxLayoutGap="20px" fxFlex="33%">
+                    <mat-label>Programa:</mat-label>
+                    <mat-select formControlName="programa">
+                        <mat-option [value]="null">Selecione</mat-option>
+                        <mat-option *ngFor="let o of compoPrograma" [value]="o.id">
+                                {{o.nome}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field fxFlexOffset="20px" fxFlex="33%">
+                    <mat-label>Projeto:</mat-label>
+                    <mat-select formControlName="projeto">
+                        <mat-option [value]="null">Selecione</mat-option>
+                        <mat-option *ngFor="let o of compoProjeto" [value]="o.id">
+                                {{o.nome}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>   
+                <mat-form-field fxFlexOffset="20px" fxFlex="33%">
+                    <mat-label>Unidade:</mat-label>
+                    <mat-select formControlName="unidade">
+                        <mat-option [value]="null">Selecione</mat-option>
+                        <mat-option *ngFor="let o of comboUnidades" [value]="o.idUnidade">
+                                {{o.nomeUnidade}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
             </div>
 
 
             <div dir="rtl" class="botoes" fxLayoutGap="20px" style="padding-top: 20px; padding-bottom: 20px;" fxFlexFill>
-                <button mat-raised-button fxFlex="150px" (click)="exportar()" style="background-color: green; color: white;" [disabled]="formulario.invalid">
+                <button mat-raised-button fxFlex="150px" (click)="exportar()" style="background-color: green; color: white;">
                     EXPORTAR
                 </button>
 
-                <button mat-raised-button fxFlex="150px" (click)="consultar()" [disabled]="formulario.invalid">
+                <button mat-raised-button fxFlex="150px" (click)="consultar()">
                     CONSULTAR
                 </button>
 
