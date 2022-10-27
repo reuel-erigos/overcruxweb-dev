@@ -56,7 +56,7 @@ export class DadosTurmaComponent implements OnInit {
       this.niveisTurma = niveisTurma;
     });
 
-    this.projetoService.getAllCombo().subscribe((projetos: Projeto[]) => {
+    this.projetoService.getAll().subscribe((projetos: Projeto[]) => {
       this.todosProjetos = projetos;
       this.projetos      = projetos;
     });
