@@ -26,18 +26,19 @@
                     </mat-form-field>
 
                     <!-- CONTAS BANCARIAS -->
-                    <mat-form-field fxFlex>
-                        <mat-label>Conta bancária:</mat-label>
-                        <mat-select [(ngModel)]=pagamentosFatura.contaBancaria.id 
-                                    (selectionChange)="validarContaReembolso()"
-                                    name="contasBancarias">
-                            <mat-option></mat-option>
-                            <mat-option *ngFor="let i of contasBancarias" [value]=i.id>
-                                {{i.banco.numero}} - {{i.banco.nome}} | Ag. {{i.numeroAgencia}} | C. {{i.numeroContaBancaria}}
-                            </mat-option>
-                        </mat-select>
-                        <mat-hint *ngIf="contasBancarias?.length === 0" align="start">Nenhuma conta bancária cadastrada</mat-hint>
-                    </mat-form-field>
+                    <div ngModelGroup="comboContaBancariaOrigem" fxFlex="50%" fxLayoutGap="20px" fxFlexOffset="20px" class="marginCombo">
+                        <combo-pesquisavel 
+                                            nome="contaBancariaOrigem" 
+                                            [itens]="contasBancarias" 
+                                            itemDescricao="descricaoCompleta"
+                                            itemId="id"
+                                            label="Conta Bancária"
+                                            placeholder="Escolha..."
+                                            [(valor)]="pagamentosFatura.contaBancaria.id"
+                                            (valorChange)="validarContaReembolso()"
+                                            style="margin-top: 10px;">
+                        </combo-pesquisavel>
+                    </div> 
                 </div>
 
                 <!--
