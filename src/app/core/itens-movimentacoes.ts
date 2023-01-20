@@ -5,6 +5,7 @@ import { Material } from './material';
 import { Unidade } from './unidade';
 import { TributoItemMovimentacao } from './tributo-item-movimentacao';
 import { PlanosContas } from './planos-contas';
+import { Projeto } from './projeto';
 export class ItensMovimentacoes{
 
     id:number;
@@ -19,6 +20,7 @@ export class ItensMovimentacoes{
 	valorTotalItem:number;
 	valorUnitarioItem:number;
 	pedidosMateriais:any;
+	projeto: Projeto;
 
 	tributos: TributoItemMovimentacao[];
 

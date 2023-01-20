@@ -68,22 +68,6 @@ export class FormularioRateioComponent implements OnInit {
   }
 
   validarDuplicado() {
-    if(this.rateio.programa && this.rateio.programa.id) {
-      const jaExiste = this.rateios.find(m => m != this.rateio &&  m.programa.id === this.rateio.programa.id);
-      if(jaExiste) {
-        this.toastService.showAlerta('Esse programa já está incluso na lista.');
-        this.campoPrograma.comboPrograma.itensSelect.control.setValue(null);
-        this.filtro.programa = new ComboPrograma();        
-      } else {
-        if(this.filtro.programa.id && this.rateio.programa.id !== this.filtro.programa.id){
-          this.programaService.getById(this.rateio.programa.id).subscribe((programa: Programa) => {
-            this.rateio.programa = programa;  
-          })
-        }
-      }
-    }
-
-    
     if(this.rateio.projeto && this.rateio.projeto.id) {
       const jaExiste = this.rateios.find(m => m != this.rateio && m.projeto.id === this.rateio.projeto.id);
       if(jaExiste) {
@@ -112,18 +96,6 @@ export class FormularioRateioComponent implements OnInit {
     } else {
       rateio.placeHolderRateio = 'Valor do rateio';
     }
-  }
-
-  onValorChangePrograma(registro: any) {
-    this.filtro.programa = registro;
-    
-    if(registro) {
-      this.rateio.programa.id = registro.id;
-      this.validarDuplicado();
-    }else{  
-      this.rateio.programa = new Programa();
-    }
-
   }
 
   onValorChangeProjeto(registro: any) {
