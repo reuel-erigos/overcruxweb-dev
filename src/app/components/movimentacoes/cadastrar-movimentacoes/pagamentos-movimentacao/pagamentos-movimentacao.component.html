@@ -15,7 +15,7 @@
                     <!-- FATURAS -->
                     <mat-form-field fxFlex="27%" fxFlexOffset="10px">
                         <mat-label>Fatura:</mat-label>
-                        <mat-select [(ngModel)]=pagamentosFatura.idFatura name="fatura" required>
+                        <mat-select [(ngModel)]=pagamentosFatura.idFatura name="fatura" required (selectionChange)="changeFatura()">
                             <mat-option></mat-option>
                             <mat-option *ngFor="let i of getFaturas()" [value]=i.id>
                                 {{i.dataVencimento | dataSimples}} - {{i.valor | currency : 'BRL'}} {{i.tributoMovimentacao?.tributo?.id ? ' - ' + i.tributoMovimentacao?.tributo?.codigo : ''}}
