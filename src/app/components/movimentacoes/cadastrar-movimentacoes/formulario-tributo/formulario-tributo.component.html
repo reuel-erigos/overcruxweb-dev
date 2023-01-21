@@ -1,20 +1,17 @@
-<div ngModelGroup="comboTributos" 
-     fxFlex="300px"
-     fxFlexOffset="20px"
-     style="padding-top: 12px;">
+<div ngModelGroup="comboTributos" fxFlex="40%" fxLayoutGap="20px" fxFlexOffset="20px">
     <combo-pesquisavel #comboTributos 
                         nome="tributos" 
                         [itens]="tributos" 
                         itemDescricao="codigo"
                         [obrigatorio]="true"
                         itemId="id"
-                        placeholder="Tributo..."
+                        placeholder="Tributo"
+                        label="Tributo"
                         [(valor)]="tributoMovimentacao.tributo"
                         (valorChange)="onValorTributoChange($event); validarCadastroTributos();">
     </combo-pesquisavel>
 </div>
-
-<mat-form-field fxFlex="150px" fxFlexOffset="20px" *ngIf="showInputValor">
+<mat-form-field fxFlex="20%" fxFlexOffset="20px" *ngIf="showInputValor">
     <input [(ngModel)]="tributoMovimentacao.valor" 
            currencyMask 
            name="valor_{{pinValor}}"           
@@ -24,7 +21,7 @@
     <span matPrefix>R$&nbsp;</span>
 </mat-form-field> 
 
-<mat-form-field fxFlex="350px" fxFlexOffset="20px">
+<mat-form-field fxFlex="40%" fxFlexOffset="20px">
     <input [(ngModel)]="tributoMovimentacao.tributo.recebedor" 
            name="recebedor_{{pinRecebedor}}"   
            disabled

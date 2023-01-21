@@ -176,8 +176,8 @@
 
 
         <mat-toolbar class="titulopartes">Tributos</mat-toolbar>
-        <div fxLayout="column" fxLayoutGap="50px" fxFlexFill>
-            <div fxFlex="100%" fxFlexOffset="20px" ngModelGroup="grupoTributo">
+        <div fxLayout="column" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px;" fxFlexFill>
+            <div fxFlex="100%" fxLayoutGap="20px" fxFlexOffset="20px" ngModelGroup="grupoTributo">
                 <div *ngFor="let tributo of movimentacoes.tributos; let index = index">
                     <formulario-tributo [tributoMovimentacao]="tributo" 
                                         [index]="index"
