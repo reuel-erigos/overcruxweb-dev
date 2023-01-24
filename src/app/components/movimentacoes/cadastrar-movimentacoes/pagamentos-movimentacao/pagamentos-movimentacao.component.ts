@@ -343,4 +343,10 @@ export class PagamentosMovimentacaoComponent implements OnInit {
     return this.dataUtilService.onMascaraDataInput(event);
   }
 
+  changeFatura() {
+    if(this.pagamentosFatura.idFatura) {
+      const fatura = this.movimentacoes.faturas.find(item => item.id === this.pagamentosFatura.idFatura);
+      this.pagamentosFatura.valorPagamento = fatura.valor;
+    }
+  }
 }

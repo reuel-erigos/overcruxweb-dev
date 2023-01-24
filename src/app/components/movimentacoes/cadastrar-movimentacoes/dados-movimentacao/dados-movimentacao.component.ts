@@ -107,6 +107,7 @@ export class DadosMovimentacaoComponent implements OnInit {
     this.contasBancariaService.getAllComboByInstituicaoLogada()
     .subscribe((contasBancarias: ContasBancaria[]) => {
       this.contasBancarias = contasBancarias;
+      this.contasBancarias.forEach(item => item.descricaoCompleta = 'Banco: ' + item.banco.numero + ' - ' + item.banco.nome + ' - Agência: ' + item.numeroAgencia + ' - Conta: ' + item.numeroContaBancaria);
     });
 
 

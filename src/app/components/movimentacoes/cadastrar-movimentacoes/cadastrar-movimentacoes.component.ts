@@ -111,7 +111,7 @@ export class CadastrarMovimentacoesComponent implements OnInit {
   }
 
   cadastrar() {
-    if( !this.isValorTotalRateioValido() ) {return;}
+    // if( !this.isValorTotalRateioValido() ) {return;}
     if( !this.isContaReembolsoValida()) { return; }
     if( this.isValidarTributoMovimentacao()) { return; }
     if( this.isItensValidados() ) { return; }
@@ -161,7 +161,7 @@ export class CadastrarMovimentacoesComponent implements OnInit {
   }
 
   atualizar() {
-    if( !this.isValorTotalRateioValido() ) {return;}
+    // if( !this.isValorTotalRateioValido() ) {return;}
     if( !this.isContaReembolsoValida()) { return; }
     if( this.isValidarTributoMovimentacao()) { return; }
     if( this.isItensValidados() ) { return; }

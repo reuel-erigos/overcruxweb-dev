@@ -13,6 +13,7 @@ import { PlanosContas } from 'src/app/core/planos-contas';
 import { TributoItemMovimentacao } from 'src/app/core/tributo-item-movimentacao';
 import { Tributos } from 'src/app/core/tributos';
 import { BroadcastEventService } from 'src/app/services/broadcast-event/broadcast-event.service';
+import { Projeto } from '../../../../core/projeto';
 import { PedidosMateriais } from './../../../../core/pedidos-materiais';
 import { CategoriasContabeisService } from './../../../../services/categorias-contabeis/categorias-contabeis.service';
 import { MaterialService } from './../../../../services/material/material.service';
@@ -38,7 +39,7 @@ export class ItensMovimentacaoComponent implements OnInit {
   mostrarTabela = false;
   msg: string = "Nenhum item movimentação adicionado";
 
-  displayedColumns: string[] = ['categoriaContabil', 'quantidadeMaterial', 'valorUnitarioItem', 'valorTotalItem', 'acoes'];
+  displayedColumns: string[] = ['projetoContabil', 'categoriaContabil', 'quantidadeMaterial', 'valorUnitarioItem', 'valorTotalItem', 'acoes'];
   dataSource: MatTableDataSource<ItensMovimentacoes> = new MatTableDataSource();
 
   itensMovimentacoes: ItensMovimentacoes;
@@ -171,6 +172,7 @@ export class ItensMovimentacaoComponent implements OnInit {
     this.itensMovimentacoes.categoriaAdicional = new PlanosContas();
     this.itensMovimentacoes.material = new Material();
     this.itensMovimentacoes.pedidosMateriais = new PedidosMateriais();
+    this.itensMovimentacoes.projeto = new Projeto();
     this.itensMovimentacoes.quantidadeMaterial = 0;
     this.itensMovimentacoes.valorTotalItem = 0;
     this.itensMovimentacoes.valorUnitarioItem = 0;
@@ -257,6 +259,13 @@ export class ItensMovimentacaoComponent implements OnInit {
     this.itensMovimentacoes.tributos.push(tributoMovimentacao);
   }
 
+  changeProjeto(event: any) {
+    if(!!event) {
+      this.itensMovimentacoes.projeto = event;
+    }else {
+      this.itensMovimentacoes.projeto = null;
+    }
+  }
 
   carregarContaContabil(event: any){
     if(!!event) {

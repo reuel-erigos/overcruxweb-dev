@@ -176,8 +176,8 @@
 
 
         <mat-toolbar class="titulopartes">Tributos</mat-toolbar>
-        <div fxLayout="column" fxLayoutGap="50px" fxFlexFill>
-            <div fxFlex="100%" fxFlexOffset="20px" ngModelGroup="grupoTributo">
+        <div fxLayout="column" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px;" fxFlexFill>
+            <div fxFlex="100%" fxLayoutGap="20px" fxFlexOffset="20px" ngModelGroup="grupoTributo">
                 <div *ngFor="let tributo of movimentacoes.tributos; let index = index">
                     <formulario-tributo [tributoMovimentacao]="tributo" 
                                         [index]="index"
@@ -200,9 +200,11 @@
         </div>
 
         <mat-toolbar class="titulopartes">
-            <span>Rateio entre Programas/Projetos</span>
-            <span style="font-weight: 800; padding-left: 10px;" [style.color]="valorRateioSuperior && movimentacoes.rateios.length > 0 ? 'red' : 'green'">(Total: {{getValorTotalRateio()}})</span>
-            <span *ngIf="valorRateioSuperior && movimentacoes.rateios.length > 0" style="color: orangered; padding-left: 10px;">ATENÇÃO !!! O valor do rateio está diferente ao valor do movimento.</span>
+            <span>Rateio entre Projetos</span>
+            <!-- 
+                <span style="font-weight: 800; padding-left: 10px;" [style.color]="valorRateioSuperior && movimentacoes.rateios.length > 0 ? 'red' : 'green'">(Total: {{getValorTotalRateio()}})</span>
+                <span *ngIf="valorRateioSuperior && movimentacoes.rateios.length > 0" style="color: orangered; padding-left: 10px;">ATENÇÃO !!! O valor do rateio está diferente ao valor do movimento.</span>
+             -->
         </mat-toolbar>
         <div fxLayout="column" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px;" fxFlexFill>
             <div fxFlex="100%" fxLayoutGap="20px" fxFlexOffset="20px" ngModelGroup="grupoRateio">
