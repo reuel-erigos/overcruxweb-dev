@@ -1,5 +1,5 @@
 import { CategoriasContabeis } from './categorias-contabeis';
-import { PlanosContas } from './planos-contas';
+import { PedidosMateriais } from './pedidos-materiais';
 import { Programa } from './programa';
 import { Projeto } from './projeto';
 import { RateiosCategoriasMovimentos } from './rateios-categorias-movimentos';
@@ -15,6 +15,8 @@ export class CategoriasMovimentos{
 	dataMovimentacao: Date;
 	programa: Programa;
 	projeto: Projeto;
+	pedidosMateriais: PedidosMateriais;
+	categoriaAdicional: any;
 
 	rateioCategoriasMovimentos: RateiosCategoriasMovimentos[];
 

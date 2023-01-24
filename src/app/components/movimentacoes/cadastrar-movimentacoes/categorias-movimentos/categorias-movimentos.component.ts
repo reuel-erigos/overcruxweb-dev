@@ -16,6 +16,8 @@ import { CategoriasContabeisService } from 'src/app/services/categorias-contabei
 import { Programa } from 'src/app/core/programa';
 import { Projeto } from 'src/app/core/projeto';
 import { ControlContainer, NgForm } from '@angular/forms';
+import { PedidosMateriais } from '../../../../core/pedidos-materiais';
+import { PedidosMateriaisService } from '../../../../services/pedidosMateriais/pedidos-materiais.service';
 
 @Component({
   selector: 'categorias-movimentos',
@@ -25,7 +27,6 @@ import { ControlContainer, NgForm } from '@angular/forms';
 })
 export class CategoriasMovimentosComponent implements OnInit {
 
-  @ViewChild('campoPrograma') campoPrograma;
   @ViewChild('campoProjeto') campoProjeto;
   @ViewChild('campoCategoriaOrigem') campoCategoriaOrigem;
   @ViewChild('campoCategoriaDestino') campoCategoriaDestino;
@@ -46,12 +47,13 @@ export class CategoriasMovimentosComponent implements OnInit {
 
   maxDataPagamento = new Date();
 
-  displayedColumns: string[] = ['data', 'valor', 'programaprojeto','contacontabil','acoes'];
+  displayedColumns: string[] = ['data', 'valor', 'programaprojeto','contacontabil','pedidoMaterial', 'acoes'];
   dataSource: MatTableDataSource<CategoriasMovimentos> = new MatTableDataSource();
 
   categoriaMovimento: CategoriasMovimentos;
   planosContas: PlanosContas[];
-  
+  pedidosMateriais: PedidosMateriais[];
+
   valorRateioSuperior = false;
   valorCategoriaInvalido = false;
   msgValorPagamentoInvalido = 'O valor do pagamento está diferente do valor da fatura.';
@@ -67,6 +69,7 @@ export class CategoriasMovimentosComponent implements OnInit {
     private drc: ChangeDetectorRef,  
     private toastService: ToastService,
     private dataUtilService: DataUtilService,
+    private pedidosMateriaisService: PedidosMateriaisService,
   ) { 
     this.maxDataPagamento = new Date();
   }
@@ -80,6 +83,11 @@ export class CategoriasMovimentosComponent implements OnInit {
     this.categoriasContabeisService.getAllView(false).subscribe((planosContas: PlanosContas[]) => {
       this.planosContas = planosContas;
     })
+
+    this.pedidosMateriaisService.getAllCombo().subscribe((pedidosMateriais: PedidosMateriais[]) => {
+      this.pedidosMateriais = pedidosMateriais;
+    })
+
 
     BroadcastEventService.get('ON_CARREGAR_MOVIMENTACOES')
     .subscribe((movimentacao: Movimentacoes) => {
@@ -328,30 +336,22 @@ export class CategoriasMovimentosComponent implements OnInit {
     }  
   }
 
-  onValorChangePrograma(registro: any) {
-    this.categoriaMovimento.programa = registro;    
-    if(registro) {
-      this.categoriaMovimento.programa.id = registro.id;
-      this.campoProjeto.comboProjeto.itensSelect.ngControl.reset()
-      this.categoriaMovimento.projeto = new Projeto();
-    } else{  
-      this.categoriaMovimento.programa = new Programa();
-    }
-  }
-
   onValorChangeProjeto(registro: any) {
     this.categoriaMovimento.projeto = registro;    
     if(registro) {
       this.categoriaMovimento.projeto.id = registro.id;
-      this.campoPrograma.comboPrograma.itensSelect.ngControl.reset();      
       this.categoriaMovimento.programa = new Programa();
     } else{
       this.categoriaMovimento.projeto = new Projeto();
     }
   }
 
-  getDescricaoProgramaProjeto(registro: CategoriasMovimentos){
-    return registro.programa?.nome || registro.projeto?.nome;
+  carregarContaContabilAdicional(event: any){
+    if(!!event) {
+      this.categoriaMovimento.categoriaAdicional = _.find(this.planosContas, { id: event.id});
+    }else {
+      this.categoriaMovimento.categoriaAdicional = null;
+    }
   }
 
 }

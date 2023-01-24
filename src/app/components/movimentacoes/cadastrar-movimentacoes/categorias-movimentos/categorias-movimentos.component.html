@@ -37,26 +37,16 @@
                 </div>    
     
     
-                <div fxLayout="row">
-                    <div fxFlex="100%" fxLayoutGap="20px">
-                        <div ngModelGroup="cbPrograma" fxFlex="50%">
-                            <combo-programa [showDisplayId]="false" #campoPrograma
-                                            [obrigatorio]="!categoriaMovimento.projeto?.id" 
-                                            [selecionado]="categoriaMovimento.programa"
-                                            (valorChange)="onValorChangePrograma($event)">
-                            </combo-programa>
-                        </div>
-                        
-                        <div ngModelGroup="cbProjeto" fxFlex="50%">
-                            <combo-projeto [showDisplayId]="false" #campoProjeto
-                                            [obrigatorio]="!categoriaMovimento.programa?.id" 
-                                            [selecionado]="categoriaMovimento.projeto"
-                                            (valorChange)="onValorChangeProjeto($event)">
-                            </combo-projeto>
-                        </div>                
-                    </div>
+                <div fxLayout="row" fxLayoutGap="50px" fxFlexFill>
+                    <div ngModelGroup="cbProjeto" fxFlex="49%" fxLayoutGap="20px" class="marginCombo">
+                        <combo-projeto [showDisplayId]="false" #campoProjeto
+                                        [obrigatorio]="!categoriaMovimento.programa?.id" 
+                                        [selecionado]="categoriaMovimento.projeto"
+                                        (valorChange)="onValorChangeProjeto($event)">
+                        </combo-projeto>
+                    </div>                
                 </div>
-    
+
                 <div fxLayout="row" fxLayoutGap="50px" fxFlexFill>
                     <div ngModelGroup="comboRubricaAdicional" fxFlex="100%" fxLayoutGap="20px" fxFlexOffset="20px" class="marginCombo">
                         <combo-pesquisavel #campoCategoriaDestino 
@@ -71,9 +61,8 @@
                                            (valorChange)="carregarContaDestino($event.id)"
                                            style="margin-top: 10px;">
                         </combo-pesquisavel>
-                    </div> 
-                </div>   
-    
+                    </div>
+                </div> 
                 <div fxLayout="row" fxLayoutGap="50px" fxFlexFill>
                     <div ngModelGroup="comboRubricaOriginal" fxFlex="100%" fxLayoutGap="20px" fxFlexOffset="20px" class="marginCombo">
                         <combo-pesquisavel #campoCategoriaOrigem 
@@ -89,8 +78,35 @@
                                            style="margin-top: 10px;">
                         </combo-pesquisavel>
                     </div> 
-                </div> 
+                </div>   
     
+                <div fxLayout="row" fxLayoutGap="50px" fxFlexFill>
+                    <div ngModelGroup="comboPedidoMaterial" fxFlex="100%" fxFlexOffset="20px" class="marginCombo">
+                        <combo-pesquisavel #comboPedidoMaterial 
+                                           nome="comboPedidoMaterial" 
+                                           [itens]="pedidosMateriais" 
+                                           itemDescricao="descricaoPedido"
+                                           itemId="id"
+                                           label="Pedido Material"
+                                           [obrigatorio]="false"
+                                           placeholder="Escolha..."
+                                           [(valor)]="categoriaMovimento.pedidosMateriais"
+                                           style="margin-top: 10px;">
+                        </combo-pesquisavel>                    
+                    </div>              
+                </div>
+                <div fxLayout="row" fxLayoutGap="50px" fxFlexFill>
+                    <div ngModelGroup="comboContaContabilAdicional" fxFlex="100%" >
+                        <combo-rubrica  [showDisplayId]="false"
+                                        [hasSintetica]="false"
+                                        [selecionado]="categoriaMovimento.categoriaAdicional"
+                                        [label]="'Conta Contábil Adicional'"
+                                        (valorChange)="carregarContaContabilAdicional($event)"
+                                        [placeholder]="'Conta Contábil Adicional'">
+                        </combo-rubrica>                    
+                    </div> 
+                </div>
+        
     
                 <div fxLayout="row">
                     <mat-form-field fxFlex="100%" appearance="outline" fxFlexOffset="20px">
@@ -184,8 +200,8 @@
                 </ng-container>
     
                 <ng-container matColumnDef="programaprojeto">
-                    <th mat-header-cell *matHeaderCellDef> Programa/Projeto</th>
-                    <td mat-cell *matCellDef="let element"> {{getDescricaoProgramaProjeto(element)}} </td>
+                    <th mat-header-cell *matHeaderCellDef> Projeto</th>
+                    <td mat-cell *matCellDef="let element"> {{element.projeto?.nome}} </td>
                 </ng-container>
                 
                 <ng-container matColumnDef="contacontabil">
@@ -195,6 +211,14 @@
                         Conta Origem : {{getRubricaPlanoConta(element.categoriaOrigem.id)}}
                     </td>
                 </ng-container>
+
+                <ng-container matColumnDef="pedidoMaterial">
+                    <th mat-header-cell *matHeaderCellDef> Pedido Material </th>
+                    <td mat-cell *matCellDef="let element"> 
+                        {{element.pedidosMateriais?.descricaoPedido}}
+                    </td>
+                </ng-container>
+                
 
 
                 <ng-container matColumnDef="acoes">
