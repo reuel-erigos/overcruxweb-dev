@@ -121,33 +121,6 @@
                         <mat-hint align="end">{{descricao.value.length}} / 200</mat-hint>
                     </mat-form-field>
                 </div>
-                
-    
-                <!--
-                <mat-toolbar class="titulopartes">
-                    <span>Rateio entre Projetos</span>
-                    <span style="font-weight: 800; padding-left: 10px;" [style.color]="valorRateioSuperior && categoriaMovimento.rateioCategoriasMovimentos.length > 0 ? 'red' : 'green'">(Total: {{getValorTotalRateio()}})</span>
-                    <span *ngIf="valorRateioSuperior && categoriaMovimento.rateioCategoriasMovimentos.length > 0" style="color: orangered; padding-left: 10px;">ATENÇÃO !!! O valor do rateio está diferente ao valor da categoria.</span>
-                </mat-toolbar>
-                <div fxLayout="column" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px;" fxFlexFill>
-                    <div fxFlex="100%" fxLayoutGap="20px" fxFlexOffset="20px" ngModelGroup="grupoRateio">
-                        <div *ngFor="let rateio of categoriaMovimento.rateioCategoriasMovimentos; let index = index">
-                            <formulario-rateio-categoria [rateio]="rateio" 
-                                                         [index]="index"
-                                                         [rateios]="categoriaMovimento.rateioCategoriasMovimentos"   
-                                                         [perfilAcesso]="perfilAcesso">
-                            </formulario-rateio-categoria>
-                        </div>
-                        <div *ngIf="perfilAcesso.insere" fxLayoutAlign="start center" fxLayoutGap="16px" style="padding-top: 10px; padding-left: 20px;">
-                            <div>
-                                <button matTooltip="Novo" mat-mini-fab color="primary" (click)="addRateio()">
-                                    <mat-icon>add</mat-icon>
-                                </button>
-                            </div>
-                        </div>                
-                    </div>
-                </div>
-                -->
             </div>
 
 
@@ -181,7 +154,7 @@
             <mat-expansion-panel-header>
                 <mat-panel-title>
                     <span>Lista de Itens ( {{movimentacoes.categoriasMovimentos?.length || 0}} ) -</span>
-                    <span style="font-weight: 800; padding-left: 10px;" [style.color]="valoresSuperiorValorMovimento ? 'red' : 'green'">Valor Total: {{getValorTotalRateio() | currency: 'BRL'}}</span>      
+                    <span style="font-weight: 800; padding-left: 10px;" [style.color]="valoresSuperiorValorMovimento ? 'red' : 'green'">Valor Total: {{getValorTotal() | currency: 'BRL'}}</span>      
                     <span *ngIf="valoresSuperiorValorMovimento" style="color: orangered; padding-left: 10px;">ATENÇÃO !!! A soma dos valores das categorias está diferente ao valor do movimento.</span>
                 </mat-panel-title>
             </mat-expansion-panel-header>

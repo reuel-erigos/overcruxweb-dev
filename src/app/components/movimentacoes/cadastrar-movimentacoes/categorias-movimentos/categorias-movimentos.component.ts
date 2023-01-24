@@ -54,7 +54,6 @@ export class CategoriasMovimentosComponent implements OnInit {
   planosContas: PlanosContas[];
   pedidosMateriais: PedidosMateriais[];
 
-  valorRateioSuperior = false;
   valorCategoriaInvalido = false;
   msgValorPagamentoInvalido = 'O valor do pagamento está diferente do valor da fatura.';
 
@@ -194,6 +193,14 @@ export class CategoriasMovimentosComponent implements OnInit {
       categoriasMovimentos.categoriaDestino = new PlanosContas();
     }
 
+    if(!categoriasMovimentos.pedidosMateriais){
+      categoriasMovimentos.pedidosMateriais = new PedidosMateriais();
+    }
+    
+    if(!categoriasMovimentos.categoriaAdicional){
+      categoriasMovimentos.categoriaAdicional = new PlanosContas();
+    }
+
     categoriasMovimentos.valor = categoriasMovimentos.valor || 0;
     categoriasMovimentos.rateioCategoriasMovimentos     = categoriasMovimentos.rateioCategoriasMovimentos || [];
     
@@ -201,10 +208,9 @@ export class CategoriasMovimentosComponent implements OnInit {
 
   getValorTotal() {
     this.valoresSuperiorValorMovimento = false;
-    if(this.movimentacoes.pagamentosFatura && this.movimentacoes.pagamentosFatura.length > 0) {
-      const valorTotal = this.movimentacoes.pagamentosFatura.map(v => v.valorPagamento).reduce( (valor, total) => total += valor) 
-                          + this.movimentacoes.pagamentosFatura.map(v => v.valorDesconto).reduce( (valor, total) => total += valor) 
-      if(Number(valorTotal.toFixed(2)) != Number(this.movimentacoes.valorMovimentacao.toFixed(2))) {
+    if(this.movimentacoes.categoriasMovimentos) {
+      const valorTotal = this.movimentacoes.categoriasMovimentos.map(item => item.valor).reduce((valor, total) => total += valor, 0) 
+      if(this.movimentacoes.valorMovimentacao && Number(valorTotal.toFixed(2)) != Number(this.movimentacoes.valorMovimentacao.toFixed(2))) {
         this.valoresSuperiorValorMovimento = true;
       }      
       return Number(valorTotal.toFixed(2));
@@ -221,40 +227,6 @@ export class CategoriasMovimentosComponent implements OnInit {
     const categoriasMovimentos = this.getCategoriasMoviemtos();
     const categoriaMovimento = _.find(categoriasMovimentos, (m: CategoriasMovimentos) => m.id == id);
     return categoriaMovimento;
-  }
-
-
-  addRateio() {
-    if (!this.categoriaMovimento.rateioCategoriasMovimentos) {
-      this.categoriaMovimento.rateioCategoriasMovimentos = [];
-    }
-
-    const rateio:any = new RateiosCategoriasMovimentos();
-    rateio.contaBancaria = new ContasBancaria();
-    
-    rateio.id = undefined;
-    rateio.idCategoriaMovimento = this.categoriaMovimento.id;
-    rateio.valorRateio = 0;
-
-    this.categoriaMovimento.rateioCategoriasMovimentos.push(rateio);
-  }
-
-
-  getValorTotalRateio() {
-    this.valorRateioSuperior = false;
-
-    let valorTotal = 0.0;
-    this.categoriaMovimento.rateioCategoriasMovimentos.forEach(rateio => {
-      if(rateio.valorRateio) {
-        valorTotal += rateio.valorRateio;
-      }
-    });
-
-    if(Number(valorTotal.toFixed(2)) != Number(this.categoriaMovimento.valor.toFixed(2))) {
-      this.valorRateioSuperior = true;
-    }
-    return valorTotal;
-    //return Number(valorTotal.toFixed(2)).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
   }
 
   validarValor() {
