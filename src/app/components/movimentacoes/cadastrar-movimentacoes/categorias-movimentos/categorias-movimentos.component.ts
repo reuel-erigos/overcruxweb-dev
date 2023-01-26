@@ -60,7 +60,6 @@ export class CategoriasMovimentosComponent implements OnInit {
   openFormCadastro = false;
   isAtualizar = false;
   
-  valoresSuperiorValorMovimento = false;
   isContaReembolsoValida = true;
 
   constructor(    
@@ -205,19 +204,6 @@ export class CategoriasMovimentosComponent implements OnInit {
     categoriasMovimentos.rateioCategoriasMovimentos     = categoriasMovimentos.rateioCategoriasMovimentos || [];
     
   }
-
-  getValorTotal() {
-    this.valoresSuperiorValorMovimento = false;
-    if(this.movimentacoes.categoriasMovimentos) {
-      const valorTotal = this.movimentacoes.categoriasMovimentos.map(item => item.valor).reduce((valor, total) => total += valor, 0) 
-      if(this.movimentacoes.valorMovimentacao && Number(valorTotal.toFixed(2)) != Number(this.movimentacoes.valorMovimentacao.toFixed(2))) {
-        this.valoresSuperiorValorMovimento = true;
-      }      
-      return Number(valorTotal.toFixed(2));
-    }
-    return 0;
-  }
-
 
   getCategoriasMoviemtos(): CategoriasMovimentos[] {
     return this.movimentacoes.categoriasMovimentos.filter(f => f.id);

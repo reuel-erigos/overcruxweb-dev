@@ -153,9 +153,7 @@
             (closed)="openFormCadastro = true">
             <mat-expansion-panel-header>
                 <mat-panel-title>
-                    <span>Lista de Itens ( {{movimentacoes.categoriasMovimentos?.length || 0}} ) -</span>
-                    <span style="font-weight: 800; padding-left: 10px;" [style.color]="valoresSuperiorValorMovimento ? 'red' : 'green'">Valor Total: {{getValorTotal() | currency: 'BRL'}}</span>      
-                    <span *ngIf="valoresSuperiorValorMovimento" style="color: orangered; padding-left: 10px;">ATENÇÃO !!! A soma dos valores das categorias está diferente ao valor do movimento.</span>
+                    <span>Lista de Itens ( {{movimentacoes.categoriasMovimentos?.length || 0}} )</span>
                 </mat-panel-title>
             </mat-expansion-panel-header>
 
