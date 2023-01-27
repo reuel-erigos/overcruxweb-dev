@@ -63,8 +63,7 @@ export class MovimentacoesComponent extends BaseComponent implements OnInit {
 
   displayedColumns: string[] = ['programaprojeto', 'fornecedorcredor', 'cnpjcpf',
     'recibo', 'dataDocumento', 'valor', 'nrtransacao',
-    'dataUltimoPagamento', 'categorias', 'dataproximasfaturas',
-    'icones', 'acoes'];
+    'dataUltimoPagamento', 'categorias', 'dataproximasfaturas', 'acoes'];
   dataSource: MatTableDataSource<Movimentacoes> = new MatTableDataSource();
 
   perfilAcesso: Acesso = new Acesso();
