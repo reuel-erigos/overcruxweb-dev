@@ -27,8 +27,7 @@
                 <ng-template matStepLabel>ITENS</ng-template>
                 <itens-movimentacao [movimentacoes]="movimentacoes"
                                     [tributos]="tributos"
-                                    [perfilAcesso]="perfilAcesso"
-                                    (onItensInvalidos)="getValorTotalItensInvalidos($event)">
+                                    [perfilAcesso]="perfilAcesso">
                 </itens-movimentacao>
             </form>
             <div dir="rtl" fxLayoutGap="20px" style="padding-top: 20px; padding-bottom: 10px; padding-right: 20px"

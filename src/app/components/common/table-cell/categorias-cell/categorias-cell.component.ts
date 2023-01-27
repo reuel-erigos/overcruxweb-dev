@@ -28,12 +28,12 @@ export class CategoriasCellComponent implements OnInit {
     if(this.movimento.categoriasMovimentos ) {
       this.dados = this.movimento.categoriasMovimentos.map(item => {
         if(item.categoriaAdicional && item.categoriaAdicional.id) {
-          return 'Conta Destino: ' + item.categoriaDestino.nome + '<br/>' +
-          'Conta Origem : '+ item.categoriaOrigem.nome + '<br/>' +
-          'Conta Adicional : '+ item.categoriaAdicional.nome + '<br/>';
+          return 'Conta Destino: ' + item.categoriaDestino.nome + '\n' +
+          'Conta Origem : '+ item.categoriaOrigem.nome + '\n' +
+          'Conta Adicional : '+ item.categoriaAdicional.nome + '\n';
         } else {
-          return 'Conta Destino: ' + item.categoriaDestino.nome + '<br/>' +
-          'Conta Origem : '+ item.categoriaOrigem.nome + '<br/>';
+          return 'Conta Destino: ' + item.categoriaDestino.nome + '\n' +
+          'Conta Origem : '+ item.categoriaOrigem.nome + '\n';
         }
       });
     }

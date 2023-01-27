@@ -33,7 +33,6 @@ export class ItensMovimentacaoComponent implements OnInit {
   @Input() movimentacoes:Movimentacoes;
   @Input() perfilAcesso: Acesso;
   @Input() tributos: Tributos[];
-  @Output() onItensInvalidos = new EventEmitter();
 
 
   mostrarTabela = false;
@@ -232,11 +231,9 @@ export class ItensMovimentacaoComponent implements OnInit {
       if(Number(valorTotal.toFixed(2)) != Number(this.movimentacoes.valorMovimentacao.toFixed(2))) {
         this.valorItensSuperiorValorMovimento = true;
       }
-      this.onItensInvalidos.emit(this.valorItensSuperiorValorMovimento);
       return Number(valorTotal.toFixed(2));
     }
 
-    this.onItensInvalidos.emit(this.valorItensSuperiorValorMovimento);
     return 0;
   }
 

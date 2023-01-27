@@ -24,7 +24,7 @@ export class ProjetoProgramaCellComponent implements OnInit {
       this.dados[0] =  '' ;
     }
 
-    this.dados = this.rateios ? this.rateios.map(o => (o.projeto && o.projeto.id ? o.projeto.nome : (o.programa && o.programa.id ? o.programa.nome: '')) + ', ') : null;
+    this.dados = this.rateios ? this.rateios.map(o => (o.projeto && o.projeto.id ? o.projeto.nome : (o.programa && o.programa.id ? o.programa.nome: '')) + '\n') : null;
     this.dadosTooltip = this.dados ? this.dados.slice(1)
                                                //.map(o => (o.projeto && o.projeto.id ? o.projeto.nome : (o.programa && o.programa.id ? o.programa.nome: '')) + ', ')
                                                .join('\n') : '' ;
