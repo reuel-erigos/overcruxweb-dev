@@ -312,7 +312,7 @@ export class CadastrarMovimentacoesComponent implements OnInit {
   }
 
   isDesabilitaBotao(): boolean {
-    return this.isValorTotalCategoriasMovimentosInvalido || this.isValorTotalFaturaInvalido || this.isPagamentoInvalido;
+    return this.isValorTotalFaturaInvalido || this.isPagamentoInvalido;
   }
 
   getLabelABA(){
