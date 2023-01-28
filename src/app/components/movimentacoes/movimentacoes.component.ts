@@ -306,19 +306,25 @@ export class MovimentacoesComponent extends BaseComponent implements OnInit {
     this.filtro.projeto = event;
   }
 
-  carregarContaDebito(idConta: number) {
+  carregarContaDebito(event: any) {
     this.filtro.contaDebito = new PlanosContas();
-    this.filtro.contaDebito.id = idConta;
+    if(event && event.id) {
+      this.filtro.contaDebito.id = event.id;
+    }
   }
 
-  carregarContaCredito(idConta: number) {
+  carregarContaCredito(event: any) {
     this.filtro.contaCredito = new PlanosContas();
-    this.filtro.contaCredito.id = idConta;
+    if(event && event.id) {
+      this.filtro.contaCredito.id = event.id;
+    }
   }
 
-  carregarContaAdicional(idConta: number) {
+  carregarContaAdicional(event: any) {
     this.filtro.contaAdicional = new PlanosContas();
-    this.filtro.contaAdicional.id = idConta;
+    if(event && event.id) {
+      this.filtro.contaAdicional.id = event.id;
+    }
   }
 
   onEventPaginate(event?: PageEvent) {

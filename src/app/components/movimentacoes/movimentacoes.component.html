@@ -109,7 +109,7 @@
                                                label="Conta Contábil Débito"
                                                placeholder="Escolha..."
                                                [(valor)]="filtro.contaDebito"
-                                               (valorChange)="carregarContaDebito($event.id)"
+                                               (valorChange)="carregarContaDebito($event)"
                                                style="margin-top: 10px;">
                             </combo-pesquisavel>
                         </div>
@@ -122,7 +122,7 @@
                                                label="Conta Contábil Crédito"
                                                placeholder="Escolha..."
                                                [(valor)]="filtro.contaCredito"
-                                               (valorChange)="carregarContaCredito($event.id)"
+                                               (valorChange)="carregarContaCredito($event)"
                                                style="margin-top: 10px;">
                             </combo-pesquisavel>
                         </div>
@@ -135,7 +135,7 @@
                                                label="Conta Contábil Adicional"
                                                placeholder="Escolha..."
                                                [(valor)]="filtro.contaAdicional"
-                                               (valorChange)="carregarContaAdicional($event.id)"
+                                               (valorChange)="carregarContaAdicional($event)"
                                                style="margin-top: 10px;">
                             </combo-pesquisavel>
                         </div>
