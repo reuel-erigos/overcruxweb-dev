@@ -4,6 +4,7 @@ import { BaseService } from '../base/base.service';
 import { HttpClient } from '@angular/common/http';
 import { Rotas } from 'src/app/core/rotas';
 import { FilterMovimentacoes } from 'src/app/core/filter-movimentacoes';
+import { PageInfo } from '../../core/page-info';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,6 @@ export class MovimentacoesService extends BaseService<Movimentacoes> {
   constructor(http: HttpClient) {
     super(http, Rotas.MOVIMENTACOES);
   }
-
-  
 
   getAllOrigem() {
     return this.http.get(Rotas.MOVIMENTACOES + `origem`);
@@ -87,5 +86,13 @@ export class MovimentacoesService extends BaseService<Movimentacoes> {
         data: `${p_data}`,
         }
     });
+  }
+
+  listFilteredAndPaged(pageInfo: PageInfo, filtro: FilterMovimentacoes) {
+    return this.http.post(
+      Rotas.MOVIMENTACOES + 'paged/filtro', 
+      JSON.stringify(filtro),
+      this.headersWithPagination(pageInfo)
+    );
   }
 }

@@ -1,7 +1,7 @@
 <div>
     <div [matTooltip]="dadosTooltip" matTooltipPosition="above" >
       <span *ngIf="!!dados && dados.length">
-        <span>{{getPrimeiroRegistro()?.toUpperCase()}}</span>
+        <span style="white-space: pre-line;">{{getPrimeiroRegistro()?.toUpperCase()}}</span>
         <mat-icon style="color: chartreuse;" *ngIf="!!dadosTooltip">add_circle_outline</mat-icon>
       </span> 
     </div>

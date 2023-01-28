@@ -1,7 +1,7 @@
 import { MovimentacoesService } from './../../services/movimentacoes/movimentacoes.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
-import { MatDialogConfig} from '@angular/material/dialog';
+import { MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
@@ -25,6 +25,10 @@ import * as _ from 'lodash';
 import { CarregarPerfil } from 'src/app/core/carregar-perfil';
 import { ComboProjeto } from 'src/app/core/combo-projeto';
 import { ComboPrograma } from 'src/app/core/combo-programa';
+import { PlanosContas } from '../../core/planos-contas';
+import { CategoriasContabeisService } from '../../services/categorias-contabeis/categorias-contabeis.service';
+import { BaseComponent } from '../../architeture/base/base.component';
+import { PageInfo } from '../../core/page-info';
 
 
 
@@ -40,28 +44,28 @@ import { ComboPrograma } from 'src/app/core/combo-programa';
       transition('expanded <=> collapsed', animate('225ms cubic-bezier(0.4, 0.0, 0.2, 1)')),
     ])]
 })
-export class MovimentacoesComponent implements OnInit {
+export class MovimentacoesComponent extends BaseComponent implements OnInit {
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
-    
+
 
   expandedElement: any;
-  
+
   listaMovimentacoes: Movimentacoes[];
   mostrarTabela: boolean = false;
   movimentacoes: Movimentacoes = new Movimentacoes();
+  planosContas: PlanosContas[];
   msg: string;
 
-  empresas:Empresa[];
+  empresas: Empresa[];
 
   filtro: FilterMovimentacoes;
 
-  displayedColumns: string[] = ['programaprojeto', 'fornecedorcredor', 'cnpjcpf', 
-                                'recibo', 'dataDocumento',  'valor', 'nrtransacao', 
-                                'dataUltimoPagamento', 'categorias', 'dataproximasfaturas',
-                                'icones','acoes'];
+  displayedColumns: string[] = ['programaprojeto', 'fornecedorcredor', 'cnpjcpf',
+    'recibo', 'dataDocumento', 'valor', 'nrtransacao',
+    'dataUltimoPagamento', 'categorias', 'dataproximasfaturas', 'acoes'];
   dataSource: MatTableDataSource<Movimentacoes> = new MatTableDataSource();
-  
+
   perfilAcesso: Acesso = new Acesso();
   carregarPerfil: CarregarPerfil;
 
@@ -71,32 +75,30 @@ export class MovimentacoesComponent implements OnInit {
     private dialog: MatDialog,
     private activatedRoute: ActivatedRoute,
     private empresaService: EmpresaService,
-    private programaService: ProgramaService,
-    private projetoService: ProjetoService,
-    private dataUtilService: DataUtilService,   
+    private dataUtilService: DataUtilService,
     private toastService: ToastService,
     private cnpjPipe: CnpjPipe,
-    private cpfPipe: CpfPipe 
-  ) { 
-    this.filtro = this.movimentacoesService.filtro;
+    private cpfPipe: CpfPipe,
+    private categoriasContabeisService: CategoriasContabeisService,
+  ) {
+    super();
     this.carregarPerfil = new CarregarPerfil();
   }
 
   ngOnInit() {
     this.carregarPerfil.carregar(this.activatedRoute.snapshot.data.perfilAcesso, this.perfilAcesso);
-
-    this.empresaService.getAllCombo().subscribe((empresas:Empresa[]) => {
+    this.dataSource.paginator = this.paginator;
+    this.empresaService.getAllCombo().subscribe((empresas: Empresa[]) => {
       this.empresas = empresas;
       this.preencherComboEmpresa();
     })
 
+    this.categoriasContabeisService.getAllView(false).subscribe((planosContas: PlanosContas[]) => {
+      this.planosContas = planosContas;
+    })
 
-    this.dataSource.paginator = this.paginator;   
     this.initFiltro();
-
-    if(!this.isFiltroVazio()) {
-      this.getAllOrigem();
-    }
+    this.consultar();
   }
 
 
@@ -104,42 +106,54 @@ export class MovimentacoesComponent implements OnInit {
     this.paginator.pageSize = event.pageSize;
     this.paginator.pageIndex = event.pageIndex;
     this.paginator.page.emit(event);
-}
+  }
 
   limpar() {
     this.mostrarTabela = false;
     this.movimentacoes = new Movimentacoes()
     this.dataSource.data = [];
     this.filtro = (this.movimentacoesService.filtro = new FilterMovimentacoes());
-    this.filtro.empresa  = new Empresa();
-    this.filtro.projeto  = new ComboProjeto();
+    this.filtro.empresa = new Empresa();
+    this.filtro.projeto = new ComboProjeto();
     this.filtro.programa = new ComboPrograma();
-    this.filtro.valor    = 0;
+    this.filtro.contaDebito = new PlanosContas();
+    this.filtro.contaCredito = new PlanosContas();
+    this.filtro.contaAdicional = new PlanosContas();
+    this.filtro.valor = null;
   }
 
   consultar() {
-
-    if(this.isFiltroVazio()) {
-      this.toastService.showAlerta('Informe pelo menos um parâmetro de pesquisa.');
-      return;
+    const pageInfo = new PageInfo();
+    if(this.paginator) {
+      this.paginator.firstPage();
     }
+    this.consultarMovimentacoes(pageInfo);
+  }
 
-    this.getAllOrigem();
+  private consultarMovimentacoes(pageInfo: PageInfo) {
+    this.movimentacoesService.listFilteredAndPaged(pageInfo, this.filtro)
+      .subscribe((resp: any) => {
+        this.numberItens = resp.totalElements;
+        this.verificaMostrarTabela(resp.content);
+      });
   }
 
   private isFiltroVazio(): boolean {
-    if(!this.filtro.empresa?.id &&
-       !this.filtro.programa?.id &&
-       !this.filtro.projeto?.id &&
-       !this.filtro.valor &&
-       !this.filtro.dataInicioDoc &&
-       !this.filtro.dataFimDoc &&
-       !this.filtro.dataVencimento &&
-       !this.filtro.dataInicioMov &&
-       !this.filtro.dataFimMov &&
-       !this.filtro.dataInicioPag &&
-       !this.filtro.dataFimPag &&                                         
-       !this.filtro.numeroDocumento) {
+    if (!this.filtro.empresa?.id &&
+      !this.filtro.programa?.id &&
+      !this.filtro.projeto?.id &&
+      !this.filtro.contaDebito?.id &&
+      !this.filtro.contaCredito?.id &&
+      !this.filtro.contaAdicional?.id &&
+      !this.filtro.valor &&
+      !this.filtro.dataInicioDoc &&
+      !this.filtro.dataFimDoc &&
+      !this.filtro.dataVencimento &&
+      !this.filtro.dataInicioMov &&
+      !this.filtro.dataFimMov &&
+      !this.filtro.dataInicioPag &&
+      !this.filtro.dataFimPag &&
+      !this.filtro.numeroDocumento) {
       return true;
     }
     return false;
@@ -177,39 +191,52 @@ export class MovimentacoesComponent implements OnInit {
   }
 
   private initFiltro() {
-    if(!this.filtro.empresa) {
-      this.filtro.empresa  = new Empresa();
+    this.filtro = this.movimentacoesService.filtro;
+    if (!this.filtro.empresa) {
+      this.filtro.empresa = new Empresa();
     }
 
-    if(!this.filtro.programa) {
+    if (!this.filtro.programa) {
       this.filtro.programa = new Programa();
     }
 
-    if(!this.filtro.projeto) {
-      this.filtro.projeto  = new Projeto();
+    if (!this.filtro.projeto) {
+      this.filtro.projeto = new Projeto();
+    }
+
+    if (!this.filtro.contaDebito) {
+      this.filtro.contaDebito = new PlanosContas();
+    }
+
+    if (!this.filtro.contaCredito) {
+      this.filtro.contaCredito = new PlanosContas();
+    }
+
+    if (!this.filtro.contaAdicional) {
+      this.filtro.contaAdicional = new PlanosContas();
     }
   }
 
   getAllOrigem() {
     this.initFiltro();
     this.movimentacoesService.getFilterOrigem(this.filtro.empresa.id,
-                                              this.filtro.programa.id,
-                                              this.filtro.projeto.id,
-                                              this.filtro.valor,
-                                              this.filtro.dataInicioDoc,
-                                              this.filtro.dataFimDoc,
-                                              this.filtro.dataVencimento,
-                                              this.filtro.dataInicioMov,
-                                              this.filtro.dataFimMov,
-                                              this.filtro.dataInicioPag,
-                                              this.filtro.dataFimPag,                                              
-                                              this.filtro.numeroDocumento
-                                              )
-    .subscribe((listaMovimentacoes: Movimentacoes[]) => {
-      this.listaMovimentacoes = listaMovimentacoes;
-      this.dataSource.data = listaMovimentacoes ? listaMovimentacoes : [];
-      this.verificaMostrarTabela(listaMovimentacoes);
-    })
+      this.filtro.programa.id,
+      this.filtro.projeto.id,
+      this.filtro.valor,
+      this.filtro.dataInicioDoc,
+      this.filtro.dataFimDoc,
+      this.filtro.dataVencimento,
+      this.filtro.dataInicioMov,
+      this.filtro.dataFimMov,
+      this.filtro.dataInicioPag,
+      this.filtro.dataFimPag,
+      this.filtro.numeroDocumento
+    )
+      .subscribe((listaMovimentacoes: Movimentacoes[]) => {
+        this.listaMovimentacoes = listaMovimentacoes;
+        this.dataSource.data = listaMovimentacoes ? listaMovimentacoes : [];
+        this.verificaMostrarTabela(listaMovimentacoes);
+      })
   }
 
   verificaMostrarTabela(listaMovimentacoes: Movimentacoes[]) {
@@ -219,16 +246,17 @@ export class MovimentacoesComponent implements OnInit {
     } else {
       this.mostrarTabela = true;
     }
+    this.dataSource.data = listaMovimentacoes ? listaMovimentacoes : [];
   }
 
 
   getUltimoPagamento(movimento: Movimentacoes) {
-    let pagamentos  = movimento.pagamentosFatura;
+    let pagamentos = movimento.pagamentosFatura;
 
     // Ordenação de array (decrescente)
-    pagamentos = pagamentos.sort((a,b) => {
-      if (a.dataPagamento > b.dataPagamento) {return -1;}
-      if (a.dataPagamento < b.dataPagamento) {return 1;}
+    pagamentos = pagamentos.sort((a, b) => {
+      if (a.dataPagamento > b.dataPagamento) { return -1; }
+      if (a.dataPagamento < b.dataPagamento) { return 1; }
       return 0;
     });
 
@@ -243,35 +271,32 @@ export class MovimentacoesComponent implements OnInit {
 
 
   getFornecedorCredor(movimentacao: Movimentacoes): string {
-    if(movimentacao.empresa && movimentacao.empresa.nomeRazaoSocial) {
+    if (movimentacao.empresa && movimentacao.empresa.nomeRazaoSocial) {
       return movimentacao.empresa.nomeRazaoSocial.toUpperCase();
     }
 
-    if(movimentacao.fornecedorColaborador && movimentacao.fornecedorColaborador.nome) {
+    if (movimentacao.fornecedorColaborador && movimentacao.fornecedorColaborador.nome) {
       return movimentacao.fornecedorColaborador.nome.toUpperCase();
     }
     return '';
   }
 
   getCnpfCpf(movimentacao: Movimentacoes): string {
-    if(movimentacao.empresa && movimentacao.empresa.cnpj) {
+    if (movimentacao.empresa && movimentacao.empresa.cnpj) {
       return this.cnpjPipe.transform(movimentacao.empresa.cnpj);
     }
 
-    if(movimentacao.fornecedorColaborador && movimentacao.fornecedorColaborador.cpf) {
+    if (movimentacao.fornecedorColaborador && movimentacao.fornecedorColaborador.cpf) {
       return this.cpfPipe.transform(movimentacao.fornecedorColaborador.cpf);
     }
     return '';
   }
 
-
-
-  preencherComboEmpresa(){
+  preencherComboEmpresa() {
     if (this.movimentacoesService.filtro.empresa.id) {
-      this.filtro.empresa = _.find(this.empresas, { id: this.movimentacoesService.filtro.empresa.id});
+      this.filtro.empresa = _.find(this.empresas, { id: this.movimentacoesService.filtro.empresa.id });
     }
   }
-
 
   onValorChangePrograma(event: any) {
     this.filtro.programa = event;
@@ -281,4 +306,27 @@ export class MovimentacoesComponent implements OnInit {
     this.filtro.projeto = event;
   }
 
+  carregarContaDebito(idConta: number) {
+    this.filtro.contaDebito = new PlanosContas();
+    this.filtro.contaDebito.id = idConta;
+  }
+
+  carregarContaCredito(idConta: number) {
+    this.filtro.contaCredito = new PlanosContas();
+    this.filtro.contaCredito.id = idConta;
+  }
+
+  carregarContaAdicional(idConta: number) {
+    this.filtro.contaAdicional = new PlanosContas();
+    this.filtro.contaAdicional.id = idConta;
+  }
+
+  onEventPaginate(event?: PageEvent) {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    const pageInfo = new PageInfo();
+    pageInfo.pageSize = this.pageSize;
+    pageInfo.actualPage = this.pageIndex;
+    this.consultarMovimentacoes(pageInfo);
+  }
 }

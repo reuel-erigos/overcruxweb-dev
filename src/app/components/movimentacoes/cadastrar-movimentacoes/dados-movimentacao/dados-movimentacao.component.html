@@ -124,17 +124,6 @@
                        [options]="{ prefix: '', thousands: '.', decimal: ',' }" />
                 <span matPrefix>R$&nbsp;</span>
             </mat-form-field>
-
-            <mat-form-field fxFlex="18%">
-                <input [(ngModel)]=movimentacoes.qtdParcelas 
-                        type="number" 
-                        min=0 matInput maxlength="3" 
-                        name="qtdParcelas" 
-                        #qtdParcelas
-                        (blur)="validarValorNegativo(qtdParcelas.value)"
-                        placeholder="Quantidade de parcelas:" />
-            </mat-form-field>
-    
         </div>
 
         <!-- OUTRAS INFORMACOES -->

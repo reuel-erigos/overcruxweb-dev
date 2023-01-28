@@ -40,7 +40,6 @@ export class CadastrarMovimentacoesComponent implements OnInit {
   mostrarBotaoAtualizar = true;
 
   isValorTotalCategoriasMovimentosInvalido  = false;
-  isValorTotalItensInvalido  = false;
   isValorTotalFaturaInvalido = false;
   isPagamentoInvalido        = false;
 
@@ -305,9 +304,6 @@ export class CadastrarMovimentacoesComponent implements OnInit {
     this.isValorTotalCategoriasMovimentosInvalido = valor;
   }
 
-  getValorTotalItensInvalidos(valor: boolean) {
-    this.isValorTotalItensInvalido = valor;
-  }
   getValorTotalFaturasInvalidos(valor: boolean) {
     this.isValorTotalFaturaInvalido = valor;
   }
@@ -316,7 +312,7 @@ export class CadastrarMovimentacoesComponent implements OnInit {
   }
 
   isDesabilitaBotao(): boolean {
-    return this.isValorTotalCategoriasMovimentosInvalido || this.isValorTotalItensInvalido || this.isValorTotalFaturaInvalido || this.isPagamentoInvalido;
+    return this.isValorTotalFaturaInvalido || this.isPagamentoInvalido;
   }
 
   getLabelABA(){

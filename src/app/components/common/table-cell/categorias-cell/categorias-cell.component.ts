@@ -21,13 +21,22 @@ export class CategoriasCellComponent implements OnInit {
       this.dados = [];
     }
 
-    if (!this.movimento.itensMovimentacoes && this.movimento.itensMovimentacoes.length === 0) {
+    if (!this.movimento.categoriasMovimentos && this.movimento.categoriasMovimentos.length === 0) {
       this.dados[0] =  '' ;
     }
 
-    this.dados = this.movimento.itensMovimentacoes 
-                      ? this.movimento.itensMovimentacoes.map(item => (item.categoria.descricaoCategoria || '') + ', ') 
-                      : null;
+    if(this.movimento.categoriasMovimentos ) {
+      this.dados = this.movimento.categoriasMovimentos.map(item => {
+        if(item.categoriaAdicional && item.categoriaAdicional.id) {
+          return 'Conta Destino: ' + item.categoriaDestino.nome + '\n' +
+          'Conta Origem : '+ item.categoriaOrigem.nome + '\n' +
+          'Conta Adicional : '+ item.categoriaAdicional.nome + '\n';
+        } else {
+          return 'Conta Destino: ' + item.categoriaDestino.nome + '\n' +
+          'Conta Origem : '+ item.categoriaOrigem.nome + '\n';
+        }
+      });
+    }
 
     this.dadosTooltip = this.dados ? this.dados.slice(1).join('\n') : '' ;
     this.dadosTooltip = this.dadosTooltip.substring(0, this.dadosTooltip.length-2);
