@@ -59,20 +59,6 @@
                 </div>
 
                 <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="16px" fxFlexFill>
-                    <div ngModelGroup="comboPrograma" fxLayout="column" fxFlex="50%" fxLayoutGap="20px" fxFlexOffset="20px" class="marginCombo">
-                        <combo-pesquisavel #comboPrograma 
-                                            nome="programa" 
-                                            [itens]="comboProgramas" 
-                                            itemDescricao="nome"
-                                            itemId="id"
-                                            label="Programa"
-                                            placeholder="Escolha..."
-                                            [(valor)]="filtro.programa"
-                                            (valorChange)="carregarPrograma($event)"
-                                            style="margin-top: 10px;">
-                        </combo-pesquisavel>
-                    </div>
-
                     <div ngModelGroup="comboProjeto" fxLayout="column" fxFlex="50%" fxLayoutGap="20px" fxFlexOffset="20px" class="marginCombo">
                         <combo-pesquisavel #comboProjeto 
                                             nome="projeto" 
