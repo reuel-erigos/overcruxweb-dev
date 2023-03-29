@@ -79,7 +79,7 @@ export class RelatoriosFinanceiroComponent implements OnInit {
   carregarPerfil: CarregarPerfil;
 
   displayColunasNormativa: string[] = ['select', 'nomeProgramaProjeto','fornecedor','numerodocumento','cnpjcpf', 'datadocumento', 'valormovimentacao', 'numerotransacao', 'datapagamento', 'rubrica'];
-  displayColunasFaturaPagar: string[] = ['select', 'nomeProgramaProjeto','fornecedor','numerodocumento','cnpjcpf', 'datadocumento', 'valormovimentacao', 'datavencimento', 'rubrica'];
+  displayColunasFaturaPagar: string[] = ['select', 'nomeProgramaProjeto','fornecedor','numerodocumento','cnpjcpf', 'datadocumento', 'valormovimentacao', 'valorfatura', 'datavencimento', 'rubrica'];
   displayColunasSaldoProjeto: string[] = ['select', 'nomeProgramaProjeto','tipo', 'descricao','parceiro','numerodocumento', 'dataoperacao', 'valoroperacao', 'bancoagenciaconta', 'saldo'];
   displayColunasMovimentacaoContabil: string[] = ['select', 'nomeProgramaProjeto',  'numerodocumento', 'datadocumento','descricaoCategoria','dataMovimentacao','valorCategoria','contaDestino','contaOrigem'];
 
@@ -101,7 +101,7 @@ export class RelatoriosFinanceiroComponent implements OnInit {
 
   tiposRelatorios: TipoRelatorio[] = [
     {tipo: 'NP', descricao: 'Relação Nominativa de Pagamentos', nomeRelatorio: 'Relação Nominativa de Pagamentos'},
-    {tipo: 'FP', descricao: 'Faturas a Pagar', nomeRelatorio: 'faturas_pagar'},
+    {tipo: 'FP', descricao: 'Faturas', nomeRelatorio: 'faturas_pagar'},
     {tipo: 'SP', descricao: 'Saldo por Projeto', nomeRelatorio: 'saldo_projeto'},
     {tipo: 'MC', descricao: 'Movimentações Contábeis', nomeRelatorio: 'movimentacao_contabil'},
   ];
@@ -252,7 +252,6 @@ export class RelatoriosFinanceiroComponent implements OnInit {
       (dados: any[]) => {
         this.loadingPopupService.closeDialog();
         this.dadosDataSource = dados;
-      
         this.dataSource.data = dados ? dados : [];
 
         if(this.isRelatorioNormativaPagamento()){
