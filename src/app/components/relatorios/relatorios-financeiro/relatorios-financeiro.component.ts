@@ -82,9 +82,10 @@ export class RelatoriosFinanceiroComponent implements OnInit {
   displayColunasFaturaPagar: string[] = ['select', 'nomeProjeto','fornecedor','numerodocumento','cnpjcpf', 'datadocumento', 'valormovimentacao', 'valorfatura', 'datavencimento', 'contaContabil'];
   displayColunasSaldoProjeto: string[] = ['select', 'nomeProgramaProjeto','tipo', 'descricao','parceiro','numerodocumento', 'dataoperacao', 'valoroperacao', 'bancoagenciaconta', 'saldo'];
   displayColunasMovimentacaoContabil: string[] = ['select', 'nomeProgramaProjeto',  'numerodocumento', 'datadocumento','descricaoCategoria','dataMovimentacao','valorCategoria','contaDestino','contaOrigem'];
-
+  displayColunasFaturaPagarFooter: string[] = ['select', 'valormovimentacao', 'valorfatura'];
 
   displayedColumns: string[] = [];
+  displayedColumnsFooter: string[] = [];
   dataSource: MatTableDataSource<any> = new MatTableDataSource();
   mostrarTabela: boolean = false;
   msg: string;
@@ -108,6 +109,7 @@ export class RelatoriosFinanceiroComponent implements OnInit {
   tipoRelatorioSelecionado: TipoRelatorio;
 
   valorTotalMovimentos: number;
+  valorTotalFatura: number;
   valorSaldoInicioMovimentos: number;
   valorTotalOrigem: number;
   valorTotalDestino: number;
@@ -159,27 +161,32 @@ export class RelatoriosFinanceiroComponent implements OnInit {
       switch(this.tipoRelatorioSelecionado.tipo) { 
         case 'NP': { 
           this.displayedColumns = this.displayColunasNormativa;
+          this.displayedColumnsFooter = [];
           this.prepararBuscaNormativaPagamentos();
           break; 
         } 
         case 'FP': { 
           this.displayedColumns = this.displayColunasFaturaPagar;
+          this.displayedColumnsFooter = this.displayColunasFaturaPagarFooter;
           this.prepararBuscaFaturaPagar();
           break; 
         } 
         case 'SP': { 
           this.displayedColumns = this.displayColunasSaldoProjeto;
+          this.displayedColumnsFooter = [];
           this.prepararBuscaSaldoProjeto();
           break; 
         } 
         case 'MC': { 
           this.displayedColumns = this.displayColunasMovimentacaoContabil;
+          this.displayedColumnsFooter = [];
           this.prepararBuscaMovimentacaoContabil();
           this.comboPlanosContas = this.comboPlanosContasAll;
           break; 
         }         
         default: { 
           this.displayedColumns = [];
+          this.displayedColumnsFooter = [];
           break; 
         } 
      } 
@@ -245,6 +252,7 @@ export class RelatoriosFinanceiroComponent implements OnInit {
     this.limparSaldoContaContabil();
 
     this.valorTotalMovimentos = 0;
+    this.valorTotalFatura = 0;
 
     this.loadingPopupService.mostrarMensagemDialog('Buscando, aguarde...');
     this.servicoBusca$
@@ -257,6 +265,13 @@ export class RelatoriosFinanceiroComponent implements OnInit {
         if(this.isRelatorioNormativaPagamento()){
           this.dadosDataSource.forEach(mov => {
             this.valorTotalMovimentos = this.valorTotalMovimentos + mov.valorMovimentacao;
+          });
+        }
+
+        if(this.isRelatorioFaturas()){
+          this.dadosDataSource.forEach(mov => {
+            this.valorTotalMovimentos = this.valorTotalMovimentos + mov.valorMovimentacao;
+            this.valorTotalFatura = this.valorTotalFatura + mov.valorFatura;
           });
         }
 
@@ -515,6 +530,10 @@ export class RelatoriosFinanceiroComponent implements OnInit {
     return this.tipoRelatorioSelecionado.tipo === 'MC';
   }
 
+  isRelatorioFaturas(): boolean {
+    return this.tipoRelatorioSelecionado.tipo === 'FP';
+  }
+
   isShowSaldoContabil(): boolean{
     return !!this.filtro.planoConta?.id && !!this.filtro.dataFim;
   }
@@ -524,5 +543,21 @@ export class RelatoriosFinanceiroComponent implements OnInit {
     this.valorTotalOrigem = 0;
     this.valorTotalDestino = 0;
     this.valorTotalFinal = 0;
+  }
+
+  getTotalValorMovimentacao() {
+    let valor = 0;
+    if(this.isRelatorioFaturas()) {
+      valor = this.dadosDataSource.reduce((value, item) => { return value + item.valorMovimentacao},0);
+    }
+    return valor;
+  }
+
+  getTotalValorFatura() {
+    let valor = 0;
+    if(this.isRelatorioFaturas()) {
+      valor = this.dadosDataSource.reduce((value, item) => { return value + item.valorFatura},0);
+    }
+    return valor;
   }
 }

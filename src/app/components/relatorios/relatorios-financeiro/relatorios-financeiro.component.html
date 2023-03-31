@@ -143,6 +143,11 @@
                     <span fxFlexOffset="20px" style="font-weight: bold;">Valor Total Movimentação: </span> <label style="padding-left:5px">{{valorTotalMovimentos | currency: 'BRL'}}</label> 
                 </div>
 
+                <div *ngIf="isRelatorioFaturas() && mostrarTabela" fxLayoutGap="20px" style="padding-top: 20px; padding-bottom: 20px;" fxFlexFill>
+                    <span fxFlexOffset="20px" style="font-weight: bold;">Valor Total Movimentação: </span> <label style="padding-left:5px">{{valorTotalMovimentos | currency: 'BRL'}}</label> 
+                    <span fxFlexOffset="20px" style="font-weight: bold;">Valor Total Fatura: </span> <label style="padding-left:5px">{{valorTotalFatura | currency: 'BRL'}}</label> 
+                </div>
+
                 <div fxLayout="row" *ngIf="isRelatorioMovimentacaoContabil() && isShowSaldoContabil()" 
                      fxLayoutGap="20px" style="padding-top: 20px; padding-bottom: 20px;" fxFlexFill>
 
