@@ -225,6 +225,13 @@
                 <td mat-cell *matCellDef="let element"> {{element.nomeProgramaProjeto }} </td>
             </ng-container>
 
+            <ng-container matColumnDef="nomeProjeto" >
+                <th mat-header-cell mat-sort-header *matHeaderCellDef style="text-align: center; width: 300px">Projeto</th>
+                <td mat-cell *matCellDef="let element"> 
+                    <projeto-cell [projetos]="element.projetos"></projeto-cell>
+                </td>
+            </ng-container>
+
             <ng-container matColumnDef="fornecedor" >
                 <th mat-header-cell mat-sort-header *matHeaderCellDef style="text-align: center; width: 300px">Fornecedor</th>
                 <td mat-cell *matCellDef="let element"> {{element.descFornecedor }} </td>
@@ -311,6 +318,12 @@
                 <td mat-cell *matCellDef="let element"> {{element.nomeCategoria}} </td>
             </ng-container>  
 
+            <ng-container matColumnDef="contaContabil">
+                <th mat-header-cell mat-sort-header *matHeaderCellDef style="text-align: center; width: 300px">Conta Contábil</th>
+                <td mat-cell *matCellDef="let element">
+                    <categoria-contabil-cell [categorias]="element.categorias"></categoria-contabil-cell>
+                </td>
+            </ng-container>  
 
             <ng-container matColumnDef="descricaoCategoria">
                 <th mat-header-cell mat-sort-header *matHeaderCellDef style="text-align: center; width: 150px">Histórico da Movimentação</th>

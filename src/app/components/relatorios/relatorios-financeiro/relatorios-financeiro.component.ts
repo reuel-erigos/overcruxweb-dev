@@ -79,7 +79,7 @@ export class RelatoriosFinanceiroComponent implements OnInit {
   carregarPerfil: CarregarPerfil;
 
   displayColunasNormativa: string[] = ['select', 'nomeProgramaProjeto','fornecedor','numerodocumento','cnpjcpf', 'datadocumento', 'valormovimentacao', 'numerotransacao', 'datapagamento', 'rubrica'];
-  displayColunasFaturaPagar: string[] = ['select', 'nomeProgramaProjeto','fornecedor','numerodocumento','cnpjcpf', 'datadocumento', 'valormovimentacao', 'valorfatura', 'datavencimento', 'rubrica'];
+  displayColunasFaturaPagar: string[] = ['select', 'nomeProjeto','fornecedor','numerodocumento','cnpjcpf', 'datadocumento', 'valormovimentacao', 'valorfatura', 'datavencimento', 'contaContabil'];
   displayColunasSaldoProjeto: string[] = ['select', 'nomeProgramaProjeto','tipo', 'descricao','parceiro','numerodocumento', 'dataoperacao', 'valoroperacao', 'bancoagenciaconta', 'saldo'];
   displayColunasMovimentacaoContabil: string[] = ['select', 'nomeProgramaProjeto',  'numerodocumento', 'datadocumento','descricaoCategoria','dataMovimentacao','valorCategoria','contaDestino','contaOrigem'];
 
@@ -153,7 +153,7 @@ export class RelatoriosFinanceiroComponent implements OnInit {
   }
 
   prepararBusca() {
-    this.comboPlanosContas = this.comboPlanosContasAll.filter(c => !c.sintetica);
+    this.comboPlanosContas = this.comboPlanosContasAll?.filter(c => !c.sintetica);
 
     if(this.tipoRelatorioSelecionado) {
       switch(this.tipoRelatorioSelecionado.tipo) { 
@@ -204,7 +204,7 @@ export class RelatoriosFinanceiroComponent implements OnInit {
   prepararBuscaFaturaPagar(): Observable<any>{
     if(this.tipoRelatorioSelecionado && this.tipoRelatorioSelecionado.tipo === 'FP') { 
       this.servicoBusca = this.relatorioFaturasPagarService;
-      this.servicoBusca$ = this.relatorioFaturasPagarService.getFilter(this.filtro.planoConta?.id, 
+      this.servicoBusca$ = this.relatorioFaturasPagarService.getFilterView(this.filtro.planoConta?.id, 
                                                                        this.filtro.empresa?.id, 
                                                                        this.filtro.pessoaFisica?.id,
                                                                        this.filtro.programa?.id,

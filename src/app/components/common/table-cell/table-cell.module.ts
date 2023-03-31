@@ -5,13 +5,17 @@ import { MaterialCommonModule } from 'src/app/material-modules/material-common.m
 import { ProjetoProgramaCellComponent } from './projeto-programa-cell/projeto-programa-cell.component';
 import { CategoriasCellComponent } from './categorias-cell/categorias-cell.component';
 import { ProximasFaturaCellComponent } from '././proximas-fatura-cell/proximas-fatura-cell.component';
+import { ProjetoCellComponent } from './projeto-cell/projeto-cell.component';
+import { CategoriaContabilCellComponent } from './categoria-contabil-cell/categoria-contabil-cell.component';
 
 
 
 @NgModule({
   declarations: [ProjetoProgramaCellComponent, 
                  CategoriasCellComponent, 
-                 ProximasFaturaCellComponent],
+                 ProximasFaturaCellComponent,
+                 ProjetoCellComponent,
+                 CategoriaContabilCellComponent],
   imports: [
     CommonModule,
     MaterialCommonModule,
@@ -19,6 +23,8 @@ import { ProximasFaturaCellComponent } from '././proximas-fatura-cell/proximas-f
   ],
   exports: [ProjetoProgramaCellComponent,
             CategoriasCellComponent, 
-            ProximasFaturaCellComponent]
+            ProximasFaturaCellComponent,
+            ProjetoCellComponent,
+            CategoriaContabilCellComponent]
 })
 export class TableCellModule { }
