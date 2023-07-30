@@ -5,6 +5,7 @@ export class CategoriasContabeis{
     categoriaSuperior:CategoriasContabeis;
 	tipo:string;	
 	nome:string;
+	meta: string;
 	descricaoCategoria: string;
 	codigoCategoriaContabil: string;
 	instituicao: Instituicao;

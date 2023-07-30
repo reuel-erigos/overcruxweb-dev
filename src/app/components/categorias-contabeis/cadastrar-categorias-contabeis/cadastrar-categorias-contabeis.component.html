@@ -14,10 +14,10 @@
                         {{i.descricao}}
                     </mat-option>
                 </mat-select>
-            </mat-form-field>            
+            </mat-form-field>
 
             <!-- CATEGORIA SUPERIOR -->
-            <mat-form-field fxFlex="30%" fxLayoutGap="20px" >
+            <mat-form-field fxFlex="30%" fxLayoutGap="20px">
                 <mat-label>Categoria Superior:</mat-label>
                 <mat-select name="categorias" [(ngModel)]=categoriasContabeis.categoriaSuperior.id>
                     <mat-option></mat-option>
@@ -30,7 +30,8 @@
 
             <!-- NOME -->
             <mat-form-field fxFlex="50%">
-                <input #nome [(ngModel)]=categoriasContabeis.nome matInput maxlength="100" name="nome" placeholder="Nome:" required>
+                <input #nome [(ngModel)]=categoriasContabeis.nome matInput maxlength="100" name="nome"
+                    placeholder="Nome:" required>
                 <mat-hint align="end">{{nome.value.length}} / 100</mat-hint>
             </mat-form-field>
 
@@ -38,52 +39,58 @@
 
         <div fxLayout="row" fxFlexFill>
             <mat-form-field fxFlex="40%" fxFlexOffset="20px">
-                <input #codigoCategoriaContabil [(ngModel)]=categoriasContabeis.codigoCategoriaContabil 
-                       matInput maxlength="10" 
-                       name="codigoCategoriaContabil" 
-                       placeholder="Código do Plano de Contas">
+                <input #codigoCategoriaContabil [(ngModel)]=categoriasContabeis.codigoCategoriaContabil matInput
+                    maxlength="10" name="codigoCategoriaContabil" placeholder="Código do Plano de Contas">
                 <mat-hint align="end">{{codigoCategoriaContabil.value.length}} / 10</mat-hint>
             </mat-form-field>
-            
+
             <div style="margin-top: 25px;">
-                <mat-checkbox name="sintetico" fxFlexOffset="40px"
-                    [(ngModel)]="categoriasContabeis.sintetica">Sintético 
+                <mat-checkbox name="sintetico" fxFlexOffset="40px" [(ngModel)]="categoriasContabeis.sintetica">Sintético
                 </mat-checkbox>
             </div>
 
         </div>
 
+        <div fxLayout="row" fxFlexFill>
+            <mat-form-field fxFlexOffset="20px" style="margin-top: 20px" fxFlex="95%" appearance="outline">
+                <mat-label>Meta:</mat-label>
+                <textarea [(ngModel)]=categoriasContabeis.meta matInput #meta name="meta" cdkTextareaAutosize
+                    #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="3" maxlength="200">
+                             </textarea>
+                <mat-hint align="end">{{meta.value.length}} / 200</mat-hint>
+            </mat-form-field>
+        </div>
 
         <div fxLayout="row" fxFlexFill>
             <mat-form-field fxFlexOffset="20px" style="margin-top: 20px" fxFlex="95%" appearance="outline">
                 <mat-label>Descrição:</mat-label>
-                <textarea [(ngModel)]=categoriasContabeis.descricaoCategoria matInput #message name="descricao" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-                    cdkAutosizeMinRows="3" maxlength="200" required>
+                <textarea [(ngModel)]=categoriasContabeis.descricaoCategoria matInput #message name="descricao"
+                    cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="3" maxlength="200" required>
                              </textarea>
                 <mat-hint align="end">{{message.value.length}} / 200</mat-hint>
             </mat-form-field>
         </div>
-       
-       <!-- BOTOES -->
-       <div dir="rtl" fxLayoutGap="20px" style="padding-top: 20px; padding-bottom: 10px; padding-right: 20px"
-       fxFlexFill>
-       <button *ngIf="!isAtualizar && mostrarBotaoCadastrar" mat-raised-button name="botaoConfirmar" fxFlex="20%"
-           color="primary" [disabled]="formCadastro.invalid" (click)="cadastrar()"> Cadastrar
-       </button>
 
-       <button *ngIf="isAtualizar && mostrarBotaoAtualizar" mat-raised-button name="botaoConfirmar" fxFlex="20%"
-           color="primary" [disabled]="formCadastro.invalid" (click)="atualizar()">
-           Atualizar
-       </button>
+        <!-- BOTOES -->
+        <div dir="rtl" fxLayoutGap="20px" style="padding-top: 20px; padding-bottom: 10px; padding-right: 20px"
+            fxFlexFill>
+            <button *ngIf="!isAtualizar && mostrarBotaoCadastrar" mat-raised-button name="botaoConfirmar" fxFlex="20%"
+                color="primary" [disabled]="formCadastro.invalid" (click)="cadastrar()"> Cadastrar
+            </button>
 
-       <button *ngIf="mostrarBotaoLimpar()" mat-raised-button fxFlex="20%" (click)="limpar()">
-           Limpar
-       </button>
-       <button mat-raised-button fxFlex="20%" (click)="cancelar()">
-           Cancelar
-       </button>
+            <button *ngIf="isAtualizar && mostrarBotaoAtualizar" mat-raised-button name="botaoConfirmar" fxFlex="20%"
+                color="primary" [disabled]="formCadastro.invalid" (click)="atualizar()">
+                Atualizar
+            </button>
 
-   </div>
+            <button *ngIf="mostrarBotaoLimpar()" mat-raised-button fxFlex="20%" (click)="limpar()">
+                Limpar
+            </button>
+            <button mat-raised-button fxFlex="20%" (click)="cancelar()">
+                Cancelar
+            </button>
+
+        </div>
 
     </form>
 </div>

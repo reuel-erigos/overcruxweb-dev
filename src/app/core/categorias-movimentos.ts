@@ -12,6 +12,7 @@ export class CategoriasMovimentos{
 	categoriaDestino: any; //CategoriasContabeis
 	valor: number;
 	descricao: string;
+	tipoMovimentacao: string;
 	dataMovimentacao: Date;
 	programa: Programa;
 	projeto: Projeto;
