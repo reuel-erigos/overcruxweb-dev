@@ -145,12 +145,12 @@ export class CadastrarAcoesAtividadeComponent implements OnInit {
   validarDatas(): boolean {
     let resultado = true;
 
-    const dataInicioAtividade     = this.dataUtilService.getValorByDate(this.grupoAcao.atividade.dataInicio);
-    const dataFimAtividade        = this.dataUtilService.getValorByDate(this.grupoAcao.atividade.dataFim);
+    const dataInicioAtividade     = this.dataUtilService.getDataTruncata(this.grupoAcao.atividade.dataInicio);
+    const dataFimAtividade        = this.dataUtilService.getDataTruncata(this.grupoAcao.atividade.dataFim);
 
     if(this.grupoAcao.acoes && this.grupoAcao.acoes.length > 0) {
       this.grupoAcao.acoes.forEach(acao => {
-        const dataIncioMatricula      = this.dataUtilService.getValorByDate(acao.dataPrevisaoInicio);
+        const dataIncioMatricula      = this.dataUtilService.getDataTruncata(acao.dataPrevisaoInicio);
         if (dataIncioMatricula && dataIncioMatricula.getTime() < dataInicioAtividade.getTime()) {
           this.toastService.showAlerta('A data de início informada não pode ser menor que a data de início da atividade selecionada.');
           resultado = false;
