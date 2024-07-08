@@ -5,31 +5,23 @@ import { ToastService } from 'src/app/services/toast/toast.service';
 import * as _ from 'lodash';
 import { Acoes } from 'src/app/core/acoes';
 import { DataUtilService } from 'src/app/services/commons/data-util.service';
+import { GrupoAcoes } from 'src/app/core/grupo-acoes';
 
 @Component({
-  selector: 'formulario-acao',
-  templateUrl: './formulario-acao.component.html',
-  styleUrls: ['./formulario-acao.component.css'],
+  selector: 'formulario-analise',
+  templateUrl: './formulario-analise.component.html',
+  styleUrls: ['./formulario-analise.component.css'],
   viewProviders: [{ provide: ControlContainer, useExisting: NgForm },
                   { provide: ControlContainer, useExisting: forwardRef(() => NgModelGroup) }]
 })
-export class FormularioAcaoComponent implements OnInit {
+export class FormularioAnaliseComponent implements OnInit {
 
-  @Input() index: number;
-  @Input() acoes: Acoes[];
-  @Input() acao: Acoes;
+  @Input() grupoAcao: GrupoAcoes;
   @Input() perfilAcesso: Acesso;
+  @Input() perfilAcessoAnalise: Acesso;
   @Input() isAprovado: boolean;
 
-  pinDataPrevisaoInicio    = Date.now();
-  pinLocalExecucao         = Date.now();
-  pinDescricao             = Date.now();
-  
-  local_execucao: any[] = [
-    {tipo: 'Interna', flag: 'I'},
-    {tipo: 'Externa', flag: 'E'}
-  ];
-
+  statusAnaliseCombo: any[] = [{id: 'A', descricao: 'Aprovado'}, {id: 'R', descricao: 'Reprovado'}];
   
   constructor(private drc: ChangeDetectorRef,
               private dataUtilService: DataUtilService,
@@ -46,8 +38,5 @@ export class FormularioAcaoComponent implements OnInit {
     return this.dataUtilService.onMascaraDataInput(event);
   }
 
-  deletarAcao() {
-    this.acoes.splice(this.index, 1);
-  }
 
 }

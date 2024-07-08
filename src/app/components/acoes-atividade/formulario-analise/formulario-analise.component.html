@@ -1,0 +1,39 @@
+<div fxLayout="row" fxLayoutGap="50px" class="espaco" fxFlexFill>
+    <mat-form-field fxFlex= "15%" fxFlexOffset="20px">
+        <input matInput name="dataAnalise_{{pindataAnalise}}" 
+                [matDatepicker]="dataAnalise" 
+                placeholder="Data Análise" 
+                [required]="grupoAcao.statusAnalise == 'A' || grupoAcao.statusAnalise === 'R'"
+                (input)="onMascaraDataInput($event)"
+                [(ngModel)]="grupoAcao.dataAnalise"
+                [disabled]="isAprovado || !perfilAcessoAnalise.altera">
+        <mat-datepicker-toggle matSuffix [for]="dataAnalise"></mat-datepicker-toggle>
+        <mat-datepicker #dataAnalise></mat-datepicker>
+    </mat-form-field>     
+
+    <mat-form-field fxFlex="50%">
+        <mat-label>Decisão Análise</mat-label>
+        <mat-select [(ngModel)]=grupoAcao.statusAnalise name="statusAnalise" [disabled]="isAprovado || !perfilAcessoAnalise.altera">
+            <mat-option></mat-option>
+            <mat-option *ngFor="let m of statusAnaliseCombo" [value]="m.id">
+                {{m.descricao}}
+            </mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field fxFlex="70%" >
+        <input [(ngModel)]=grupoAcao.descricao
+               #descricao matInput  
+               name="descricao_{{pinDescricao}}" 
+               placeholder="Descrição" 
+               [required]="grupoAcao.statusAnalise === 'A' || grupoAcao.statusAnalise === 'R'"
+               [disabled]="isAprovado || !perfilAcessoAnalise.altera" />
+        <mat-hint align="end">{{descricao.value.length}} / 200</mat-hint>               
+    </mat-form-field>
+
+</div>
+
+
+
+
+

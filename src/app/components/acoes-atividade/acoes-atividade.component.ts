@@ -19,6 +19,8 @@ import { CarregarPerfil } from 'src/app/core/carregar-perfil';
 import { UnidadeService } from 'src/app/services/unidade/unidade.service';
 import { TipoTurno } from 'src/app/core/tipo-turno';
 import { AtividadeService } from 'src/app/services/atividade/atividade.service';
+import { GrupoAcoes } from 'src/app/core/grupo-acoes';
+import { GrupoAcoesSimples } from 'src/app/core/grupo-acoes-simples';
 
 @Component({
   selector: 'app-acoes-atividade',
@@ -31,6 +33,10 @@ export class AcoesAtividadeComponent implements OnInit {
 
   listaAcoesAtividade: Acoes[];
   acoesAtividade: Acoes = new Acoes();
+  listaStatusAnalise: any[] = [{id: 'A', descricao: 'Aprovado'}, 
+                               {id: 'R', descricao: 'Reprovado'}, 
+                               {id: 'E', descricao: 'Em Análise'}, 
+                               {id: 'N', descricao: 'Aguardando'}];
   msg: string;
   carregarPerfil: CarregarPerfil;
   perfilAcesso: Acesso = new Acesso();
@@ -40,6 +46,7 @@ export class AcoesAtividadeComponent implements OnInit {
   unidadeSelecionada: Unidade = new Unidade();
   turmaSelecionada: Turmas = new Turmas();
   oficinaSelecionada: Atividade = new Atividade();
+  statusAnaliseSelecionado: string;
 
   unidadesComboCadastro: any[];
   turmasCombo: Turmas[];
@@ -47,7 +54,7 @@ export class AcoesAtividadeComponent implements OnInit {
 
   turnos: TipoTurno = new TipoTurno();
 
-  displayedColumns: string[] = ['atividade', 'periodo', 'descricao', 'dataPrevisaoInicio', 'acoes'];
+  displayedColumns: string[] = ['atividade', 'periodo', 'descricao', 'dataPrevisaoInicio', 'status', 'acoes'];
   dataSource: MatTableDataSource<Acoes> = new MatTableDataSource();
 
   constructor(
@@ -66,7 +73,7 @@ export class AcoesAtividadeComponent implements OnInit {
   ngOnInit() {
     this.carregarPerfil.carregar(this.activatedRoute.snapshot.data.perfilAcesso, this.perfilAcesso);
     this.dataSource.paginator = this.paginator;
-    this.getAll();
+    this.consultar();
 
     this.unidadeService.getAllByInstituicaoDaUnidadeLogada().subscribe((unidades: any[]) => {
       this.unidadesComboCadastro = unidades;
@@ -92,30 +99,24 @@ export class AcoesAtividadeComponent implements OnInit {
     this.unidadeSelecionada = new Unidade();
     this.turmaSelecionada = new Turmas();
     this.oficinaSelecionada = new Atividade();
+    this.statusAnaliseSelecionado = null;
   }
 
   consultar() {
-    if (this.unidadeSelecionada.idUnidade ||
-        this.turmaSelecionada.id ||
-        this.oficinaSelecionada.id ||
-        this.acoesAtividade.id) {
-
-      this.acoesAtividadeService.getFilter(this.unidadeSelecionada.idUnidade,
-                                           this.turmaSelecionada.id,
-                                           this.oficinaSelecionada.id,
-                                           this.acoesAtividade.id)
-      .subscribe((acoesAtividade: Acoes[]) => {
-        if (!acoesAtividade) {
-          this.mostrarTabela = false;
-          this.msg = 'Nenhum registro para a pesquisa selecionada';
-        } else {
-          this.dataSource.data = acoesAtividade ? acoesAtividade : [];
-          this.mostrarTabela = true;
-        }
-      });
-    } else {
-      this.getAll();
-    }
+    this.acoesAtividadeService.getFilter(this.unidadeSelecionada.idUnidade,
+                                          this.turmaSelecionada.id,
+                                          this.oficinaSelecionada.id,
+                                          this.acoesAtividade.id,
+                                          this.statusAnaliseSelecionado)
+    .subscribe((acoesAtividade: Acoes[]) => {
+      if (!acoesAtividade) {
+        this.mostrarTabela = false;
+        this.msg = 'Nenhum registro para a pesquisa selecionada';
+      } else {
+        this.dataSource.data = acoesAtividade ? acoesAtividade : [];
+        this.mostrarTabela = true;
+      }
+    });
   }
 
   carregarTurmas() {
@@ -164,14 +165,6 @@ export class AcoesAtividadeComponent implements OnInit {
     );
   }
 
-   getAll() {
-    this.acoesAtividadeService.getAll().subscribe((listaAcoesAtividade: Acoes[]) => {
-      this.listaAcoesAtividade = listaAcoesAtividade;
-      this.dataSource.data = listaAcoesAtividade ? listaAcoesAtividade : [];
-      this.verificaMostrarTabela(listaAcoesAtividade);
-    });
-  }
-
   verificaMostrarTabela(listaAcoesAtividade: Acoes[]) {
     if(!listaAcoesAtividade || listaAcoesAtividade.length === 0) {
       this.mostrarTabela = false;
@@ -180,4 +173,16 @@ export class AcoesAtividadeComponent implements OnInit {
       this.mostrarTabela = true;
     }
   }
+
+  gerarStatusAnalise(grupoAcoes: GrupoAcoesSimples) {
+    switch (grupoAcoes.statusAnalise) {
+      case 'A':
+        return 'Aprovado';
+      case 'R':
+        return 'Reprovado';
+      default:
+        return grupoAcoes.statusEnvioAnalise ? 'Em Análise' : 'Aguardando';
+    }
+  }
+
 }

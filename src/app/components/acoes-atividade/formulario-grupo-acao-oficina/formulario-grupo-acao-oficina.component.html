@@ -9,7 +9,8 @@
                     <mat-select [(ngModel)]="grupoAcao.atividade.id"
                                 (selectionChange)="mostrarDadosAtividade($event.value)"
                                 name="atividade" 
-                                required>
+                                required
+                                [disabled]="grupoAcao.id">
                         <mat-option></mat-option>        
                         <mat-option *ngFor="let u of atividades" [value]="u.id" >
                             {{u.descricao}}
@@ -53,13 +54,13 @@
         </mat-form-field>
 
         <!--Imagem (like/deslike) -->
-        <div style="margin-top: 21px; color: rgb(0, 128, 0);"  *ngIf="showFormularioAcao && grupoAcao.statusAnalise === 'A'">
+        <div style="margin-top: 21px; color: rgb(0, 128, 0);"  *ngIf="showFormularioAcao && statusAnalise === 'A'">
             <span class="material-icons">thumb_up</span> Aprovado
         </div>
-        <div style="margin-top: 21px; color: rgb(155, 15, 5);" *ngIf="showFormularioAcao && grupoAcao.statusAnalise === 'R'">
+        <div style="margin-top: 21px; color: rgb(155, 15, 5);" *ngIf="showFormularioAcao && statusAnalise === 'R'">
             <span class="material-icons" >thumb_up</span> Reprovado
         </div>
-        <div style="margin-top: 21px; color: rgb(212, 165, 8); font-weight: bold;" *ngIf="showFormularioAcao && grupoAcao.statusAnalise !== 'A' && grupoAcao.statusAnalise !== 'R'">
+        <div style="margin-top: 21px; color: rgb(212, 165, 8); font-weight: bold;" *ngIf="showFormularioAcao && statusAnalise !== 'A' && statusAnalise !== 'R'">
             <span class="material-icons">pan_tool</span> Em análise
         </div>
 
@@ -79,6 +80,15 @@
     
     </div>
 
+    <div fxLayout="column" *ngIf="isShowFormularioAnalise()">
+        <mat-toolbar class="titulopartes"><span>Decisão da Análise do Planejamento</span></mat-toolbar>
+        <formulario-analise [grupoAcao]="grupoAcao"   
+                            [perfilAcesso]="perfilAcesso"
+                            [perfilAcessoAnalise]="perfilAcessoAnalise"
+                            [isAprovado]="isAprovado()">
+        </formulario-analise>
+    </div>
+
     <div fxLayout="column" *ngIf="showFormularioAcao">
         <mat-toolbar class="titulopartes"><span>Planejamento</span></mat-toolbar>
         <div fxLayout="column" fxLayoutGap="50px"  fxFlexFill>
@@ -87,7 +97,8 @@
                     <formulario-acao [acao]="acao" 
                                      [index]="index"
                                      [acoes]="grupoAcao.acoes"   
-                                     [perfilAcesso]="perfilAcesso">
+                                     [perfilAcesso]="perfilAcesso"
+                                     [isAprovado]="isAprovado()">
                     </formulario-acao>
                 </div>
                 <div *ngIf="perfilAcesso.insere" fxLayoutAlign="start center" fxLayoutGap="16px" style="padding-top: 10px; padding-left: 20px;">

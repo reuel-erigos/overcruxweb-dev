@@ -13,4 +13,7 @@ export class GrupoAcoesSimples {
 	numeroGrupo: string;	
 	atividade: Atividade;
 	descricao: string;
+	
+	statusAnalise: string;
+	statusEnvioAnalise: Boolean;
 }

@@ -12,6 +12,8 @@ import { Acesso } from 'src/app/core/acesso';
 import { FuncoesUteisService } from 'src/app/services/commons/funcoes-uteis.service';
 import { GrupoAcoesSimples } from 'src/app/core/grupo-acoes-simples';
 import { PessoaFisica } from 'src/app/core/pessoa-fisica';
+import { AcessoService } from 'src/app/services/acesso/acesso.service';
+import { CarregarPerfil } from 'src/app/core/carregar-perfil';
 
 
 @Component({
@@ -28,20 +30,30 @@ export class FormularioGrupoAcaoOficinaComponent implements OnInit {
 
   public mascaraPeriodo = [/\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/];
   showFormularioAcao = false;
+  showFormularioAnalise = false;
+  statusAnalise = '';
+
+  carregarPerfil: CarregarPerfil;
+  perfilAcessoAnalise: Acesso = new Acesso();
 
   @Input() grupoAcao: GrupoAcoes;
   @Input() perfilAcesso: Acesso;
 
+
   constructor(private atividadeService: AtividadeService,
               private grupoAcoesService: GrupoAcoesService,
-              private funcoesUteisService: FuncoesUteisService
+              private funcoesUteisService: FuncoesUteisService,
+              private acessoService: AcessoService
               ) {
-
+    this.carregarPerfil = new CarregarPerfil();
   }
 
   ngOnInit() {
     this.atividadeService.getAll().subscribe((atividades: Atividade[]) => {
       this.atividades = atividades;
+    });
+    this.acessoService.getPerfilAcesso("ANALISE_PLANEJAMENTO_ATIVIDADE").subscribe((perfilAcesso: Acesso[]) => {
+      this.carregarPerfil.carregar(perfilAcesso, this.perfilAcessoAnalise);
     });
   }
 
@@ -103,9 +115,14 @@ export class FormularioGrupoAcaoOficinaComponent implements OnInit {
 
 
   isAprovado(): boolean {
-    return this.grupoAcao.statusAnalise === 'A';
+    if(this.statusAnalise == '')
+     this.statusAnalise = this.grupoAcao.statusAnalise;
+
+    return this.statusAnalise === 'A';
   }
 
-
+  isShowFormularioAnalise(): Boolean {
+    return this.grupoAcao.statusEnvioAnalise && this.perfilAcessoAnalise.consulta;
+  }
 
 }
