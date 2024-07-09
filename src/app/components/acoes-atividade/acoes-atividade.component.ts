@@ -103,10 +103,10 @@ export class AcoesAtividadeComponent implements OnInit {
   }
 
   consultar() {
-    this.acoesAtividadeService.getFilter(this.unidadeSelecionada.idUnidade,
-                                          this.turmaSelecionada.id,
-                                          this.oficinaSelecionada.id,
-                                          this.acoesAtividade.id,
+    this.acoesAtividadeService.getFilter(this.unidadeSelecionada?.idUnidade,
+                                          this.turmaSelecionada?.id,
+                                          this.oficinaSelecionada?.id,
+                                          this.acoesAtividade?.id,
                                           this.statusAnaliseSelecionado)
     .subscribe((acoesAtividade: Acoes[]) => {
       if (!acoesAtividade) {
