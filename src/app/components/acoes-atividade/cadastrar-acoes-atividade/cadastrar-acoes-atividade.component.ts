@@ -109,6 +109,7 @@ export class CadastrarAcoesAtividadeComponent implements OnInit {
 
   cadastrar() {
     if (!this.validarDatas() ) { return; }
+    if (!this.validarAcoes() ) { return; }
 
     this.grupoAcao.numeroGrupo = this.funcoesUteisService.getApenasNumeros(this.grupoAcao.numeroGrupo);
     this.grupoAcoesService.cadastrar(this.grupoAcao).subscribe(() => {
@@ -133,6 +134,7 @@ export class CadastrarAcoesAtividadeComponent implements OnInit {
 
   atualizar() {
     if (!this.validarDatas() ) { return; }
+    if (!this.validarAcoes() ) { return; }
 
     this.grupoAcao.numeroGrupo = this.funcoesUteisService.getApenasNumeros(this.grupoAcao.numeroGrupo);
     this.grupoAcoesService.alterar(this.grupoAcao).subscribe(() => {
@@ -168,6 +170,14 @@ export class CadastrarAcoesAtividadeComponent implements OnInit {
     }
 
     return resultado;
+  }
+
+  validarAcoes(): boolean {
+    if (this.grupoAcao.acoes && this.grupoAcao.acoes.length <= 0) {
+      this.toastService.showAlerta("É necessário adicionar ao menos uma ação.");
+      return false;
+    }
+    return true;
   }
 
   updateGrupoAcao(novoGrupoAcao: any) {
