@@ -16,6 +16,7 @@ import { GrupoAcoes } from 'src/app/core/grupo-acoes';
 import { GrupoAcoesService } from 'src/app/services/grupo-acoes/grupo-acoes.service';
 import { DataUtilService } from 'src/app/services/commons/data-util.service';
 import { FuncoesUteisService } from 'src/app/services/commons/funcoes-uteis.service';
+import { log } from 'console';
 
 @Component({
   selector: 'app-cadastrar-acoes-atividade',
@@ -167,6 +168,28 @@ export class CadastrarAcoesAtividadeComponent implements OnInit {
     }
 
     return resultado;
+  }
+
+  updateGrupoAcao(novoGrupoAcao: any) {
+    if (novoGrupoAcao.id) {
+      this.grupoAcao = novoGrupoAcao;
+      this.mostrarBotaoCadastrar = false;
+
+      this.isAtualizar = true;
+      if (this.grupoAcao.statusAnalise === "A") {
+        this.mostrarBotaoAtualizar = false;
+      } else {
+        this.mostrarBotaoAtualizar = true;
+      }
+
+      this.funcionarioService
+        .getByPessoaFisica(this.toolbarPrincipalService.idPessoaFisica)
+        .subscribe((funcionario: Funcionario) => {
+          if (funcionario && funcionario.id) {
+            this.grupoAcao.funcionarioAnalise = funcionario;
+          }
+        });
+    }
   }
   
 

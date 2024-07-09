@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, forwardRef, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, forwardRef, SimpleChanges, Output, EventEmitter } from '@angular/core';
 import { Acoes } from 'src/app/core/acoes';
 import { AtividadeService } from 'src/app/services/atividade/atividade.service';
 import { Atividade } from 'src/app/core/atividade';
@@ -39,6 +39,7 @@ export class FormularioGrupoAcaoOficinaComponent implements OnInit {
   @Input() grupoAcao: GrupoAcoes;
   @Input() perfilAcesso: Acesso;
 
+  @Output() grupoAcaoOutput = new EventEmitter<any>();
 
   constructor(private atividadeService: AtividadeService,
               private grupoAcoesService: GrupoAcoesService,
@@ -58,6 +59,8 @@ export class FormularioGrupoAcaoOficinaComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    console.log('grupoAcao', this.grupoAcao);
+    
     if (changes['grupoAcao'] && this.grupoAcao && this.grupoAcao.id) {
       this.showFormularioAcao = true;
     } else {
@@ -96,14 +99,15 @@ export class FormularioGrupoAcaoOficinaComponent implements OnInit {
     this.grupoAcao.acoes.push(acao);
   }
 
-
   buscarGrupoAcao(){
     if(this.grupoAcao.numeroGrupo && this.grupoAcao.numeroGrupo.length === 7 && this.grupoAcao.atividade && this.grupoAcao.atividade.id){
       this.grupoAcoesService.getByNumeroAndAtividade(this.grupoAcao.numeroGrupo, this.grupoAcao.atividade.id).subscribe((grupoAcao: GrupoAcoes) => {
         if(grupoAcao) {
           this.grupoAcao = grupoAcao;
+          this.statusAnalise = this.grupoAcao.statusAnalise;
+          this.grupoAcaoOutput.emit(grupoAcao);
 
-          if(Object.keys(this.grupoAcao.funcionarioAnalise).length){
+          if(Object.keys(this.grupoAcao.funcionarioAnalise).length <= 0){
             this.grupoAcao.funcionarioAnalise = new Funcionario();
             this.grupoAcao.funcionarioAnalise.pessoasFisica = new PessoaFisica();
           }
