@@ -174,15 +174,4 @@ export class AcoesAtividadeComponent implements OnInit {
     }
   }
 
-  gerarStatusAnalise(grupoAcoes: GrupoAcoesSimples) {
-    switch (grupoAcoes.statusAnalise) {
-      case 'A':
-        return 'Aprovado';
-      case 'R':
-        return 'Reprovado';
-      default:
-        return grupoAcoes.statusEnvioAnalise ? 'Em Análise' : 'Aguardando';
-    }
-  }
-
 }

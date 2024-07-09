@@ -32,6 +32,7 @@ export class FormularioGrupoAcaoOficinaComponent implements OnInit {
   showFormularioAcao = false;
   showFormularioAnalise = false;
   statusAnalise = '';
+  statusEnvioAnalise: Boolean = false;
 
   carregarPerfil: CarregarPerfil;
   perfilAcessoAnalise: Acesso = new Acesso();
@@ -59,8 +60,6 @@ export class FormularioGrupoAcaoOficinaComponent implements OnInit {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    console.log('grupoAcao', this.grupoAcao);
-    
     if (changes['grupoAcao'] && this.grupoAcao && this.grupoAcao.id) {
       this.showFormularioAcao = true;
     } else {
@@ -105,6 +104,7 @@ export class FormularioGrupoAcaoOficinaComponent implements OnInit {
         if(grupoAcao) {
           this.grupoAcao = grupoAcao;
           this.statusAnalise = this.grupoAcao.statusAnalise;
+          this.statusEnvioAnalise = this.grupoAcao.statusEnvioAnalise;
           this.grupoAcaoOutput.emit(grupoAcao);
 
           if(Object.keys(this.grupoAcao.funcionarioAnalise).length <= 0){
@@ -119,8 +119,10 @@ export class FormularioGrupoAcaoOficinaComponent implements OnInit {
 
 
   isAprovado(): boolean {
-    if(this.statusAnalise == '')
-     this.statusAnalise = this.grupoAcao.statusAnalise;
+    if (this.statusAnalise == "") {
+      this.statusAnalise = this.grupoAcao.statusAnalise;
+      this.statusEnvioAnalise = this.grupoAcao.statusEnvioAnalise;
+    }
 
     return this.statusAnalise === 'A';
   }

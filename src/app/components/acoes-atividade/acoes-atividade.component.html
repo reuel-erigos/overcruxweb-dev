@@ -106,7 +106,11 @@
 
               <ng-container matColumnDef="status">
                 <th mat-header-cell *matHeaderCellDef> Status Análise </th>
-                <td mat-cell *matCellDef="let element">{{gerarStatusAnalise(element.grupoAcao)}}</td>
+                <td mat-cell *matCellDef="let element">
+                    {{!element.grupoAcao.statusEnvioAnalise ? 'Aguardando' : 
+                        element.grupoAcao.statusAnalise === 'A' ? 'Aprovado' : 
+                            element.grupoAcao.statusAnalise === 'R' ? 'Reprovado' : 'Em Análise' }}
+                </td>
               </ng-container>
 
               <ng-container matColumnDef="acoes">
