@@ -1,19 +1,16 @@
-import { Component, OnInit, Input, forwardRef, SimpleChanges, Output, EventEmitter } from '@angular/core';
+import { Component, EventEmitter, forwardRef, Input, OnInit, Output, SimpleChanges } from '@angular/core';
+import { ControlContainer, NgForm, NgModelGroup } from '@angular/forms';
+import * as _ from 'lodash';
+import { Acesso } from 'src/app/core/acesso';
 import { Acoes } from 'src/app/core/acoes';
-import { AtividadeService } from 'src/app/services/atividade/atividade.service';
 import { Atividade } from 'src/app/core/atividade';
 import { Funcionario } from 'src/app/core/funcionario';
-import * as _ from 'lodash';
-import { DataUtilService } from 'src/app/services/commons/data-util.service';
-import { ControlContainer, NgForm, NgModelGroup } from '@angular/forms';
-import { GrupoAcoesService } from 'src/app/services/grupo-acoes/grupo-acoes.service';
 import { GrupoAcoes } from 'src/app/core/grupo-acoes';
-import { Acesso } from 'src/app/core/acesso';
-import { FuncoesUteisService } from 'src/app/services/commons/funcoes-uteis.service';
 import { GrupoAcoesSimples } from 'src/app/core/grupo-acoes-simples';
 import { PessoaFisica } from 'src/app/core/pessoa-fisica';
-import { AcessoService } from 'src/app/services/acesso/acesso.service';
-import { CarregarPerfil } from 'src/app/core/carregar-perfil';
+import { UsuarioSistema } from 'src/app/core/usuario-sistema';
+import { AtividadeService } from 'src/app/services/atividade/atividade.service';
+import { GrupoAcoesService } from 'src/app/services/grupo-acoes/grupo-acoes.service';
 
 
 @Component({
@@ -34,28 +31,19 @@ export class FormularioGrupoAcaoOficinaComponent implements OnInit {
   statusAnalise = '';
   statusEnvioAnalise: Boolean = false;
 
-  carregarPerfil: CarregarPerfil;
-  perfilAcessoAnalise: Acesso = new Acesso();
-
   @Input() grupoAcao: GrupoAcoes;
   @Input() perfilAcesso: Acesso;
+  @Input() perfilAcessoAnalise: Acesso = new Acesso();
 
   @Output() grupoAcaoOutput = new EventEmitter<any>();
 
   constructor(private atividadeService: AtividadeService,
-              private grupoAcoesService: GrupoAcoesService,
-              private funcoesUteisService: FuncoesUteisService,
-              private acessoService: AcessoService
-              ) {
-    this.carregarPerfil = new CarregarPerfil();
+              private grupoAcoesService: GrupoAcoesService) {
   }
 
   ngOnInit() {
     this.atividadeService.getAll().subscribe((atividades: Atividade[]) => {
       this.atividades = atividades;
-    });
-    this.acessoService.getPerfilAcesso("ANALISE_PLANEJAMENTO_ATIVIDADE").subscribe((perfilAcesso: Acesso[]) => {
-      this.carregarPerfil.carregar(perfilAcesso, this.perfilAcessoAnalise);
     });
   }
 
@@ -107,9 +95,9 @@ export class FormularioGrupoAcaoOficinaComponent implements OnInit {
           this.statusEnvioAnalise = this.grupoAcao.statusEnvioAnalise;
           this.grupoAcaoOutput.emit(grupoAcao);
 
-          if(Object.keys(this.grupoAcao.funcionarioAnalise).length <= 0){
-            this.grupoAcao.funcionarioAnalise = new Funcionario();
-            this.grupoAcao.funcionarioAnalise.pessoasFisica = new PessoaFisica();
+          if(Object.keys(this.grupoAcao.usuarioAnalise).length <= 0){
+            this.grupoAcao.usuarioAnalise = new UsuarioSistema();
+            this.grupoAcao.usuarioAnalise.pessoaFisica = new PessoaFisica();
           }
         }
         this.showFormularioAcao = true;
@@ -118,13 +106,19 @@ export class FormularioGrupoAcaoOficinaComponent implements OnInit {
   }
 
 
-  isAprovado(): boolean {
-    if (this.statusAnalise == "") {
+  camposDesabilitados(): boolean {
+    if (this.statusAnalise === "") {
       this.statusAnalise = this.grupoAcao.statusAnalise;
       this.statusEnvioAnalise = this.grupoAcao.statusEnvioAnalise;
     }
 
-    return this.statusAnalise === 'A';
+    if(!this.perfilAcesso.altera && !this.perfilAcesso.insere) {
+      return true;
+    }
+    return (
+      (this.statusAnalise === "A" || this.statusAnalise === "R") &&
+      !this.perfilAcessoAnalise.altera
+    );
   }
 
   isShowFormularioAnalise(): Boolean {

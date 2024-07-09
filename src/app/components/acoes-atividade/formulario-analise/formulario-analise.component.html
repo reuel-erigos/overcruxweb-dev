@@ -6,14 +6,14 @@
                 [required]="grupoAcao.statusAnalise == 'A' || grupoAcao.statusAnalise === 'R'"
                 (input)="onMascaraDataInput($event)"
                 [(ngModel)]="grupoAcao.dataAnalise"
-                [disabled]="isAprovado || !perfilAcessoAnalise.altera">
+                [disabled]="camposDesabilitados">
         <mat-datepicker-toggle matSuffix [for]="dataAnalise"></mat-datepicker-toggle>
         <mat-datepicker #dataAnalise></mat-datepicker>
     </mat-form-field>     
 
     <mat-form-field fxFlex="50%">
         <mat-label>Decisão Análise</mat-label>
-        <mat-select [(ngModel)]=grupoAcao.statusAnalise name="statusAnalise" [disabled]="isAprovado || !perfilAcessoAnalise.altera">
+        <mat-select [(ngModel)]=grupoAcao.statusAnalise name="statusAnalise" [disabled]="camposDesabilitados">
             <mat-option></mat-option>
             <mat-option *ngFor="let m of statusAnaliseCombo" [value]="m.id">
                 {{m.descricao}}
@@ -27,7 +27,7 @@
                name="descricao_{{pinDescricao}}" 
                placeholder="Descrição" 
                [required]="grupoAcao.statusAnalise === 'A' || grupoAcao.statusAnalise === 'R'"
-               [disabled]="isAprovado || !perfilAcessoAnalise.altera" />
+               [disabled]="camposDesabilitados" />
         <mat-hint align="end">{{descricao.value.length}} / 200</mat-hint>               
     </mat-form-field>
 

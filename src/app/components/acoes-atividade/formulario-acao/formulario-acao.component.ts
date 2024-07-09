@@ -19,7 +19,7 @@ export class FormularioAcaoComponent implements OnInit {
   @Input() acoes: Acoes[];
   @Input() acao: Acoes;
   @Input() perfilAcesso: Acesso;
-  @Input() isAprovado: boolean;
+  @Input() camposDesabilitados: boolean;
 
   pinDataPrevisaoInicio    = Date.now();
   pinLocalExecucao         = Date.now();

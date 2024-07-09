@@ -7,12 +7,14 @@ import { TiposAtividades } from './tipos-atividades';
 import { Funcionario } from './funcionario';
 import { Atividade } from './atividade';
 import { Acoes } from './acoes';
+import { Usuario } from './usuario';
+import { UsuarioSistema } from './usuario-sistema';
 
 export class GrupoAcoes {
 	id: number;
 	numeroGrupo: string;	
 	atividade: Atividade;
-	funcionarioAnalise: Funcionario;		
+	usuarioAnalise: UsuarioSistema;		
 	dataAnalise: Date;
 	
 	// (A = APROVADA; R = REPROVADA

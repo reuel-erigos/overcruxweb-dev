@@ -91,7 +91,7 @@
 
               <ng-container matColumnDef="periodo">
                 <th mat-header-cell *matHeaderCellDef> Período: </th>
-                <td mat-cell *matCellDef="let element"> {{element.grupoAcao?.numeroGrupo}} </td>
+                <td mat-cell *matCellDef="let element"> {{mascaraPeriodo(element.grupoAcao?.numeroGrupo)}} </td>
               </ng-container>
 
               <ng-container matColumnDef="descricao">

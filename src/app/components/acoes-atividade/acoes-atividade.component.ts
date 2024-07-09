@@ -1,26 +1,23 @@
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Turmas } from 'src/app/core/turmas';
+import { Acoes } from './../../core/acoes';
 import { Atividade } from './../../core/atividade';
 import { Unidade } from './../../core/unidade';
-import { Turmas } from 'src/app/core/turmas';
 import { TurmasService } from './../../services/turmas/turmas.service';
-import { Acoes } from './../../core/acoes';
-import { Component, OnInit, ViewChild } from '@angular/core';
 
-import { MatDialog} from '@angular/material/dialog';
-import { MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 
 
+import { ActivatedRoute, Router } from '@angular/router';
 import { Acesso } from 'src/app/core/acesso';
-import { AcoesAtividadeService } from 'src/app/services/acoes-atividade/acoes-atividade.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
 import { CarregarPerfil } from 'src/app/core/carregar-perfil';
-import { UnidadeService } from 'src/app/services/unidade/unidade.service';
 import { TipoTurno } from 'src/app/core/tipo-turno';
+import { AcoesAtividadeService } from 'src/app/services/acoes-atividade/acoes-atividade.service';
 import { AtividadeService } from 'src/app/services/atividade/atividade.service';
-import { GrupoAcoes } from 'src/app/core/grupo-acoes';
-import { GrupoAcoesSimples } from 'src/app/core/grupo-acoes-simples';
+import { UnidadeService } from 'src/app/services/unidade/unidade.service';
+import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
 
 @Component({
   selector: 'app-acoes-atividade',
@@ -172,6 +169,15 @@ export class AcoesAtividadeComponent implements OnInit {
     } else {
       this.mostrarTabela = true;
     }
+  }
+
+  mascaraPeriodo(periodo: string): string {
+    if (!periodo || periodo.length !== 6) return periodo;
+
+    const mes = periodo.substring(0, 2);
+    const ano = periodo.substring(2, 6);
+
+    return `${mes}/${ano}`;
   }
 
 }

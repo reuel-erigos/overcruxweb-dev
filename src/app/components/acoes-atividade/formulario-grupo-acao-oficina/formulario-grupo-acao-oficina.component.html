@@ -21,14 +21,14 @@
         </div>
 
         <div fxLayout="column" fxFlex="50%">
-            <mat-toolbar class="titulopartes">Funcionário Analise</mat-toolbar>
+            <mat-toolbar class="titulopartes">Responsável Análise</mat-toolbar>
             <mat-form-field style="margin-left: 20px; margin-bottom: 20px" >
-                <input #funcionarioAnalise 
+                <input #usuarioAnalise 
                        matInput 
                        maxlength="100" 
                        disabled
-                       [(ngModel)]="grupoAcao.funcionarioAnalise.pessoasFisica.nome"
-                       name="Funcionário Analise" placeholder="Funcionário Analise">
+                       [(ngModel)]="grupoAcao.usuarioAnalise.pessoaFisica.nome"
+                       name="Responsável Análise" placeholder="Responsável Análise">
             </mat-form-field>
         </div>
 
@@ -80,7 +80,7 @@
                           title="Enviar para Analisar" 
                           name="statusEnvioAnalise" 
                           style="margin-top: 25px;"
-                          [disabled]="isAprovado()"
+                          [disabled]="camposDesabilitados()"
                           [(ngModel)]="grupoAcao.statusEnvioAnalise">
                 Enviar para Analisar
             </mat-checkbox>
@@ -93,7 +93,7 @@
         <formulario-analise [grupoAcao]="grupoAcao"   
                             [perfilAcesso]="perfilAcesso"
                             [perfilAcessoAnalise]="perfilAcessoAnalise"
-                            [isAprovado]="isAprovado()">
+                            [camposDesabilitados]="camposDesabilitados()">
         </formulario-analise>
     </div>
 
@@ -106,12 +106,12 @@
                                      [index]="index"
                                      [acoes]="grupoAcao.acoes"   
                                      [perfilAcesso]="perfilAcesso"
-                                     [isAprovado]="isAprovado()">
+                                     [camposDesabilitados]="camposDesabilitados()">
                     </formulario-acao>
                 </div>
                 <div *ngIf="perfilAcesso.insere" fxLayoutAlign="start center" fxLayoutGap="16px" style="padding-top: 10px; padding-left: 20px;">
                     <div>
-                        <button matTooltip="Novo" mat-mini-fab color="primary" (click)="addAcao()" [disabled]="isAprovado()">
+                        <button matTooltip="Novo" mat-mini-fab color="primary" (click)="addAcao()" [disabled]="camposDesabilitados()">
                             <mat-icon>add</mat-icon>
                         </button>
                     </div>
