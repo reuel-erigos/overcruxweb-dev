@@ -34,7 +34,7 @@
                 <mat-icon>search</mat-icon>
                 <mat-form-field fxFlex="50%">
                     <mat-label>Selecione um Plano de Atividades</mat-label>
-                    <mat-select [(ngModel)]="oficinaSelecionada" name="oficina">
+                    <mat-select [(ngModel)]="oficinaSelecionada" name="oficina" (selectionChange)="carregarAcoes()">
                         <mat-option></mat-option>
                         <mat-option *ngFor="let m of oficinasCombo" [value]="m">
                             {{m.descricao}}
@@ -46,9 +46,9 @@
                 <mat-icon>search</mat-icon>
                 <mat-form-field fxFlex="50%">
                     <mat-label>Selecione uma ação</mat-label>
-                    <mat-select [(ngModel)]="acoesAtividade" name="atividade">
+                    <mat-select [(ngModel)]="acaoSelecionada" name="atividade">
                         <mat-option></mat-option>
-                        <mat-option *ngFor="let d of listaAcoesAtividade" [value]="d">
+                        <mat-option *ngFor="let d of acoesAtividadeCombo" [value]="d">
                             {{d.descricao}}
                         </mat-option>
                     </mat-select>

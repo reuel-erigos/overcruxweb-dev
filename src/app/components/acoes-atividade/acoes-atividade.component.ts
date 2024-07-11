@@ -19,6 +19,7 @@ import { GrupoAcoesService } from 'src/app/services/grupo-acoes/grupo-acoes.serv
 import { UnidadeService } from 'src/app/services/unidade/unidade.service';
 import { ConfirmDialogComponent } from '../common/confirm-dialog/confirm-dialog.component';
 import { GrupoAcoes } from 'src/app/core/grupo-acoes';
+import { AcoesAtividadeService } from 'src/app/services/acoes-atividade/acoes-atividade.service';
 
 @Component({
   selector: 'app-acoes-atividade',
@@ -29,8 +30,6 @@ export class AcoesAtividadeComponent implements OnInit {
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
 
-  listaAcoesAtividade: Acoes[];
-  grupoAcoes: GrupoAcoes = new GrupoAcoes();
   listaStatusAnalise: any[] = [{id: 'A', descricao: 'Aprovado'}, 
                                {id: 'R', descricao: 'Reprovado'}, 
                                {id: 'E', descricao: 'Em Análise'}, 
@@ -41,11 +40,13 @@ export class AcoesAtividadeComponent implements OnInit {
 
   mostrarTabela = false;
 
+  acaoSelecionada: Acoes = new Acoes();
   unidadeSelecionada: Unidade = new Unidade();
   turmaSelecionada: Turmas = new Turmas();
   oficinaSelecionada: Atividade = new Atividade();
   statusAnaliseSelecionado: string;
 
+  acoesAtividadeCombo: Acoes[];
   unidadesComboCadastro: any[];
   turmasCombo: Turmas[];
   oficinasCombo: Atividade[];
@@ -62,7 +63,8 @@ export class AcoesAtividadeComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private unidadeService: UnidadeService,
     private turmaService: TurmasService,
-    private oficinaService: AtividadeService
+    private oficinaService: AtividadeService,
+    private acaoService: AcoesAtividadeService
   ) {
     this.carregarPerfil = new CarregarPerfil();
   }
@@ -86,6 +88,10 @@ export class AcoesAtividadeComponent implements OnInit {
       this.oficinasCombo = oficinas;
     });
 
+    this.acaoService.getAll().subscribe((acoes: Acoes[]) => {
+      this.acoesAtividadeCombo = acoes;
+    });
+
   }
 
 
@@ -93,18 +99,20 @@ export class AcoesAtividadeComponent implements OnInit {
     this.mostrarTabela = false;
     this.dataSource.data = [];
 
-    this.grupoAcoes = new GrupoAcoes();
+    this.acaoSelecionada = new Acoes();
     this.unidadeSelecionada = new Unidade();
     this.turmaSelecionada = new Turmas();
     this.oficinaSelecionada = new Atividade();
     this.statusAnaliseSelecionado = null;
+
+    this.carregarTurmas();
   }
 
   consultar() {
     this.grupoAcoesService.getFilter(this.unidadeSelecionada?.idUnidade,
                                           this.turmaSelecionada?.id,
                                           this.oficinaSelecionada?.id,
-                                          this.grupoAcoes?.id,
+                                          this.acaoSelecionada?.id,
                                           this.statusAnaliseSelecionado)
     .subscribe((grupoAcoes: GrupoAcoes[]) => {
       if (!grupoAcoes) {
@@ -122,7 +130,15 @@ export class AcoesAtividadeComponent implements OnInit {
       this.turmaService.getFilter(null, null, this.unidadeSelecionada.idUnidade).subscribe((turmas: Turmas[]) => {
         this.turmasCombo = turmas;
       });
+    } else {
+      this.turmaService.getFilter(null, null, null).subscribe((turmas: Turmas[]) => {
+        this.turmasCombo = turmas;
+      });
     }
+    this.turmaSelecionada = new Turmas();
+    this.oficinaSelecionada = new Atividade();
+    
+    this.carregarOficinas();
   }
 
   carregarOficinas() {
@@ -130,7 +146,22 @@ export class AcoesAtividadeComponent implements OnInit {
       this.oficinaService.getByTurma(this.turmaSelecionada.id).subscribe((oficinas: Atividade[]) => {
         this.oficinasCombo = oficinas;
       });
+    } else {
+      this.oficinaService.getAll().subscribe((oficinas: Atividade[]) => this.oficinasCombo = oficinas);
     }
+    this.carregarAcoes();
+  }
+  
+  carregarAcoes() {
+    this.acaoService.getFilter(
+      this.unidadeSelecionada?.idUnidade,
+      this.turmaSelecionada?.id,
+      this.oficinaSelecionada?.id,
+      null,
+      null
+    ).subscribe((acoes: Acoes[]) => {
+      this.acoesAtividadeCombo = acoes;
+    });
   }
 
   atualizar(grupoAcoes: GrupoAcoes) {
@@ -153,8 +184,8 @@ export class AcoesAtividadeComponent implements OnInit {
     dialogRef.afterClosed().subscribe(confirma => {
       if (confirma) {
         this.grupoAcoesService.excluir(grupoAcoes.id).subscribe(() => {
-          this.grupoAcoes.id = null;
           this.consultar();
+          this.carregarAcoes();
         });
       } else {
         dialogRef.close();
