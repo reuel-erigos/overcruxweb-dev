@@ -192,20 +192,19 @@ export class CadastrarAcoesAtividadeComponent implements OnInit {
   }
 
   verificarPermissaoAlterar() {
+    this.mostrarBotaoAtualizar = false;
+
     if (this.perfilAcesso.altera) {
-      if (this.perfilAcessoAnalise.altera) {
-        this.mostrarBotaoAtualizar = true;
-      } else if (
-        this.grupoAcao.statusAnalise !== "A" &&
-        this.grupoAcao.statusAnalise !== "R" &&
-        this.perfilAcessoAnalise.insere
+      if (
+        this.grupoAcao.statusAnalise === "A" ||
+        this.grupoAcao.statusAnalise === "R"
       ) {
-        this.mostrarBotaoAtualizar = true;
+        if (this.perfilAcessoAnalise.altera) {
+          this.mostrarBotaoAtualizar = true;
+        }
       } else {
-        this.mostrarBotaoAtualizar = false;
+        this.mostrarBotaoAtualizar = true;
       }
-    } else {
-      this.mostrarBotaoAtualizar = false;
     }
   }
   

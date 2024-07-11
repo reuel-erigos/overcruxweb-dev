@@ -105,20 +105,24 @@ export class FormularioGrupoAcaoOficinaComponent implements OnInit {
     }
   }
 
-
   camposDesabilitados(): boolean {
+    console.log(this.perfilAcessoAnalise);
+    
     if (this.statusAnalise === "") {
       this.statusAnalise = this.grupoAcao.statusAnalise;
       this.statusEnvioAnalise = this.grupoAcao.statusEnvioAnalise;
     }
 
-    if(!this.perfilAcesso.altera && !this.perfilAcesso.insere) {
-      return true;
+    if (this.perfilAcesso.altera) {
+      if (this.statusAnalise === "A" || this.statusAnalise === "R") {
+        if (this.perfilAcessoAnalise.altera) {
+          return false;
+        }
+      } else {
+        return false;
+      }
     }
-    return (
-      (this.statusAnalise === "A" || this.statusAnalise === "R") &&
-      !this.perfilAcessoAnalise.altera
-    );
+    return true;
   }
 
   isShowFormularioAnalise(): Boolean {
