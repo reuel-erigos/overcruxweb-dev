@@ -22,4 +22,22 @@ export class GrupoAcoesService extends BaseService<GrupoAcoes> {
       return this.http.get(`${Rotas.GRUPO_ACOES}numero/${numeroGrupo}/atividade/${idAtividade}` );
     }
 
+    getFilter(idUnidade: string|number, idTurma: string|number, idOficina: string|number, idAcao: string|number, statusAnalise: string) {
+      idUnidade = idUnidade || "";
+      idTurma = idTurma || "";
+      idOficina = idOficina || "";
+      idAcao = idAcao || "";
+      statusAnalise = statusAnalise || "";
+
+      return this.http.get(Rotas.GRUPO_ACOES + "filter", {
+        params: {
+          unidade: `${idUnidade}`,
+          turma: `${idTurma}`,
+          oficina: `${idOficina}`,
+          acao: `${idAcao}`,
+          statusAnalise: `${statusAnalise}`,
+        },
+      });
+    }
+
 }
