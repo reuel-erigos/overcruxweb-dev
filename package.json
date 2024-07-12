@@ -60,7 +60,7 @@
   "devDependencies": {
     "@types/jasmine": "~3.3.8",
     "@types/jasminewd2": "~2.0.3",
-    "@types/lodash": "^4.14.144",
+    "@types/lodash": "4.14.144",
     "@types/node": "14.14.7",
     "codelyzer": "6.0.1",
     "jasmine-core": "3.6.0",
