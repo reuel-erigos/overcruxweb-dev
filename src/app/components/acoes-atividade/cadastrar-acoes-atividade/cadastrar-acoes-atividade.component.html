@@ -9,7 +9,9 @@
                     <form #formCadastroDadosAcao="ngForm">
                         <div ngModelGroup="comboAcoesPlanejamento">
                             <formulario-grupo-acao-oficina [grupoAcao]="grupoAcao" 
-                                                           [perfilAcesso]="perfilAcesso">
+                                                           [perfilAcesso]="perfilAcesso"
+                                                           [perfilAcessoAnalise]="perfilAcessoAnalise"
+                                                           (grupoAcaoOutput)="updateGrupoAcao($event)">
                             </formulario-grupo-acao-oficina>
                         </div>
                     </form>

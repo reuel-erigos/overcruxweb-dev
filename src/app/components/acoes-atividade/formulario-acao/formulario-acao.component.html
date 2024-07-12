@@ -1,11 +1,13 @@
 <div fxLayout="row" fxLayoutGap="50px" class="espaco" fxFlexFill>
+    <label for="id" hidden>{{acao.id}}</label>
     <mat-form-field fxFlex= "15%" fxFlexOffset="20px">
         <input matInput name="dataPrevisaoInicio_{{pinDataPrevisaoInicio}}" 
                 [matDatepicker]="dataPrevisaoInicio" 
                 placeholder="Data Previsão de Início" 
                 required
                 (input)="onMascaraDataInput($event)"
-                [(ngModel)]="acao.dataPrevisaoInicio">
+                [(ngModel)]="acao.dataPrevisaoInicio"
+                [disabled]="camposDesabilitados">
         <mat-datepicker-toggle matSuffix [for]="dataPrevisaoInicio"></mat-datepicker-toggle>
         <mat-datepicker #dataPrevisaoInicio></mat-datepicker>
     </mat-form-field>
@@ -13,7 +15,7 @@
 
     <mat-form-field fxFlex="15%">
         <mat-label>Local Execução</mat-label>
-        <mat-select [(ngModel)]="acao.localExecucao" name="localExecucao_{{pinLocalExecucao}}">
+        <mat-select [(ngModel)]="acao.localExecucao" name="localExecucao_{{pinLocalExecucao}}" [disabled]="camposDesabilitados">
             <mat-option></mat-option>        
             <mat-option *ngFor="let m of local_execucao" [value]="m.flag">
             {{m.tipo}}
@@ -26,14 +28,15 @@
                #descricao matInput  
                required
                name="descricao_{{pinDescricao}}" 
-               placeholder="Descrição" />
+               placeholder="Descrição" 
+               [disabled]="camposDesabilitados"/>
         <mat-hint align="end">{{descricao.value.length}} / 200</mat-hint>               
     </mat-form-field>
 
 
     <div>
         <button mat-icon-button 
-                *ngIf="perfilAcesso.deleta" 
+                *ngIf="perfilAcesso.deleta && !camposDesabilitados" 
                 (click)="deletarAcao()"
                 style="padding-top: 15px; color: red;">
             <mat-icon>delete_forever</mat-icon>

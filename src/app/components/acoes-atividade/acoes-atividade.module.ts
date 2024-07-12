@@ -20,6 +20,7 @@ import { InputFileComponent } from '../common/input-file/input-file.component';
 import { BarraPorcentagemComponent } from '../common/anexos/barra-porcentagem/barra-porcentagem.component';
 import { VisualizarArquivoComponent } from '../common/visualizar-arquivo/visualizar-arquivo.component';
 import { FormularioAcaoComponent } from './formulario-acao/formulario-acao.component';
+import { FormularioAnaliseComponent } from './formulario-analise/formulario-analise.component';
 
 
 
@@ -36,7 +37,8 @@ import { FormularioAcaoComponent } from './formulario-acao/formulario-acao.compo
                  InputFileComponent,
                  BarraPorcentagemComponent,
                  VisualizarArquivoComponent,
-                 FormularioAcaoComponent
+                 FormularioAcaoComponent,
+                 FormularioAnaliseComponent
                 ],
   imports: [
     CommonModule,

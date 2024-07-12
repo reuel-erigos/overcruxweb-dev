@@ -1,8 +1,9 @@
 import { Funcoes } from './funcoes';
 export enum Modulos{
-     ADMINISTRATIVO                  	    = 'ADMINISTRATIVO'
-     ,ACAO_COMPETENCIA                	    = 'ACAO_COMPETENCIA'
-     ,ACOES_ATIVIDADE                	    = 'ACOES_ATIVIDADE'
+    ADMINISTRATIVO                  	    = 'ADMINISTRATIVO'
+    ,ACAO_COMPETENCIA                	    = 'ACAO_COMPETENCIA'
+    ,ACOES_ATIVIDADE                	    = 'ACOES_ATIVIDADE'
+    ,ANALISE_PLANEJAMENTO_ATIVIDADE 	    = 'ANALISE_PLANEJAMENTO_ATIVIDADE'
     , ACESSO						  	    = 'ACESSO'
     , ALUNO 							    = 'ALUNO'
     , ALUNO_TRABALHANDO					    = 'ALUNO_TRABALHANDO'

@@ -1,21 +1,19 @@
 import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Atividade } from 'src/app/core/atividade';
 import { Acesso } from 'src/app/core/acesso';
-import { AtividadeService } from 'src/app/services/atividade/atividade.service';
-import { ToastService } from 'src/app/services/toast/toast.service';
-import { Acoes } from './../../../core/acoes';
-import { AcoesAtividadeService } from './../../../services/acoes-atividade/acoes-atividade.service';
-import * as _ from 'lodash';
-import { FuncionarioService } from 'src/app/services/funcionario/funcionario.service';
-import { Funcionario } from 'src/app/core/funcionario';
+import { Atividade } from 'src/app/core/atividade';
 import { CarregarPerfil } from 'src/app/core/carregar-perfil';
-import { PessoaFisica } from 'src/app/core/pessoa-fisica';
-import { ToolbarPrincipalService } from 'src/app/services/toolbarPrincipal/toolbar-principal.service';
 import { GrupoAcoes } from 'src/app/core/grupo-acoes';
-import { GrupoAcoesService } from 'src/app/services/grupo-acoes/grupo-acoes.service';
+import { Modulos } from 'src/app/core/modulos';
+import { PessoaFisica } from 'src/app/core/pessoa-fisica';
+import { UsuarioSistema } from 'src/app/core/usuario-sistema';
+import { AcessoService } from 'src/app/services/acesso/acesso.service';
 import { DataUtilService } from 'src/app/services/commons/data-util.service';
 import { FuncoesUteisService } from 'src/app/services/commons/funcoes-uteis.service';
+import { FuncionarioService } from 'src/app/services/funcionario/funcionario.service';
+import { GrupoAcoesService } from 'src/app/services/grupo-acoes/grupo-acoes.service';
+import { ToastService } from 'src/app/services/toast/toast.service';
+import { ToolbarPrincipalService } from 'src/app/services/toolbarPrincipal/toolbar-principal.service';
 
 @Component({
   selector: 'app-cadastrar-acoes-atividade',
@@ -30,6 +28,7 @@ export class CadastrarAcoesAtividadeComponent implements OnInit {
 
   carregarPerfil: CarregarPerfil;
   perfilAcesso: Acesso = new Acesso();
+  perfilAcessoAnalise: Acesso = new Acesso();
   mostrarBotaoCadastrar = true;
   mostrarBotaoAtualizar = true;
 
@@ -39,14 +38,13 @@ export class CadastrarAcoesAtividadeComponent implements OnInit {
   constructor(
     //private acoesAtividadeService: AcoesAtividadeService,
     private funcoesUteisService: FuncoesUteisService,
-    private grupoAcoesService: GrupoAcoesService,
-    private funcionarioService: FuncionarioService,    
+    private grupoAcoesService: GrupoAcoesService, 
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private toastService: ToastService,
     private drc: ChangeDetectorRef,
     private dataUtilService: DataUtilService,
-    private toolbarPrincipalService: ToolbarPrincipalService
+    private acessoService: AcessoService
   ) {
     this.grupoAcao.atividade = new Atividade();
     this.carregarPerfil = new CarregarPerfil();
@@ -58,6 +56,10 @@ export class CadastrarAcoesAtividadeComponent implements OnInit {
 
   ngOnInit() {
     this.carregarPerfil.carregar(this.activatedRoute.snapshot.data.perfilAcesso, this.perfilAcesso);
+    
+    this.acessoService.getPerfilAcesso(Modulos["ANALISE_PLANEJAMENTO_ATIVIDADE"]).subscribe((perfilAcesso: Acesso[]) => {
+      this.carregarPerfil.carregar(perfilAcesso, this.perfilAcessoAnalise);
+    });
 
     if (!this.perfilAcesso.insere) {
       this.mostrarBotaoCadastrar = false;
@@ -67,8 +69,8 @@ export class CadastrarAcoesAtividadeComponent implements OnInit {
       this.mostrarBotaoAtualizar = false;
     }
 
-    this.grupoAcao.funcionarioAnalise = new Funcionario();
-    this.grupoAcao.funcionarioAnalise.pessoasFisica = new PessoaFisica();
+    this.grupoAcao.usuarioAnalise = new UsuarioSistema();
+    this.grupoAcao.usuarioAnalise.pessoaFisica = new PessoaFisica();
 
 
     const idGrupoAcao = this.activatedRoute.snapshot.queryParams.codigoacao ? this.activatedRoute.snapshot.queryParams.codigoacao : null;
@@ -82,17 +84,12 @@ export class CadastrarAcoesAtividadeComponent implements OnInit {
           this.mostrarBotaoAtualizar = false;
         }
 
-        if(!this.grupoAcao.funcionarioAnalise.pessoasFisica) {
-          this.grupoAcao.funcionarioAnalise.pessoasFisica = new PessoaFisica();
-
-          this.funcionarioService.getByPessoaFisica(this.toolbarPrincipalService.idPessoaFisica)
-          .subscribe((funcionario: Funcionario) => {
-            if(funcionario && funcionario.id) {
-              this.grupoAcao.funcionarioAnalise = funcionario;
-            }
-          });
+        if(!this.grupoAcao.usuarioAnalise) {
+          this.grupoAcao.usuarioAnalise = new UsuarioSistema();
+          this.grupoAcao.usuarioAnalise.pessoaFisica = new PessoaFisica();
         }
-
+        this.verificarPermissaoAlterar();
+        
       });
     }
 
@@ -108,6 +105,7 @@ export class CadastrarAcoesAtividadeComponent implements OnInit {
 
   cadastrar() {
     if (!this.validarDatas() ) { return; }
+    if (!this.validarAcoes() ) { return; }
 
     this.grupoAcao.numeroGrupo = this.funcoesUteisService.getApenasNumeros(this.grupoAcao.numeroGrupo);
     this.grupoAcoesService.cadastrar(this.grupoAcao).subscribe(() => {
@@ -121,7 +119,7 @@ export class CadastrarAcoesAtividadeComponent implements OnInit {
   limpar() {
     this.grupoAcao = new GrupoAcoes();
     this.grupoAcao.atividade = new Atividade();
-    this.grupoAcao.funcionarioAnalise = new Funcionario();
+    this.grupoAcao.usuarioAnalise = new UsuarioSistema();
     this.grupoAcao.acoes =  [];
   }
 
@@ -132,6 +130,7 @@ export class CadastrarAcoesAtividadeComponent implements OnInit {
 
   atualizar() {
     if (!this.validarDatas() ) { return; }
+    if (!this.validarAcoes() ) { return; }
 
     this.grupoAcao.numeroGrupo = this.funcoesUteisService.getApenasNumeros(this.grupoAcao.numeroGrupo);
     this.grupoAcoesService.alterar(this.grupoAcao).subscribe(() => {
@@ -145,12 +144,12 @@ export class CadastrarAcoesAtividadeComponent implements OnInit {
   validarDatas(): boolean {
     let resultado = true;
 
-    const dataInicioAtividade     = this.dataUtilService.getValorByDate(this.grupoAcao.atividade.dataInicio);
-    const dataFimAtividade        = this.dataUtilService.getValorByDate(this.grupoAcao.atividade.dataFim);
+    const dataInicioAtividade     = this.dataUtilService.getDataTruncata(this.grupoAcao.atividade.dataInicio);
+    const dataFimAtividade        = this.dataUtilService.getDataTruncata(this.grupoAcao.atividade.dataFim);
 
     if(this.grupoAcao.acoes && this.grupoAcao.acoes.length > 0) {
       this.grupoAcao.acoes.forEach(acao => {
-        const dataIncioMatricula      = this.dataUtilService.getValorByDate(acao.dataPrevisaoInicio);
+        const dataIncioMatricula      = this.dataUtilService.getDataTruncata(acao.dataPrevisaoInicio);
         if (dataIncioMatricula && dataIncioMatricula.getTime() < dataInicioAtividade.getTime()) {
           this.toastService.showAlerta('A data de início informada não pode ser menor que a data de início da atividade selecionada.');
           resultado = false;
@@ -167,6 +166,46 @@ export class CadastrarAcoesAtividadeComponent implements OnInit {
     }
 
     return resultado;
+  }
+
+  validarAcoes(): boolean {
+    if (this.grupoAcao.acoes && this.grupoAcao.acoes.length <= 0) {
+      this.toastService.showAlerta("É necessário adicionar ao menos uma ação.");
+      return false;
+    }
+    return true;
+  }
+
+  updateGrupoAcao(novoGrupoAcao: any) {
+    if (novoGrupoAcao.id) {
+      this.grupoAcao = novoGrupoAcao;
+      this.mostrarBotaoCadastrar = false;
+
+      this.isAtualizar = true;
+      this.verificarPermissaoAlterar();
+
+      if(!this.grupoAcao.usuarioAnalise) {
+        this.grupoAcao.usuarioAnalise = new UsuarioSistema();
+        this.grupoAcao.usuarioAnalise.pessoaFisica = new PessoaFisica();
+      }
+    }
+  }
+
+  verificarPermissaoAlterar() {
+    this.mostrarBotaoAtualizar = false;
+
+    if (this.perfilAcesso.altera) {
+      if (
+        this.grupoAcao.statusAnalise === "A" ||
+        this.grupoAcao.statusAnalise === "R"
+      ) {
+        if (this.perfilAcessoAnalise.altera) {
+          this.mostrarBotaoAtualizar = true;
+        }
+      } else {
+        this.mostrarBotaoAtualizar = true;
+      }
+    }
   }
   
 

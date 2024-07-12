@@ -9,7 +9,8 @@
                     <mat-select [(ngModel)]="grupoAcao.atividade.id"
                                 (selectionChange)="mostrarDadosAtividade($event.value)"
                                 name="atividade" 
-                                required>
+                                required
+                                [disabled]="grupoAcao.id">
                         <mat-option></mat-option>        
                         <mat-option *ngFor="let u of atividades" [value]="u.id" >
                             {{u.descricao}}
@@ -20,14 +21,14 @@
         </div>
 
         <div fxLayout="column" fxFlex="50%">
-            <mat-toolbar class="titulopartes">Funcionário Analise</mat-toolbar>
+            <mat-toolbar class="titulopartes">Responsável Análise</mat-toolbar>
             <mat-form-field style="margin-left: 20px; margin-bottom: 20px" >
-                <input #funcionarioAnalise 
+                <input #usuarioAnalise 
                        matInput 
                        maxlength="100" 
                        disabled
-                       [(ngModel)]="grupoAcao.funcionarioAnalise.pessoasFisica.nome"
-                       name="Funcionário Analise" placeholder="Funcionário Analise">
+                       [(ngModel)]="grupoAcao.usuarioAnalise.pessoaFisica.nome"
+                       name="Responsável Análise" placeholder="Responsável Análise">
             </mat-form-field>
         </div>
 
@@ -52,15 +53,23 @@
                     placeholder="Período (mês-ano)">
         </mat-form-field>
 
-        <!--Imagem (like/deslike) -->
-        <div style="margin-top: 21px; color: rgb(0, 128, 0);"  *ngIf="showFormularioAcao && grupoAcao.statusAnalise === 'A'">
+        <!--Imagem (like/deslike) 
+        
+                    {{!element.grupoAcao.statusEnvioAnalise ? 'Aguardando' : 
+                        element.grupoAcao.statusAnalise === 'A' ? 'Aprovado' : 
+                            element.grupoAcao.statusAnalise === 'R' ? 'Reprovado' : 'Em Análise' }}
+        -->
+        <div style="margin-top: 21px; color: rgb(0, 128, 0);"  *ngIf="showFormularioAcao && statusEnvioAnalise && statusAnalise === 'A'">
             <span class="material-icons">thumb_up</span> Aprovado
         </div>
-        <div style="margin-top: 21px; color: rgb(155, 15, 5);" *ngIf="showFormularioAcao && grupoAcao.statusAnalise === 'R'">
+        <div style="margin-top: 21px; color: rgb(155, 15, 5);" *ngIf="showFormularioAcao && statusEnvioAnalise && statusAnalise === 'R'">
             <span class="material-icons" >thumb_up</span> Reprovado
         </div>
-        <div style="margin-top: 21px; color: rgb(212, 165, 8); font-weight: bold;" *ngIf="showFormularioAcao && grupoAcao.statusAnalise !== 'A' && grupoAcao.statusAnalise !== 'R'">
+        <div style="margin-top: 21px; color: rgb(212, 165, 8); font-weight: bold;" *ngIf="showFormularioAcao && statusEnvioAnalise && statusAnalise !== 'A' && statusAnalise !== 'R'">
             <span class="material-icons">pan_tool</span> Em análise
+        </div>
+        <div style="margin-top: 21px; color: rgb(212, 165, 8); font-weight: bold;" *ngIf="showFormularioAcao && !statusEnvioAnalise">
+            <span class="material-icons">pan_tool</span> Aguardando
         </div>
 
 
@@ -71,12 +80,21 @@
                           title="Enviar para Analisar" 
                           name="statusEnvioAnalise" 
                           style="margin-top: 25px;"
-                          [disabled]="isAprovado()"
+                          [disabled]="camposDesabilitados()"
                           [(ngModel)]="grupoAcao.statusEnvioAnalise">
                 Enviar para Analisar
             </mat-checkbox>
         </div>
     
+    </div>
+
+    <div fxLayout="column" *ngIf="isShowFormularioAnalise()">
+        <mat-toolbar class="titulopartes"><span>Decisão da Análise do Planejamento</span></mat-toolbar>
+        <formulario-analise [grupoAcao]="grupoAcao"   
+                            [perfilAcesso]="perfilAcesso"
+                            [perfilAcessoAnalise]="perfilAcessoAnalise"
+                            [camposDesabilitados]="camposDesabilitados()">
+        </formulario-analise>
     </div>
 
     <div fxLayout="column" *ngIf="showFormularioAcao">
@@ -87,12 +105,13 @@
                     <formulario-acao [acao]="acao" 
                                      [index]="index"
                                      [acoes]="grupoAcao.acoes"   
-                                     [perfilAcesso]="perfilAcesso">
+                                     [perfilAcesso]="perfilAcesso"
+                                     [camposDesabilitados]="camposDesabilitados()">
                     </formulario-acao>
                 </div>
                 <div *ngIf="perfilAcesso.insere" fxLayoutAlign="start center" fxLayoutGap="16px" style="padding-top: 10px; padding-left: 20px;">
                     <div>
-                        <button matTooltip="Novo" mat-mini-fab color="primary" (click)="addAcao()" [disabled]="isAprovado()">
+                        <button matTooltip="Novo" mat-mini-fab color="primary" (click)="addAcao()" [disabled]="camposDesabilitados()">
                             <mat-icon>add</mat-icon>
                         </button>
                     </div>
