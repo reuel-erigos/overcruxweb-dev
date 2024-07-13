@@ -1,0 +1,37 @@
+<mat-toolbar class="subtitulo">Tipos de Contratos</mat-toolbar>
+<div class="painel-principal" style="padding: 10px;">
+    <form #formCadastro="ngForm">
+
+        <div fxLayout="row" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill>
+            <!-- #MOTIVO  -->
+            <mat-form-field fxFlexOffset="20px" fxFlex="90%">
+                <input #desc matInput maxlength="100" [(ngModel)]=tiposContratos.descricao name="descricao"
+                    placeholder="Descrição:" required [disabled]="camposDesabilitados()">
+                <mat-hint align="end">{{desc.value.length}} / 200</mat-hint>
+            </mat-form-field>
+        </div>
+
+
+        <!-- BOTOES -->
+        <div dir="rtl" fxLayoutGap="20px" style="padding-top: 20px; padding-bottom: 10px; padding-right: 20px"
+            fxFlexFill>
+            <button *ngIf="!isAtualizar && mostrarBotaoCadastrar" mat-raised-button name="botaoConfirmar" fxFlex="20%"
+                color="primary" [disabled]="formCadastro.invalid" (click)="cadastrar()"> Cadastrar
+            </button>
+
+            <button *ngIf="isAtualizar && mostrarBotaoAtualizar" mat-raised-button name="botaoConfirmar" fxFlex="20%"
+                color="primary" [disabled]="formCadastro.invalid" (click)="atualizar()">
+                Atualizar
+            </button>
+
+            <button *ngIf="mostrarBotaoLimpar()" mat-raised-button fxFlex="20%" (click)="limpar()">
+                Limpar
+            </button>
+            <button mat-raised-button fxFlex="20%" (click)="cancelar()">
+                Cancelar
+            </button>
+
+        </div>
+
+    </form>
+</div>

@@ -33,5 +33,11 @@
                 rota="beneficiossociais" toolTip="Benefícios Sociais"></sub-menu>
         </div>
 
+        <!-- TIPOS_CONTRATOS -->
+        <div style="padding-left: 15px">
+            <sub-menu *ngIf="verificaAcesso(getModulos().TIPOS_CONTRATOS)" icone="list" titulo="Tipos de Contratos"
+                rota="tiposcontratos" toolTip="Tipos de Contratos"></sub-menu>
+        </div>
+
     </div>
 </mat-nav-list>
