@@ -1,14 +1,13 @@
-import { SituacoesExAlunosService } from "src/app/services/situacoes-ex-alunos/situacoes-ex-alunos.service";
 import { Component, OnInit, ViewChild } from "@angular/core";
 import { MatDialog, MatDialogConfig } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatTableDataSource } from "@angular/material/table";
-import { Router, ActivatedRoute } from "@angular/router";
+import { ActivatedRoute, Router } from "@angular/router";
 import { Acesso } from "src/app/core/acesso";
-import { ConfirmDialogComponent } from "../common/confirm-dialog/confirm-dialog.component";
+import { CarregarPerfil } from "src/app/core/carregar-perfil";
 import { TiposContratos } from "src/app/core/tipos-contratos";
 import { TiposContratosService } from "src/app/services/tipos-contratos/tipos-contratos.service";
-import { CarregarPerfil } from "src/app/core/carregar-perfil";
+import { ConfirmDialogComponent } from "../common/confirm-dialog/confirm-dialog.component";
 
 @Component({
   selector: "tipos-contratos",
@@ -19,7 +18,7 @@ export class TiposContratosComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
   listaTiposContratos: TiposContratos[];
-  tiposContratos: TiposContratos = new TiposContratos();
+  descricaoFiltro: string = null;
   msg: string;
 
   mostrarTabela = false;
@@ -47,20 +46,20 @@ export class TiposContratosComponent implements OnInit {
   }
   limpar() {
     this.mostrarTabela = false;
-    this.tiposContratos = new TiposContratos();
+    this.descricaoFiltro = null;
     this.dataSource.data = [];
   }
 
   consultar() {
-    if (this.tiposContratos && this.tiposContratos.id) {
+    if (this.descricaoFiltro != null) {
       this.tiposContratosService
-        .getById(this.tiposContratos.id)
-        .subscribe((tiposContratos: TiposContratos) => {
+        .getByDescricao(this.descricaoFiltro)
+        .subscribe((tiposContratos: TiposContratos[]) => {
           if (!tiposContratos) {
             this.mostrarTabela = false;
             this.msg = "Nenhum registro para a pesquisa selecionada";
           } else {
-            this.dataSource.data = [tiposContratos];
+            this.dataSource.data = tiposContratos;
             this.mostrarTabela = true;
           }
         });
@@ -91,7 +90,7 @@ export class TiposContratosComponent implements OnInit {
     dialogRef.afterClosed().subscribe((confirma) => {
       if (confirma) {
         this.tiposContratosService.excluir(tiposContratos.id).subscribe(() => {
-          this.tiposContratos.id = null;
+          this.descricaoFiltro = null;
           this.consultar();
         });
       } else {
@@ -103,16 +102,14 @@ export class TiposContratosComponent implements OnInit {
   getAll() {
     this.tiposContratosService
       .getAll()
-      .subscribe((listaSituacoesExAlunos: TiposContratos[]) => {
-        this.listaTiposContratos = listaSituacoesExAlunos;
-        this.dataSource.data = listaSituacoesExAlunos
-          ? listaSituacoesExAlunos
-          : [];
-        this.verificaMostrarTabela(listaSituacoesExAlunos);
+      .subscribe((listaTiposContratos: TiposContratos[]) => {
+        this.listaTiposContratos = listaTiposContratos;
+        this.dataSource.data = listaTiposContratos ? listaTiposContratos : [];
+        this.verificaMostrarTabela(listaTiposContratos);
       });
   }
-  verificaMostrarTabela(listaSituacoesExAlunos: TiposContratos[]) {
-    if (!listaSituacoesExAlunos || listaSituacoesExAlunos.length == 0) {
+  verificaMostrarTabela(listaTiposContratos: TiposContratos[]) {
+    if (!listaTiposContratos || listaTiposContratos.length == 0) {
       this.mostrarTabela = false;
       this.msg = "Nenhum cadastro.";
     } else {

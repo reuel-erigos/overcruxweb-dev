@@ -1,8 +1,8 @@
 import { NgModule } from "@angular/core";
-import { Routes, RouterModule } from "@angular/router";
-import { AuthGuard } from "src/app/guards/auth.guard";
-import { AcessoModuloResolver } from "src/app/guards/acesso-modulo.resolve";
+import { RouterModule, Routes } from "@angular/router";
 import { Modulos } from "src/app/core/modulos";
+import { AcessoModuloResolver } from "src/app/guards/acesso-modulo.resolve";
+import { AuthGuard } from "src/app/guards/auth.guard";
 import { CadastrarTiposContratosComponent } from "./cadastrar-tipos-contratos/cadastrar-tipos-contratos.component";
 import { TiposContratosComponent } from "./tipos-contratos.component";
 
