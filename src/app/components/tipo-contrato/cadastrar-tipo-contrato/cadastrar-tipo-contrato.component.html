@@ -5,7 +5,7 @@
         <div fxLayout="row" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill>
             <!-- #MOTIVO  -->
             <mat-form-field fxFlexOffset="20px" fxFlex="90%">
-                <input #desc matInput maxlength="100" [(ngModel)]=tiposContratos.descricao name="descricao"
+                <input #desc matInput maxlength="100" [(ngModel)]=tipoContrato.descricao name="descricao"
                     placeholder="Descrição:" required [disabled]="camposDesabilitados()">
                 <mat-hint align="end">{{desc.value.length}} / 200</mat-hint>
             </mat-form-field>

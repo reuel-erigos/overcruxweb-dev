@@ -1,4 +1,4 @@
-<mat-toolbar class="subtitulo">Tipos de Contratos</mat-toolbar>
+<mat-toolbar class="subtitulo">Tipo de Contrato</mat-toolbar>
 <div class="painel-principal" style="padding: 10px;">
     <div class="painel-consultar">
         <form #formConsultarDepartamento="ngForm">
@@ -41,7 +41,7 @@
                         <mat-icon>delete</mat-icon>
                     </button>
                     <button *ngIf="perfilAcesso.consulta" mat-button (click)="atualizar(element)">
-                        <mat-icon>search</mat-icon>
+                        <mat-icon>{{perfilAcesso.altera ? 'create' : 'search'}}</mat-icon>
                     </button>
                 </td>
             </ng-container>
@@ -61,7 +61,7 @@
         <div fxLayout="row" *ngIf="perfilAcesso.insere" fxLayoutAlign="end center" fxLayoutGap="16px"
             style="padding-top: 50px">
             <div>
-                <button matTooltip="Adicionar" mat-fab color="primary" [routerLink]="['/tiposcontratos/cadastrar']"
+                <button matTooltip="Adicionar" mat-fab color="primary" [routerLink]="['/tipocontrato/cadastrar']"
                     routerLinkActive="router-link-active">
                     <mat-icon>add</mat-icon>
                 </button>

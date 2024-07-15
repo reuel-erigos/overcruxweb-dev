@@ -2,17 +2,17 @@ import { Component, OnInit } from "@angular/core";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Acesso } from "src/app/core/acesso";
 import { CarregarPerfil } from "src/app/core/carregar-perfil";
-import { TiposContratos } from "src/app/core/tipos-contratos";
-import { TiposContratosService } from "src/app/services/tipos-contratos/tipos-contratos.service";
+import { TipoContrato } from "src/app/core/tipo-contrato";
+import { TipoContratoService } from "src/app/services/tipo-contrato/tipo-contrato.service";
 import { ToastService } from "src/app/services/toast/toast.service";
 
 @Component({
-  selector: "cadastrar-tipos-contratos",
-  templateUrl: "./cadastrar-tipos-contratos.component.html",
-  styleUrls: ["./cadastrar-tipos-contratos.component.css"],
+  selector: "cadastrar-tipo-contrato",
+  templateUrl: "./cadastrar-tipo-contrato.component.html",
+  styleUrls: ["./cadastrar-tipo-contrato.component.css"],
 })
-export class CadastrarTiposContratosComponent implements OnInit {
-  tiposContratos: TiposContratos;
+export class CadastrarTipoContratoComponent implements OnInit {
+  tipoContrato: TipoContrato;
 
   perfilAcesso: Acesso = new Acesso();
   carregarPerfil: CarregarPerfil = new CarregarPerfil();
@@ -23,7 +23,7 @@ export class CadastrarTiposContratosComponent implements OnInit {
   isAtualizar: boolean = false;
 
   constructor(
-    private tiposContratosService: TiposContratosService,
+    private tipoContratoService: TipoContratoService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private toastService: ToastService
@@ -50,15 +50,15 @@ export class CadastrarTiposContratosComponent implements OnInit {
       : null;
     if (id) {
       this.isAtualizar = true;
-      this.tiposContratosService
+      this.tipoContratoService
         .getById(id)
-        .subscribe((tiposContratos: TiposContratos) => {
-          this.tiposContratos = tiposContratos;
+        .subscribe((tipoContrato: TipoContrato) => {
+          this.tipoContrato = tipoContrato;
         });
     }
   }
   inicializarObjetos() {
-    this.tiposContratos = new TiposContratos();
+    this.tipoContrato = new TipoContrato();
   }
 
   mostrarBotaoLimpar() {
@@ -70,23 +70,23 @@ export class CadastrarTiposContratosComponent implements OnInit {
   }
 
   cadastrar() {
-    this.tiposContratosService.cadastrar(this.tiposContratos).subscribe(() => {
+    this.tipoContratoService.cadastrar(this.tipoContrato).subscribe(() => {
       this.toastService.showSucesso("Cadastro realizado com sucesso");
-      this.router.navigate(["tiposcontratos"]);
+      this.router.navigate(["tipocontrato"]);
     });
   }
 
   limpar() {
     this.inicializarObjetos();
-    this.tiposContratos.descricao = null;
+    this.tipoContrato.descricao = null;
   }
 
   cancelar() {
-    this.router.navigate(["tiposcontratos"]);
+    this.router.navigate(["tipocontrato"]);
   }
 
   atualizar() {
-    this.tiposContratosService.alterar(this.tiposContratos).subscribe(() => {
+    this.tipoContratoService.alterar(this.tipoContrato).subscribe(() => {
       this.toastService.showSucesso("Registro atualizado com sucesso");
     });
   }

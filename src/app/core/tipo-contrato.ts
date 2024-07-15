@@ -1,4 +1,4 @@
-export class TiposContratos {
+export class TipoContrato {
 	id: number;
 	descricao: string;
 	idInstituicao: number;

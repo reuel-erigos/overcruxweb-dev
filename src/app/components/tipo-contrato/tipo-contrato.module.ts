@@ -5,19 +5,19 @@ import { MaterialCommonModule } from "src/app/material-modules/material-common.m
 import { ComboBeneficiarioModule } from "../common/combo-beneficiario/combo-beneficiario.module";
 import { ComboPesquisavelModule } from "../common/combo-pesquisavel/combo-pesquisavel.module";
 import { DadosAlunoModule } from "../common/dados-aluno/dados-aluno.module";
-import { CadastrarTiposContratosComponent } from "./cadastrar-tipos-contratos/cadastrar-tipos-contratos.component";
-import { TiposContratosRoutingModule } from "./tipos-contratos-routing.module";
-import { TiposContratosComponent } from "./tipos-contratos.component";
+import { CadastrarTipoContratoComponent } from "./cadastrar-tipo-contrato/cadastrar-tipo-contrato.component";
+import { TipoContratoRoutingModule } from "./tipo-contrato-routing.module";
+import { TipoContratoComponent } from "./tipo-contrato.component";
 
 @NgModule({
-  declarations: [TiposContratosComponent, CadastrarTiposContratosComponent],
+  declarations: [TipoContratoComponent, CadastrarTipoContratoComponent],
   imports: [
     CommonModule,
-    TiposContratosRoutingModule,
+    TipoContratoRoutingModule,
     MaterialCommonModule,
     DadosAlunoModule,
     ComboBeneficiarioModule,
     ComboPesquisavelModule,
   ],
 })
-export class TiposContratosModule {}
+export class TipoContratoModule {}

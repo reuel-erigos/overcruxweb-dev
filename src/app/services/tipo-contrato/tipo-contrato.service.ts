@@ -1,20 +1,20 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Rotas } from "src/app/core/rotas";
-import { TiposContratos } from "src/app/core/tipos-contratos";
+import { TipoContrato } from "src/app/core/tipo-contrato";
 import { BaseService } from "../base/base.service";
 
 @Injectable({
   providedIn: "root",
 })
-export class TiposContratosService extends BaseService<TiposContratos> {
+export class TipoContratoService extends BaseService<TipoContrato> {
   constructor(http: HttpClient) {
-    super(http, Rotas.TIPOS_CONTRATOS);
+    super(http, Rotas.TIPO_CONTRATO);
   }
 
   getByDescricao(descricao: string) {
     descricao = descricao || "";
-    return this.http.get(Rotas.TIPOS_CONTRATOS + `filter`, {
+    return this.http.get(Rotas.TIPO_CONTRATO + `filter`, {
       params: { descricao: `${descricao}` },
     });
   }

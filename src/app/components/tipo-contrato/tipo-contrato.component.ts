@@ -5,32 +5,32 @@ import { MatTableDataSource } from "@angular/material/table";
 import { ActivatedRoute, Router } from "@angular/router";
 import { Acesso } from "src/app/core/acesso";
 import { CarregarPerfil } from "src/app/core/carregar-perfil";
-import { TiposContratos } from "src/app/core/tipos-contratos";
-import { TiposContratosService } from "src/app/services/tipos-contratos/tipos-contratos.service";
+import { TipoContrato } from "src/app/core/tipo-contrato";
+import { TipoContratoService } from "src/app/services/tipo-contrato/tipo-contrato.service";
 import { ConfirmDialogComponent } from "../common/confirm-dialog/confirm-dialog.component";
 
 @Component({
-  selector: "tipos-contratos",
-  templateUrl: "./tipos-contratos.component.html",
-  styleUrls: ["./tipos-contratos.component.css"],
+  selector: "tipo-contrato",
+  templateUrl: "./tipo-contrato.component.html",
+  styleUrls: ["./tipo-contrato.component.css"],
 })
-export class TiposContratosComponent implements OnInit {
+export class TipoContratoComponent implements OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
 
-  listaTiposContratos: TiposContratos[];
+  listaTipoContrato: TipoContrato[];
   descricaoFiltro: string = null;
   msg: string;
 
   mostrarTabela = false;
 
   displayedColumns: string[] = ["descricao", "acoes"];
-  dataSource: MatTableDataSource<TiposContratos> = new MatTableDataSource();
+  dataSource: MatTableDataSource<TipoContrato> = new MatTableDataSource();
 
   perfilAcesso: Acesso = new Acesso();
   carregarPerfil: CarregarPerfil = new CarregarPerfil();
 
   constructor(
-    private tiposContratosService: TiposContratosService,
+    private tipoContratoService: TipoContratoService,
     private router: Router,
     private dialog: MatDialog,
     private activatedRoute: ActivatedRoute
@@ -52,14 +52,14 @@ export class TiposContratosComponent implements OnInit {
 
   consultar() {
     if (this.descricaoFiltro != null) {
-      this.tiposContratosService
+      this.tipoContratoService
         .getByDescricao(this.descricaoFiltro)
-        .subscribe((tiposContratos: TiposContratos[]) => {
-          if (!tiposContratos) {
+        .subscribe((tipoContrato: TipoContrato[]) => {
+          if (!tipoContrato) {
             this.mostrarTabela = false;
             this.msg = "Nenhum registro para a pesquisa selecionada";
           } else {
-            this.dataSource.data = tiposContratos;
+            this.dataSource.data = tipoContrato;
             this.mostrarTabela = true;
           }
         });
@@ -68,17 +68,17 @@ export class TiposContratosComponent implements OnInit {
     }
   }
 
-  atualizar(tiposContratos: TiposContratos) {
-    this.router.navigate(["/tiposcontratos/cadastrar"], {
-      queryParams: { id: tiposContratos.id },
+  atualizar(tipoContrato: TipoContrato) {
+    this.router.navigate(["/tipocontrato/cadastrar"], {
+      queryParams: { id: tipoContrato.id },
     });
   }
 
-  deletar(tiposContratos: TiposContratos) {
-    this.chamaCaixaDialogo(tiposContratos);
+  deletar(tipoContrato: TipoContrato) {
+    this.chamaCaixaDialogo(tipoContrato);
   }
 
-  chamaCaixaDialogo(tiposContratos: TiposContratos) {
+  chamaCaixaDialogo(tipoContrato: TipoContrato) {
     const dialogConfig = new MatDialogConfig();
     dialogConfig.data = {
       pergunta: `Certeza que deseja excluir?`,
@@ -89,7 +89,7 @@ export class TiposContratosComponent implements OnInit {
     const dialogRef = this.dialog.open(ConfirmDialogComponent, dialogConfig);
     dialogRef.afterClosed().subscribe((confirma) => {
       if (confirma) {
-        this.tiposContratosService.excluir(tiposContratos.id).subscribe(() => {
+        this.tipoContratoService.excluir(tipoContrato.id).subscribe(() => {
           this.descricaoFiltro = null;
           this.consultar();
         });
@@ -100,16 +100,16 @@ export class TiposContratosComponent implements OnInit {
   }
 
   getAll() {
-    this.tiposContratosService
+    this.tipoContratoService
       .getAll()
-      .subscribe((listaTiposContratos: TiposContratos[]) => {
-        this.listaTiposContratos = listaTiposContratos;
-        this.dataSource.data = listaTiposContratos ? listaTiposContratos : [];
-        this.verificaMostrarTabela(listaTiposContratos);
+      .subscribe((listaTipoContrato: TipoContrato[]) => {
+        this.listaTipoContrato = listaTipoContrato;
+        this.dataSource.data = listaTipoContrato ? listaTipoContrato : [];
+        this.verificaMostrarTabela(listaTipoContrato);
       });
   }
-  verificaMostrarTabela(listaTiposContratos: TiposContratos[]) {
-    if (!listaTiposContratos || listaTiposContratos.length == 0) {
+  verificaMostrarTabela(listaTipoContrato: TipoContrato[]) {
+    if (!listaTipoContrato || listaTipoContrato.length == 0) {
       this.mostrarTabela = false;
       this.msg = "Nenhum cadastro.";
     } else {
