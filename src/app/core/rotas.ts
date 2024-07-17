@@ -88,4 +88,5 @@ export enum Rotas {
     REGIAO_ADMINISTRATIVA           = 'api/regiaoadministrativa/',
     GRAUS_PARENTESCO                = 'api/grausparentesco/',
     TIPO_CONTRATO                   = 'api/tipocontrato/',
+    CONTRATO                        = 'api/contrato/',
 }

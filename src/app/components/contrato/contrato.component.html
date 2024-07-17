@@ -1,0 +1,162 @@
+<mat-toolbar class="subtitulo">Contrato</mat-toolbar>
+<div class="painel-principal" style="padding: 10px;">
+    <div class="painel-consultar">
+        <form #formConsultarDepartamento="ngForm">
+            <div fxLayout="row" fxFlexFill>
+
+                <mat-form-field style="margin-bottom: 20px; margin-right: 10px;" fxFlex="34%">
+                    <mat-label>Empresa:</mat-label>
+                    <mat-select [(ngModel)]="empresaSelecionada" name="listaEmpresas">
+                        <mat-option></mat-option>
+                        <mat-option *ngFor="let e of listaEmpresas" [value]="e">
+                            {{e.nomeRazaoSocial}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-hint *ngIf="listaEmpresas?.length === 0" align="start">Nenhuma empresa cadastrada</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field style="margin-bottom: 20px; margin-right: 10px;" fxFlex="34%">
+                    <mat-label>Programa:</mat-label>
+                    <mat-select [(ngModel)]="programaSelecionado" name="listaProgramas">
+                        <mat-option></mat-option>
+                        <mat-option *ngFor="let e of listaProgramas" [value]="e">
+                            {{e.nome}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-hint *ngIf="listaProgramas?.length === 0" align="start">Nenhum programa cadastrado</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field style="margin-bottom: 20px;" fxFlex="34%">
+                    <mat-label>Projeto:</mat-label>
+                    <mat-select [(ngModel)]="projetoSelecionado" name="listaProjetos">
+                        <mat-option></mat-option>
+                        <mat-option *ngFor="let e of listaProjetos" [value]="e">
+                            {{e.nome}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-hint *ngIf="listaProjetos?.length === 0" align="start">Nenhum projeto cadastrado</mat-hint>
+                </mat-form-field>
+
+            </div>
+            <div fxLayout="row" fxFlexFill>
+                <mat-form-field style="margin-bottom: 20px; margin-right: 10px;" fxFlex="25%">
+                    <mat-label>Data Início:</mat-label>
+                    <input matInput name="dataInicioVigencia" [matDatepicker]="dataInicioPicker"
+                        placeholder="Data Início" [(ngModel)]="dataInicioVigencia">
+                    <mat-datepicker-toggle matSuffix [for]="dataInicioPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #dataInicioPicker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field style="margin-bottom: 20px; margin-right: 10px;" fxFlex="25%">
+                    <mat-label>Data Fim:</mat-label>
+                    <input matInput name="dataFimVigencia" [matDatepicker]="dataFimPicker" placeholder="Data Fim"
+                        [(ngModel)]="dataFimVigencia">
+                    <mat-datepicker-toggle matSuffix [for]="dataFimPicker"></mat-datepicker-toggle>
+                    <mat-datepicker #dataFimPicker></mat-datepicker>
+                </mat-form-field>
+
+                <mat-form-field style="margin-bottom: 20px; margin-right: 10px;" fxFlex="25%">
+                    <mat-label>Número Contrato:</mat-label>
+                    <input #numeroContratoNm matInput maxlength="200" name="numeroContratoNm"
+                        placeholder="Número Contrato:" [(ngModel)]="numeroContrato">
+                    <mat-hint align="end">{{numeroContratoNm.value.length}} / 200</mat-hint>
+                </mat-form-field>
+
+                <mat-form-field style="margin-bottom: 20px;" fxFlex="25%">
+                    <mat-label>Valor:</mat-label>
+                    <input currencyMask matInput maxlength="10" name="valorContrato" placeholder="Valor:"
+                        [(ngModel)]="valorContrato" [options]="{ prefix: '', thousands: '.', decimal: ',' }" />
+                    <span matPrefix>R$&nbsp;</span>
+                </mat-form-field>
+            </div>
+
+
+            <div dir="rtl" class="botoes" fxLayoutGap="20px" style="padding-top: 20px; padding-bottom: 20px;"
+                fxFlexFill>
+
+                <button mat-raised-button fxFlex="20%" (click)="consultar()">
+                    CONSULTAR
+                </button>
+
+                <button mat-raised-button fxFlex="20%" style="padding-right: 20px" (click)="limpar()" route>
+                    LIMPAR
+                </button>
+
+            </div>
+        </form>
+
+        <table *ngIf="mostrarTabela; else tabelaSemDados" mat-table [dataSource]="dataSource" style="margin-top: 20px">
+
+
+            <ng-container matColumnDef="numeroContrato">
+                <th mat-header-cell *matHeaderCellDef>Número Contrato</th>
+                <td mat-cell *matCellDef="let element"> {{element.numeroContrato}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="tipoContrato">
+                <th mat-header-cell *matHeaderCellDef>Tipo Contrato</th>
+                <td mat-cell *matCellDef="let element"> {{element.tipoContrato?.descricao}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="empresa">
+                <th mat-header-cell *matHeaderCellDef>Empresa: </th>
+                <td mat-cell *matCellDef="let element"> {{element.empresa?.nomeRazaoSocial}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="dataInicio">
+                <th mat-header-cell *matHeaderCellDef>Data Início</th>
+                <td mat-cell *matCellDef="let element"> {{element.dataInicioVigencia | dataSimples}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="dataFim">
+                <th mat-header-cell *matHeaderCellDef>Data Fim</th>
+                <td mat-cell *matCellDef="let element"> {{element.dataFimVigencia | dataSimples}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="numeroProcesso">
+                <th mat-header-cell *matHeaderCellDef>Número Processo</th>
+                <td mat-cell *matCellDef="let element"> {{element.numeroProcessoTecnico}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="valor">
+                <th mat-header-cell *matHeaderCellDef>Valor</th>
+                <td mat-cell *matCellDef="let element"> {{element.valorContrato | currency: 'BRL'}} </td>
+            </ng-container>
+
+
+
+            <ng-container matColumnDef="acoes">
+                <th mat-header-cell *matHeaderCellDef> Ações </th>
+                <td mat-cell *matCellDef="let element">
+                    <button *ngIf="perfilAcesso.deleta" mat-button (click)="deletar(element)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                    <button *ngIf="perfilAcesso.consulta" mat-button (click)="atualizar(element)">
+                        <mat-icon>{{perfilAcesso.altera ? 'edit' : 'search'}}</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <div [hidden]="!mostrarTabela">
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </div>
+        <ng-template #tabelaSemDados>
+            <div fxLayout="row" fxLayoutAlign="center center" style="padding-top: 20px">
+                {{msg}}
+            </div>
+        </ng-template>
+
+        <div fxLayout="row" *ngIf="perfilAcesso.insere" fxLayoutAlign="end center" fxLayoutGap="16px"
+            style="padding-top: 50px">
+            <div>
+                <button matTooltip="Adicionar novo contrato" mat-fab color="primary"
+                    [routerLink]="['/contrato/cadastrar']" routerLinkActive="router-link-active">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
