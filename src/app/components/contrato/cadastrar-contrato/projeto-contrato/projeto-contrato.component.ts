@@ -14,6 +14,7 @@ import { Acesso } from "src/app/core/acesso";
 import { CarregarPerfil } from "src/app/core/carregar-perfil";
 import { Projeto } from "src/app/core/projeto";
 import { ProjetoContrato } from "src/app/core/projetoContrato";
+import { DataUtilService } from "src/app/services/commons/data-util.service";
 import { ProjetoService } from "src/app/services/projeto/projeto.service";
 import { ToastService } from "src/app/services/toast/toast.service";
 
@@ -54,7 +55,8 @@ export class ProjetoContratoComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private toastService: ToastService,
-    private projetoService: ProjetoService
+    private projetoService: ProjetoService,
+    private dataUtilService: DataUtilService
   ) {
     this.carregarPerfil = new CarregarPerfil();
   }
@@ -93,11 +95,31 @@ export class ProjetoContratoComponent implements OnInit {
     return !!projetoAdicionado;
   }
 
+  validarDatas(): boolean {
+    const dataInicio = this.dataUtilService.getDataTruncata(
+      this.projetoContrato.dataInicioProjetoContrato
+    );
+    const dataFim = this.dataUtilService.getDataTruncata(
+      this.projetoContrato.dataFimProjetoContrato
+    );
+    
+    if (dataFim) {
+      if (dataInicio && dataInicio.getTime() > dataFim.getTime()) {
+        this.toastService.showAlerta(
+          "A data de início informada não pode ser maior que a data de fim do projeto."
+        );
+        return false;
+      }
+    }
+    return true;
+  }
+
   adicionar() {
     if (this.isProjetoJaAdicionado()) {
       this.toastService.showAlerta("Projeto já adicionado");
       return;
     }
+    if(!this.validarDatas()) return;
 
     const projetoAdicionado = new ProjetoContrato();
     Object.assign(projetoAdicionado, this.projetoContrato);
@@ -113,6 +135,8 @@ export class ProjetoContratoComponent implements OnInit {
       this.toastService.showAlerta("Projeto já adicionado");
       return;
     }
+    if(!this.validarDatas()) return;
+    
     const projetoAdicionado = this.listaProjetosContrato.find(
       (u: ProjetoContrato) => u.projeto.id === this.projetoContrato.projeto.id
     );

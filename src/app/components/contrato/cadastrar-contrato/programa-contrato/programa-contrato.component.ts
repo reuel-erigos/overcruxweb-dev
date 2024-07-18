@@ -14,6 +14,7 @@ import { Acesso } from "src/app/core/acesso";
 import { CarregarPerfil } from "src/app/core/carregar-perfil";
 import { Programa } from "src/app/core/programa";
 import { ProgramaContrato } from "src/app/core/programaContrato";
+import { DataUtilService } from "src/app/services/commons/data-util.service";
 import { ProgramaService } from "src/app/services/programa/programa.service";
 import { ToastService } from "src/app/services/toast/toast.service";
 
@@ -54,7 +55,8 @@ export class ProgramaContratoComponent implements OnInit {
   constructor(
     private activatedRoute: ActivatedRoute,
     private toastService: ToastService,
-    private programaService: ProgramaService
+    private programaService: ProgramaService,
+    private dataUtilService: DataUtilService
   ) {
     this.carregarPerfil = new CarregarPerfil();
   }
@@ -93,11 +95,31 @@ export class ProgramaContratoComponent implements OnInit {
     return !!programaAdicionado;
   }
 
+  validarDatas(): boolean {
+    const dataInicio = this.dataUtilService.getDataTruncata(
+      this.programaContrato.dataInicioProgramaContrato
+    );
+    const dataFim = this.dataUtilService.getDataTruncata(
+      this.programaContrato.dataFimProgramaContrato
+    );
+    
+    if (dataFim) {
+      if (dataInicio && dataInicio.getTime() > dataFim.getTime()) {
+        this.toastService.showAlerta(
+          "A data de início informada não pode ser maior que a data de fim do programa."
+        );
+        return false;
+      }
+    }
+    return true;
+  }
+
   adicionar() {
     if (this.isProgramaJaAdicionado()) {
       this.toastService.showAlerta("Programa já adicionado");
       return;
     }
+    if(!this.validarDatas()) return;
 
     const programaAdicionado = new ProgramaContrato();
     Object.assign(programaAdicionado, this.programaContrato);
@@ -113,6 +135,8 @@ export class ProgramaContratoComponent implements OnInit {
       this.toastService.showAlerta("Programa já adicionado");
       return;
     }
+    if(!this.validarDatas()) return;
+    
     const programaAdicionado = this.listaProgramasContrato.find(
       (u: ProgramaContrato) =>
         u.programa.id === this.programaContrato.programa.id
