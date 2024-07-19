@@ -21,6 +21,12 @@
             rota="niveisturmas" toolTip="Níveis de Turmas"></sub-menu>
         </div>
 
+        <!-- PERIODO ATIVIDADE -->
+        <div style="padding-left: 15px">
+            <sub-menu *ngIf="verificaAcesso(getModulos().PERIODO_ATIVIDADE)" icone="date_range" titulo="Períodos de Atividades" 
+            rota="periodoatividade" toolTip="Períodos de Atividades"></sub-menu>
+        </div>
+
         <!-- AVALIACAO ATIVIDADE -->
         <div style="padding-left: 15px">
             <sub-menu *ngIf="verificaAcesso(getModulos().AVALIACAO_ATIVIDADE)" icone="done_all"

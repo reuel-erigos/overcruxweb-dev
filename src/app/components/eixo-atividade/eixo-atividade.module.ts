@@ -6,7 +6,7 @@ import { DadosAlunoModule } from "../common/dados-aluno/dados-aluno.module";
 import { ComboBeneficiarioModule } from "../common/combo-beneficiario/combo-beneficiario.module";
 import { ComboPesquisavelModule } from "../common/combo-pesquisavel/combo-pesquisavel.module";
 import { EixoAtividadeComponent } from "./eixo-atividade.component";
-import { CadastrarEixoAtividadeComponent } from "./eixo-atividade-doadores/cadastrar-eixo-atividade.component";
+import { CadastrarEixoAtividadeComponent } from "./eixo-atividade/cadastrar-eixo-atividade.component";
 import { EixoAtividadeRoutingModule } from "./eixo-atividade-routing.module";
 
 @NgModule({

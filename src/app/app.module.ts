@@ -139,6 +139,7 @@ import { EscolaModule } from './components/escola/escola.module';
 import { ImagemModule } from './components/imagem/imagem.module';
 import { NgxImageDisplayModule } from '@creativeacer/ngx-image-display';
 import { EixoAtividadeModule } from './components/eixo-atividade/eixo-atividade.module';
+import { PeriodoAtividadeModule } from './components/periodo-atividade/periodo-atividade.module';
 
 registerLocaleData(localePt, 'pt-BR');
 @NgModule({
@@ -270,6 +271,7 @@ registerLocaleData(localePt, 'pt-BR');
     EscolaModule,
     ImagemModule,
     EixoAtividadeModule,
+    PeriodoAtividadeModule,
     NgxImageDisplayModule.forRoot()
   ],
   providers: [

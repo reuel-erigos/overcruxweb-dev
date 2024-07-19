@@ -127,5 +127,6 @@ export enum Modulos{
     , ESCOLA                                = 'ESCOLA'
     , IMAGEM                                = 'IMAGEM'
     , EIXO_ATIVIDADE                        = 'EIXO_ATIVIDADE'
+    , PERIODO_ATIVIDADE                     = 'PERIODO_ATIVIDADE'
 
 }
