@@ -138,6 +138,8 @@ import { RegiaoAdministrativaModule } from './components/regiao-administrativa/r
 import { EscolaModule } from './components/escola/escola.module';
 import { ImagemModule } from './components/imagem/imagem.module';
 import { NgxImageDisplayModule } from '@creativeacer/ngx-image-display';
+import { TipoContratoModule } from './components/tipo-contrato/tipo-contrato.module';
+import { ContratoModule } from './components/contrato/contrato.module';
 
 registerLocaleData(localePt, 'pt-BR');
 @NgModule({
@@ -266,8 +268,10 @@ registerLocaleData(localePt, 'pt-BR');
     MovimentacoesContabeisModule,
     BeneficilSocialModule,
     RegiaoAdministrativaModule,
+    TipoContratoModule,
     EscolaModule,
     ImagemModule,
+    ContratoModule,
     NgxImageDisplayModule.forRoot()
   ],
   providers: [

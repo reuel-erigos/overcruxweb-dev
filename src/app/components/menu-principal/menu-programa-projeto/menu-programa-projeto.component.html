@@ -19,6 +19,9 @@
         <!-- PROJETOS -->
         <sub-menu *ngIf="verificaAcesso(getModulos().PROJETO)"   icone="folder_open" titulo="Projetos" rota="projetos" toolTip="Projetos"></sub-menu>
 
+        <!-- CONTRATOS -->
+        <sub-menu *ngIf="verificaAcesso(getModulos().CONTRATO)"   icone="folder" titulo="Contratos" rota="contrato" toolTip="Contratos"></sub-menu>
+
         <!-- GESTAO DE PARCERIAS -->
         <sub-menu *ngIf="verificaAcesso(getModulos().EMPRESAS_PARCEIRAS)" icone="group_add" titulo="Gestão de Parcerias" rota="empresasparceiras" toolTip="Gestão de Parcerias"></sub-menu>
         

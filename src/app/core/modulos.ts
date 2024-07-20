@@ -126,5 +126,7 @@ export enum Modulos{
     , REGIAO_ADMINISTRATIVA                 = 'REGIAO_ADMINISTRATIVA'
     , ESCOLA                                = 'ESCOLA'
     , IMAGEM                                = 'IMAGEM'
+    , TIPO_CONTRATO                         = 'TIPO_CONTRATO'
+    , CONTRATO                              = 'CONTRATO'
 
 }
