@@ -126,6 +126,8 @@ export enum Modulos{
     , REGIAO_ADMINISTRATIVA                 = 'REGIAO_ADMINISTRATIVA'
     , ESCOLA                                = 'ESCOLA'
     , IMAGEM                                = 'IMAGEM'
+    , EIXO_ATIVIDADE                        = 'EIXO_ATIVIDADE'
+    , PERIODO_ATIVIDADE                     = 'PERIODO_ATIVIDADE'
     , TIPO_CONTRATO                         = 'TIPO_CONTRATO'
     , CONTRATO                              = 'CONTRATO'
 

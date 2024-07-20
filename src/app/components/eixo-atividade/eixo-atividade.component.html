@@ -1,0 +1,82 @@
+<mat-toolbar class="subtitulo">Eixo de Atividades</mat-toolbar>
+<div class="painel-principal" style="padding: 10px;">
+    <div class="painel-consultar">
+        <form #formConsultarDepartamento="ngForm">
+            <div fxLayout="row" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill>
+                <mat-form-field fxFlexOffset="20px" fxFlex="90%">
+                    <input #nome matInput maxlength="100" [(ngModel)]=nomeFiltro name="nome" placeholder="Nome:">
+                    <mat-hint align="end">{{nome?.value.length}} / 100</mat-hint>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill>
+                <mat-form-field fxFlexOffset="20px" fxFlex="90%">
+                    <input #desc matInput maxlength="100" [(ngModel)]=descricaoFiltro name="descricao"
+                        placeholder="Descrição:">
+                    <mat-hint align="end">{{desc?.value.length}} / 100</mat-hint>
+                </mat-form-field>
+            </div>
+
+
+            <div dir="rtl" class="botoes" fxLayoutGap="20px" style="padding-top: 20px; padding-bottom: 20px;"
+                fxFlexFill>
+
+                <button mat-raised-button fxFlex="20%" (click)="consultar()">
+                    CONSULTAR
+                </button>
+
+                <button mat-raised-button fxFlex="20%" style="padding-right: 20px" (click)="limpar()" route>
+                    LIMPAR
+                </button>
+
+            </div>
+        </form>
+
+        <table *ngIf="mostrarTabela; else tabelaSemDados" mat-table [dataSource]="dataSource" style="margin-top: 20px">
+
+
+            <ng-container matColumnDef="nome">
+                <th mat-header-cell *matHeaderCellDef> Nome: </th>
+                <td mat-cell *matCellDef="let element"> {{element.nome}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="descricao">
+                <th mat-header-cell *matHeaderCellDef> Descrição: </th>
+                <td mat-cell *matCellDef="let element"> {{element.descricao}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="acoes">
+                <th mat-header-cell *matHeaderCellDef> Ações </th>
+                <td mat-cell *matCellDef="let element">
+                    <button *ngIf="perfilAcesso.deleta" mat-button (click)="deletar(element)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                    <button *ngIf="perfilAcesso.consulta" mat-button (click)="atualizar(element)">
+                        <mat-icon>{{perfilAcesso.altera ? 'edit' : 'search'}}</mat-icon>
+                    </button>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+        </table>
+        <div [hidden]="!mostrarTabela">
+            <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator>
+        </div>
+        <ng-template #tabelaSemDados>
+            <div fxLayout="row" fxLayoutAlign="center center" style="padding-top: 20px">
+                {{msg}}
+            </div>
+        </ng-template>
+
+        <div fxLayout="row" *ngIf="perfilAcesso.insere" fxLayoutAlign="end center" fxLayoutGap="16px"
+            style="padding-top: 50px">
+            <div>
+                <button matTooltip="Adicionar" mat-fab color="primary" [routerLink]="['/eixoatividade/cadastrar']"
+                    routerLinkActive="router-link-active">
+                    <mat-icon>add</mat-icon>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
