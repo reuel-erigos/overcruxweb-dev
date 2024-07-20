@@ -5,7 +5,7 @@
         <div fxLayout="row" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill>
             <mat-form-field fxFlexOffset="20px" fxFlex="90%">
                 <input #nome matInput maxlength="100" required [(ngModel)]=eixoAtividade.nome name="nome"
-                    placeholder="Nome:">
+                    placeholder="Nome:" [disabled]="camposDesabilitados()">
                 <mat-hint align="end">{{nome.value.length}} / 100</mat-hint>
             </mat-form-field>
         </div>
@@ -13,7 +13,7 @@
         <div fxLayout="row" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill>
             <mat-form-field fxFlexOffset="20px" fxFlex="90%">
                 <input #desc matInput maxlength="1000" [(ngModel)]=eixoAtividade.descricao name="descricao"
-                    placeholder="Descrição:" required>
+                    placeholder="Descrição:" required [disabled]="camposDesabilitados()">
                 <mat-hint align="end">{{desc.value.length}} / 1000</mat-hint>
             </mat-form-field>
         </div>

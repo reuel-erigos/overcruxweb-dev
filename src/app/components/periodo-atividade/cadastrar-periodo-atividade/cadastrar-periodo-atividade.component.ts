@@ -91,4 +91,11 @@ export class CadastrarPeriodoAtividadeComponent implements OnInit {
       this.toastService.showSucesso("Registro atualizado com sucesso");
     });
   }
+  
+  camposDesabilitados() {
+    if (this.isAtualizar) {
+      return !this.perfilAcesso.altera;
+    }
+    return !this.perfilAcesso.insere;
+  }
 }
