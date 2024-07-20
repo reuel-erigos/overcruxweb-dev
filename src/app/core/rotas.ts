@@ -89,4 +89,6 @@ export enum Rotas {
     GRAUS_PARENTESCO                = 'api/grausparentesco/',
     EIXO_ATIVIDADE                  = 'api/eixoatividade/',
     PERIODO_ATIVIDADE               = 'api/periodoatividade/',
+    TIPO_CONTRATO                   = 'api/tipocontrato/',
+    CONTRATO                        = 'api/contrato/',
 }

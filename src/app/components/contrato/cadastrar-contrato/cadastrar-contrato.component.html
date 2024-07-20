@@ -1,0 +1,77 @@
+<mat-toolbar class="subtitulo">Contrato</mat-toolbar>
+
+<div class="painel-principal" style="padding: 10px;">
+
+        <mat-horizontal-stepper #stepper style="background: transparent; padding: 10px">
+
+
+                <mat-step [stepControl]="formCadastroDadosContrato">
+                        <form #formCadastroDadosContrato="ngForm" state="dadosContrato">
+                                <ng-template matStepLabel>Contrato</ng-template>
+
+                                <dados-contrato [contrato]=contrato></dados-contrato>
+                                <div dir="rtl" fxLayoutGap="20px"
+                                        style="padding-top: 20px; padding-bottom: 10px; padding-right: 20px" fxFlexFill>
+                                        <button mat-mini-fab name="botaoConfirmar" color="primary" matStepperNext>
+                                                <mat-icon>chevron_right</mat-icon>
+                                        </button>
+                                </div>
+                        </form>
+                </mat-step>
+
+                <mat-step [stepControl]="formCadastroProgramaContrato">
+                        <form #formCadastroDadosContrato="ngForm" state="programaContrato">
+                                <ng-template matStepLabel>Programas do Contrato</ng-template>
+
+                                <programa-contrato
+                                        [listaProgramasContrato]=contrato.programasContrato></programa-contrato>
+                                <div dir="rtl" fxLayoutGap="20px"
+                                        style="padding-top: 20px; padding-bottom: 10px; padding-right: 20px" fxFlexFill>
+                                        <button mat-mini-fab name="botaoConfirmar" color="primary" matStepperNext>
+                                                <mat-icon>chevron_right</mat-icon>
+                                        </button>
+                                </div>
+                        </form>
+                </mat-step>
+
+                <mat-step [stepControl]="formCadastroProjetoContrato">
+                        <form #formCadastroDadosContrato="ngForm" state="projetoContrato">
+                                <ng-template matStepLabel>Projetos do Contrato</ng-template>
+
+                                <projeto-contrato [listaProjetosContrato]=contrato.projetosContrato></projeto-contrato>
+                                <div dir="rtl" fxLayoutGap="20px"
+                                        style="padding-top: 20px; padding-bottom: 10px; padding-right: 20px" fxFlexFill>
+                                        <button mat-mini-fab name="botaoConfirmar" color="primary" matStepperNext>
+                                                <mat-icon>chevron_right</mat-icon>
+                                        </button>
+                                </div>
+                        </form>
+                </mat-step>
+        </mat-horizontal-stepper>
+
+
+
+        <!-- BOTOES -->
+        <div dir="rtl" fxLayoutGap="20px" style="padding-top: 20px; padding-bottom: 10px; padding-right: 20px"
+                fxFlexFill>
+                <button *ngIf="!isAtualizar && mostrarBotaoCadastrar" [disabled]=formCadastroDadosContrato.invalid
+                        mat-raised-button name="botaoConfirmar" fxFlex="20%" color="primary" (click)="cadastrar()">
+                        Cadastrar
+                </button>
+
+                <button *ngIf="isAtualizar && mostrarBotaoAtualizar" [disabled]="formCadastroDadosContrato.invalid"
+                        mat-raised-button name="botaoConfirmar" fxFlex="20%" color="primary" (click)="atualizar()">
+                        Atualizar
+                </button>
+
+                <button *ngIf="mostrarBotaoLimpar()" mat-raised-button fxFlex="20%" (click)="limpar()">
+                        Limpar
+                </button>
+                <button mat-raised-button fxFlex="20%" (click)="cancelar()">
+                        Cancelar
+                </button>
+
+        </div>
+
+
+</div>

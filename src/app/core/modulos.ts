@@ -128,5 +128,7 @@ export enum Modulos{
     , IMAGEM                                = 'IMAGEM'
     , EIXO_ATIVIDADE                        = 'EIXO_ATIVIDADE'
     , PERIODO_ATIVIDADE                     = 'PERIODO_ATIVIDADE'
+    , TIPO_CONTRATO                         = 'TIPO_CONTRATO'
+    , CONTRATO                              = 'CONTRATO'
 
 }
