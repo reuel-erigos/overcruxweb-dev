@@ -194,4 +194,13 @@ export class ProjetoContratoComponent implements OnInit {
       this.mostrarTabela = true;
     }
   }
+
+  onMascaraDataInput(event) {
+    return this.dataUtilService.onMascaraDataInput(event);
+  }
+
+  onValorChangeProjeto(registro: any) {
+    this.projetoContrato.projeto = registro;
+  }
+
 }

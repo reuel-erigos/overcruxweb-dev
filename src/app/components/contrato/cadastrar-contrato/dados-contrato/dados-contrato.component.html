@@ -1,42 +1,47 @@
 <mat-toolbar class="titulopartes">Dados do Contrato</mat-toolbar>
 <div fxLayout="row" fxFlexFill>
 
-    <mat-form-field style="margin-bottom: 20px" fxFlex="20%" fxFlexOffset="20px">
-        <input #numeroContrato matInput maxlength="200" name="numeroContrato" placeholder="Número Contrato :"
-            [(ngModel)]="contrato.numeroContrato" required>
-        <mat-hint align="end">{{numeroContrato.value.length}} / 200</mat-hint>
+    <mat-form-field fxLayoutGap="20px" fxFlexOffset="20px" fxFlex="100">
+        <input #numeroContrato matInput maxlength="200" name="numeroContrato" placeholder="Número Contrato"
+               [(ngModel)]="contrato.numeroContrato" required>
+        <mat-hint align="end">{{ numeroContrato.value.length }} / 200</mat-hint>
     </mat-form-field>
 
-    <mat-form-field style="margin-bottom: 20px" fxFlex="20%" fxFlexOffset="20px">
-        <mat-label>Tipo Contrato:</mat-label>
-        <mat-select [(ngModel)]="contrato.tipoContrato" name="listaTiposContrato" required>
-            <mat-option></mat-option>
-            <mat-option *ngFor="let t of listaTiposContrato" [value]="t">
-                {{t.descricao}}
-            </mat-option>
-        </mat-select>
-        <mat-hint *ngIf="listaTipoContrato?.length === 0" align="start">Nenhum tipo de contrato cadastrado</mat-hint>
-    </mat-form-field>
+    <div ngModelGroup="comboTipoContrato" fxLayoutGap="20px" fxFlexOffset="20px" fxFlex="70">
+        <combo-pesquisavel #comboTipoContrato
+                           nome="empresa-TipoContrato"
+                           [itens]="listaTiposContrato"
+                           [itemDescricao]="'descricao'"
+                           itemId="id"
+                           [showDisplayId]="false"
+                           label="Tipo Contrato"
+                           [obrigatorio]="true"
+                           [desabilitado]="false"
+                           placeholder="Escolha..."
+                           [(valor)]="contrato.tipoContrato"
+                           (valorChange)="onValorChangeTipoContrato($event)">
+        </combo-pesquisavel>
+    </div>
 
-    <mat-form-field style="margin-bottom: 20px" fxFlex="15%" fxFlexOffset="20px">
-        <mat-label>Data Início:</mat-label>
+    <mat-form-field fxLayoutGap="20px" fxFlexOffset="20px" fxFlex="15">
+        <mat-label>Data Início</mat-label>
         <input matInput name="dataInicioVigencia" [matDatepicker]="dataInicioVigencia" placeholder="Data Início"
-            [(ngModel)]="contrato.dataInicioVigencia">
+               [(ngModel)]="contrato.dataInicioVigencia" (input)="onMascaraDataInput($event)" maxlength="10">
         <mat-datepicker-toggle matSuffix [for]="dataInicioVigencia"></mat-datepicker-toggle>
         <mat-datepicker #dataInicioVigencia></mat-datepicker>
     </mat-form-field>
 
-    <mat-form-field style="margin-bottom: 20px" fxFlex="15%" fxFlexOffset="20px">
-        <mat-label>Data Fim:</mat-label>
+    <mat-form-field fxLayoutGap="20px" fxFlexOffset="20px" fxFlex="15">
+        <mat-label>Data Fim</mat-label>
         <input matInput name="dataFimVigencia" [matDatepicker]="dataFimVigencia" placeholder="Data Fim"
-            [(ngModel)]="contrato.dataFimVigencia">
+               [(ngModel)]="contrato.dataFimVigencia" (input)="onMascaraDataInput($event)" maxlength="10">
         <mat-datepicker-toggle matSuffix [for]="dataFimVigencia"></mat-datepicker-toggle>
         <mat-datepicker #dataFimVigencia></mat-datepicker>
     </mat-form-field>
 
-    <mat-form-field style="margin-bottom: 20px" fxFlex="20%" fxFlexOffset="20px">
-        <input currencyMask matInput maxlength="10" name="valorContrato" placeholder="Valor:"
-            [(ngModel)]="contrato.valorContrato" [options]="{ prefix: '', thousands: '.', decimal: ',' }" required />
+    <mat-form-field fxLayoutGap="20px" fxFlexOffset="20px" fxFlex="50">
+        <input currencyMask matInput maxlength="10" name="valorContrato" placeholder="Valor"
+               [(ngModel)]="contrato.valorContrato" [options]="{ prefix: '', thousands: '.', decimal: ',' }" required/>
         <span matPrefix>R$&nbsp;</span>
     </mat-form-field>
 
@@ -44,34 +49,33 @@
 
 <div fxLayout="row" fxFlexFill>
 
-    <mat-form-field style="margin-bottom: 20px" fxFlex="20%" fxFlexOffset="20px">
+    <mat-form-field fxLayoutGap="20px" fxFlexOffset="20px" fxFlex="100">
         <input #numeroProcessoTecnico matInput maxlength="50" name="numeroProcessoTecnico"
-            placeholder="Número Processo Técnico:" [(ngModel)]="contrato.numeroProcessoTecnico">
-        <mat-hint align="end">{{numeroProcessoTecnico.value.length}} / 50</mat-hint>
+               placeholder="Número Processo Técnico" [(ngModel)]="contrato.numeroProcessoTecnico">
+        <mat-hint align="end">{{ numeroProcessoTecnico.value.length }} / 50</mat-hint>
     </mat-form-field>
 
-    <mat-form-field style="margin-bottom: 20px" fxFlex="20%" fxFlexOffset="20px">
+    <mat-form-field fxLayoutGap="20px" fxFlexOffset="20px" fxFlex="100">
         <input #numeroProcessoGestao matInput maxlength="50" name="numeroProcessoGestao"
-            placeholder="Número Processo de Gestão:" [(ngModel)]="contrato.numeroProcessoGestao">
-        <mat-hint align="end">{{numeroProcessoGestao.value.length}} / 50</mat-hint>
+               placeholder="Número Processo de Gestão" [(ngModel)]="contrato.numeroProcessoGestao">
+        <mat-hint align="end">{{ numeroProcessoGestao.value.length }} / 50</mat-hint>
     </mat-form-field>
 
-    <mat-form-field style="margin-bottom: 20px" fxFlex="20%" fxFlexOffset="20px">
+    <mat-form-field fxLayoutGap="20px" fxFlexOffset="20px" fxFlex="100">
         <input #numeroProcessoPagamento matInput maxlength="50" name="numeroProcessoPagamento"
-            placeholder="Número Processo Financeiro:" [(ngModel)]="contrato.numeroProcessoPagamento">
-        <mat-hint align="end">{{numeroProcessoPagamento.value.length}} / 50</mat-hint>
+               placeholder="Número Processo Financeiro" [(ngModel)]="contrato.numeroProcessoPagamento">
+        <mat-hint align="end">{{ numeroProcessoPagamento.value.length }} / 50</mat-hint>
     </mat-form-field>
 
-    <mat-form-field style="margin-bottom: 20px" fxFlex="50%" fxFlexOffset="20px">
-        <mat-label>Empresa:</mat-label>
-        <mat-select [(ngModel)]="contrato.empresa" name="listaEmpresas" required>
-            <mat-option></mat-option>
-            <mat-option *ngFor="let e of listaEmpresas" [value]="e">
-                {{e.nomeRazaoSocial}}
-            </mat-option>
-        </mat-select>
-        <mat-hint *ngIf="listaEmpresa?.length === 0" align="start">Nenhuma empresa cadastrada</mat-hint>
-    </mat-form-field>
+    <div ngModelGroup="comboEmpresa" fxFlex="100">
+        <combo-empresa [showDisplayId]="false"
+                       [obrigatorio]="false"
+                       [selecionado]="contrato.empresa"
+                       [label]="'Empresa'"
+                       (valorChange)="onValorChangeEmpresa($event)"
+                       [obrigatorio]="true">
+        </combo-empresa>
+    </div>
 
 </div>
 
@@ -80,9 +84,9 @@
     <mat-form-field style="margin: 0 0 0 20px" fxFlex="100%" appearance="outline">
         <mat-label>Objeto:</mat-label>
         <textarea #descricaoObjetoContrato matInput name="descricaoObjetoContrato"
-            [(ngModel)]="contrato.descricaoObjetoContrato" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-            cdkAutosizeMinRows="8" maxlength="500"></textarea>
-        <mat-hint align="end">{{descricaoObjetoContrato.value.length}} / 500</mat-hint>
+                  [(ngModel)]="contrato.descricaoObjetoContrato" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                  cdkAutosizeMinRows="8" maxlength="500"></textarea>
+        <mat-hint align="end">{{ descricaoObjetoContrato.value.length }} / 500</mat-hint>
     </mat-form-field>
 
 </div>
@@ -92,9 +96,9 @@
     <mat-form-field style="margin: 0 0 0 20px" fxFlex="100%" appearance="outline">
         <mat-label>Meta Quantitativa:</mat-label>
         <textarea #descricaoMetaQuantitativa matInput name="descricaoMetaQuantitativa"
-            [(ngModel)]="contrato.descricaoMetaQuantitativa" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-            cdkAutosizeMinRows="8" maxlength="500"></textarea>
-        <mat-hint align="end">{{descricaoMetaQuantitativa.value.length}} / 500</mat-hint>
+                  [(ngModel)]="contrato.descricaoMetaQuantitativa" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
+                  cdkAutosizeMinRows="8" maxlength="500"></textarea>
+        <mat-hint align="end">{{ descricaoMetaQuantitativa.value.length }} / 500</mat-hint>
     </mat-form-field>
 
 </div>

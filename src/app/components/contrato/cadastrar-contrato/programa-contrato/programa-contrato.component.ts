@@ -195,4 +195,13 @@ export class ProgramaContratoComponent implements OnInit {
       this.mostrarTabela = true;
     }
   }
+
+  onMascaraDataInput(event) {
+    return this.dataUtilService.onMascaraDataInput(event);
+  }
+
+  onValorChangePrograma(registro: any) {
+    this.programaContrato.programa = registro;
+  }
+
 }
