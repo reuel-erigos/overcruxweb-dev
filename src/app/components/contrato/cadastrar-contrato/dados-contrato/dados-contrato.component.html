@@ -47,7 +47,7 @@
 
 </div>
 
-<div fxLayout="row" fxFlexFill>
+<div fxLayout="row" fxFlexFill style="margin-top: 5px">
 
     <mat-form-field fxLayoutGap="20px" fxFlexOffset="20px" fxFlex="100">
         <input #numeroProcessoTecnico matInput maxlength="50" name="numeroProcessoTecnico"
@@ -82,7 +82,7 @@
 <div fxLayout="row" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill>
 
     <mat-form-field style="margin: 0 0 0 20px" fxFlex="100%" appearance="outline">
-        <mat-label>Objeto:</mat-label>
+        <mat-label>Objeto</mat-label>
         <textarea #descricaoObjetoContrato matInput name="descricaoObjetoContrato"
                   [(ngModel)]="contrato.descricaoObjetoContrato" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
                   cdkAutosizeMinRows="8" maxlength="500"></textarea>
@@ -94,7 +94,7 @@
 <div fxLayout="row" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill>
 
     <mat-form-field style="margin: 0 0 0 20px" fxFlex="100%" appearance="outline">
-        <mat-label>Meta Quantitativa:</mat-label>
+        <mat-label>Meta Quantitativa</mat-label>
         <textarea #descricaoMetaQuantitativa matInput name="descricaoMetaQuantitativa"
                   [(ngModel)]="contrato.descricaoMetaQuantitativa" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
                   cdkAutosizeMinRows="8" maxlength="500"></textarea>
