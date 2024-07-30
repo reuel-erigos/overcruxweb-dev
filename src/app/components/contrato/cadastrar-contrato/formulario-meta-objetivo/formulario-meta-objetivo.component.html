@@ -1,0 +1,48 @@
+<fieldset class="bordas">
+    <div>
+        <div fxFlex="100%" fxLayoutGap="20px">
+            <div fxLayout="row" fxFlexFill>
+                <mat-form-field fxLayoutGap="20px" fxFlexOffset="20px" fxFlex="30">
+                    <input #codigoMeta matInput maxlength="10" name="codigoMeta_{{pinCodigo}}"
+                           placeholder="Código da Meta" [(ngModel)]="metaObjetivo.codigo" required="true">
+                    <mat-hint align="end">{{ codigoMeta.value.length }} / 10</mat-hint>
+                </mat-form-field>
+                <mat-form-field fxLayoutGap="20px" fxFlexOffset="20px" fxFlex="100">
+                    <input #descricaoMeta matInput maxlength="1000" name="descricaoMeta_{{pinDescricao}}"
+                           placeholder="Descrição" [(ngModel)]="metaObjetivo.descricao">
+                    <mat-hint align="end">{{ descricaoMeta.value.length }} / 1000</mat-hint>
+                </mat-form-field>
+            </div>
+        </div>
+        <div fxFlex="10%" style="margin-top: 18px;margin-left: 26px;">
+            <button mat-icon-button
+                    *ngIf="perfilAcesso.deleta"
+                    (click)="deletar()"
+                    style="padding: 0px;">
+                <mat-icon>delete_forever</mat-icon>
+            </button>
+        </div>
+    </div>
+    <mat-toolbar class="titulopartes" style="margin-top: 10px; margin-bottom: 10px;">Indicadores da Meta</mat-toolbar>
+    <div fxLayout="column" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px;" fxFlexFill>
+        <div fxFlex="100%" ngModelGroup="grupoMetasObjetivo_{{pinCodigo}}">
+            <div *ngFor="let indicadorMeta of metaObjetivo.indicadoresMeta; let index = index">
+                <formulario-indicador-meta [indicadorMeta]="indicadorMeta"
+                                           [index]="index"
+                                           [indicadoresMeta]="metaObjetivo.indicadoresMeta"
+                                           [perfilAcesso]="perfilAcesso">
+                </formulario-indicador-meta>
+            </div>
+        </div>
+        <div *ngIf="perfilAcesso.insere" fxLayoutAlign="start center" fxLayoutGap="16px"
+             style="padding-top: 10px; padding-left: 20px;">
+            <div>
+                <button matTooltip="Novo Indicador" mat-mini-fab color="primary" (click)="addIndicadorMeta()"
+                        style="width: 100px;border-radius: 5px;">
+                    <mat-icon>add</mat-icon>
+                    Indicador
+                </button>
+            </div>
+        </div>
+    </div>
+</fieldset>

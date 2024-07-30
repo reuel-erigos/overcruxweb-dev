@@ -12,6 +12,11 @@ import {ComboPesquisavelModule} from "../common/combo-pesquisavel/combo-pesquisa
 import {ComboProgramaModule} from "../common/combo-programa/combo-programa.module";
 import {ComboEmpresaModule} from "../common/combo-empresa/combo-empresa.module";
 import {ComboProjetoModule} from "../common/combo-projeto/combo-projeto.module";
+import {ObjetivoContratoComponent} from "./cadastrar-contrato/objetivo-contrato/objetivo-contrato.component";
+import {FormularioMetaObjetivoComponent} from "./cadastrar-contrato/formulario-meta-objetivo/formulario-meta-objetivo.component";
+import {
+    FormularioIndicadorMetaComponent
+} from "./cadastrar-contrato/formulario-indicador-meta/formulario-indicador-meta.component";
 
 @NgModule({
     declarations: [
@@ -20,6 +25,9 @@ import {ComboProjetoModule} from "../common/combo-projeto/combo-projeto.module";
         DadosContratoComponent,
         ProgramaContratoComponent,
         ProjetoContratoComponent,
+        ObjetivoContratoComponent,
+        FormularioMetaObjetivoComponent,
+        FormularioIndicadorMetaComponent
     ],
     imports: [
         CommonModule,

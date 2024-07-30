@@ -1,0 +1,42 @@
+<fieldset class="bordas" style="height: 235px; width: 100%">
+    <div fxFlex="90%" style="margin-top: 38px;margin-left: 26px;">
+        <div fxLayout="row">
+            <mat-form-field fxLayoutGap="20px" fxFlexOffset="20px" fxFlex="30">
+                <input #codigoIndicador matInput maxlength="10" name="codigoIndicador_{{pinCodigo}}"
+                       placeholder="Código do Indicador" [(ngModel)]="indicadorMeta.codigo" required="true">
+                <mat-hint align="end">{{ codigoIndicador.value.length }} / 10</mat-hint>
+            </mat-form-field>
+            <mat-form-field fxLayoutGap="20px" fxFlexOffset="20px" fxFlex="100">
+                <input #indiceIndicador matInput maxlength="100" name="indiceIndicador_{{pinCodigo}}"
+                       placeholder="Indice Minimo" [(ngModel)]="indicadorMeta.indiceMinimo">
+                <mat-hint align="end">{{ indiceIndicador.value.length }} / 100</mat-hint>
+            </mat-form-field>
+            <mat-form-field fxLayoutGap="20px" fxFlexOffset="20px" fxFlex="100">
+                <input #quantidadeIndicador matInput min="0" type="number" name="quantidadeIndicador_{{pinCodigo}}"
+                       placeholder="Quantidade de Plano de Trabalho" [(ngModel)]="indicadorMeta.quantidadePlanoTrabalho"/>
+            </mat-form-field>
+        </div>
+        <div fxLayout="row">
+            <mat-form-field fxLayoutGap="20px" fxFlexOffset="20px" fxFlex="100">
+                <input #descricaoIndicador matInput maxlength="1000" name="descricaoIndicador_{{pinCodigo}}"
+                       placeholder="Descrição" [(ngModel)]="indicadorMeta.descricao">
+                <mat-hint align="end">{{ descricaoIndicador.value.length }} / 1000</mat-hint>
+            </mat-form-field>
+        </div>
+        <div fxLayout="row">
+            <mat-form-field fxLayoutGap="20px" fxFlexOffset="20px" fxFlex="100">
+                <input #acoesIndicador matInput maxlength="1000" name="acoesIndicador_{{pinCodigo}}"
+                       placeholder="Ações Previstas" [(ngModel)]="indicadorMeta.acoesPrevistas">
+                <mat-hint align="end">{{ acoesIndicador.value.length }} / 1000</mat-hint>
+            </mat-form-field>
+        </div>
+    </div>
+    <div fxFlex="10%" style="margin-top: 38px;margin-left: 26px;">
+        <button mat-icon-button
+                *ngIf="perfilAcesso.deleta"
+                (click)="deletar()"
+                style="padding: 0px;">
+            <mat-icon>delete_forever</mat-icon>
+        </button>
+    </div>
+</fieldset>
