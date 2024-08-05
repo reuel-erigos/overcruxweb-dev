@@ -58,6 +58,8 @@ export class CadastrarContratoComponent implements OnInit {
                 .getById(idContrato)
                 .subscribe((contrato: Contrato) => {
                     this.contrato = contrato;
+                    this.contrato.dataInicioVigencia = this.dataUtilService.getDataTruncata(contrato.dataInicioVigencia);
+                    this.contrato.dataFimVigencia = this.dataUtilService.getDataTruncata(contrato.dataFimVigencia);
                 });
         }
     }

@@ -14,8 +14,8 @@ export class Contrato {
     numeroProcessoTecnico: string;
     numeroProcessoGestao: string;
     numeroProcessoPagamento: string;
-    dataInicioVigencia: number;
-    dataFimVigencia: number;
+    dataInicioVigencia: Date;
+    dataFimVigencia: Date;
     valorContrato: number;
     empresa: Empresa;
     idInstituicao: number;

@@ -179,6 +179,8 @@ export class ProgramaContratoComponent implements OnInit {
     this.programaContrato.programa = this.programasComboCadastro.find(
       (p) => p.id === programaContrato.programa.id
     );
+    this.programaContratoAtualizando.dataInicioProgramaContrato = this.dataUtilService.getDataTruncata(programaContrato.dataInicioProgramaContrato);
+    this.programaContratoAtualizando.dataFimProgramaContrato = this.dataUtilService.getDataTruncata(programaContrato.dataFimProgramaContrato);
   }
 
   carregarLista() {

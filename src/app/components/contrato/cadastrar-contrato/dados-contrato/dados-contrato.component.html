@@ -26,7 +26,7 @@
     <mat-form-field fxLayoutGap="20px" fxFlexOffset="20px" fxFlex="15">
         <mat-label>Data Início</mat-label>
         <input matInput name="dataInicioVigencia" [matDatepicker]="dataInicioVigencia" placeholder="Data Início"
-               [(ngModel)]="contrato.dataInicioVigencia" (input)="onMascaraDataInput($event)" maxlength="10">
+               [(ngModel)]="contrato.dataInicioVigencia" (input)="onMascaraDataInput($event)" maxlength="10" required>
         <mat-datepicker-toggle matSuffix [for]="dataInicioVigencia"></mat-datepicker-toggle>
         <mat-datepicker #dataInicioVigencia></mat-datepicker>
     </mat-form-field>
@@ -85,7 +85,7 @@
         <mat-label>Objeto</mat-label>
         <textarea #descricaoObjetoContrato matInput name="descricaoObjetoContrato"
                   [(ngModel)]="contrato.descricaoObjetoContrato" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-                  cdkAutosizeMinRows="8" maxlength="500"></textarea>
+                  cdkAutosizeMinRows="8" maxlength="500" required></textarea>
         <mat-hint align="end">{{ descricaoObjetoContrato.value.length }} / 500</mat-hint>
     </mat-form-field>
 

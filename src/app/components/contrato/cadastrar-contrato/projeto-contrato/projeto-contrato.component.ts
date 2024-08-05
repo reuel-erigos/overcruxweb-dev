@@ -178,6 +178,8 @@ export class ProjetoContratoComponent implements OnInit {
     this.projetoContrato.projeto = this.projetosComboCadastro.find(
       (p) => p.id === projetoContrato.projeto.id
     );
+    this.projetoContratoAtualizando.dataInicioProjetoContrato = this.dataUtilService.getDataTruncata(projetoContrato.dataInicioProjetoContrato);
+    this.projetoContratoAtualizando.dataFimProjetoContrato = this.dataUtilService.getDataTruncata(projetoContrato.dataFimProjetoContrato);
   }
 
   carregarLista() {

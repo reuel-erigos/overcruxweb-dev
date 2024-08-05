@@ -5,7 +5,7 @@ export class ProgramaContrato {
   id: number;
   programa: Programa;
   contrato: Contrato;
-  dataInicioProgramaContrato: string;
-  dataFimProgramaContrato: string;
+  dataInicioProgramaContrato: Date;
+  dataFimProgramaContrato: Date;
   valorProgramaContrato: number;
 }

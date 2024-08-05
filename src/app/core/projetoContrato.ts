@@ -5,7 +5,7 @@ export class ProjetoContrato {
   id: number;
   projeto: Projeto;
   contrato: Contrato;
-  dataInicioProjetoContrato: string;
-  dataFimProjetoContrato: string;
+  dataInicioProjetoContrato: Date;
+  dataFimProjetoContrato: Date;
   valorProjetoContrato: number;
 }
