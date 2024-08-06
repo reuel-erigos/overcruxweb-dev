@@ -1,4 +1,5 @@
-<mat-toolbar class="subtitulo">Beneficiário {{aluno?.pessoaFisica?.nome ? (' - ' + aluno?.pessoaFisica?.nome) : ''}}</mat-toolbar>
+<mat-toolbar class="subtitulo">Beneficiário {{ aluno?.pessoaFisica?.nome ? (' - ' + aluno?.pessoaFisica?.nome) : '' }}
+</mat-toolbar>
 
 <div class="painel-principal" style="padding: 10px;">
     <mat-horizontal-stepper #stepper style="background: transparent; padding: 10px">
@@ -8,7 +9,8 @@
             <form #formCadastroDadosPessoais="ngForm">
                 <ng-template matStepLabel>DADOS PESSOAIS</ng-template>
 
-                <dados-pessoais [pessoaFisica]="aluno.pessoaFisica" (pesquisaPessoaFisica)="carregarPessoaFisica($event)"></dados-pessoais>
+                <dados-pessoais [pessoaFisica]="aluno.pessoaFisica"
+                                (pesquisaPessoaFisica)="carregarPessoaFisica($event)"></dados-pessoais>
 
                 <div dir="rtl" fxLayoutGap="20px" style="padding-top: 20px; padding-bottom: 10px; padding-right: 20px"
                      fxFlexFill>
@@ -27,7 +29,7 @@
             </form>
 
             <div dir="rtl" fxLayoutGap="20px" style="padding-top: 20px; padding-bottom: 10px; padding-right: 20px"
-                  fxFlexFill>
+                 fxFlexFill>
                 <button mat-mini-fab name="botaoConfirmar" color="primary" matStepperNext>
                     <mat-icon>chevron_right</mat-icon>
                 </button>
@@ -43,10 +45,14 @@
             <form #formCadastroFamiliar="ngForm">
                 <ng-template matStepLabel>FAMILIAR</ng-template>
                 <div *ngIf="responsavel">
-                    <dados-pessoais-familiar-aluno [pessoaFisica]="familiar.pessoasFisica" [familiar]="familiar" [responsavel]="responsavel" (pesquisaPessoaFisica)="carregarFamiliarPessoaFisica($event)" (copiarEndereco)="copiarEnderecoBeneficiario()"></dados-pessoais-familiar-aluno>
+                    <dados-pessoais-familiar-aluno [pessoaFisica]="familiar.pessoasFisica" [familiar]="familiar"
+                                                   [responsavel]="responsavel"
+                                                   (pesquisaPessoaFisica)="carregarFamiliarPessoaFisica($event)"
+                                                   (copiarEndereco)="copiarEnderecoBeneficiario()"></dados-pessoais-familiar-aluno>
                     <documentos-familiar-aluno [pessoaFisica]="familiar.pessoasFisica"></documentos-familiar-aluno>
                     <profissional-familiar-aluno [familiar]="familiar"></profissional-familiar-aluno>
-                    <beneficio-familiar-aluno [pessoaFisica]="familiar.pessoasFisica" (calcularValor)="calcularValorRenda()"></beneficio-familiar-aluno>
+                    <beneficio-familiar-aluno [pessoaFisica]="familiar.pessoasFisica"
+                                              (calcularValor)="calcularValorRenda()"></beneficio-familiar-aluno>
                 </div>
             </form>
 
@@ -58,7 +64,8 @@
                 </div>
             </div>
 
-            <div fxLayout="row" *ngIf="responsavel && !responsavel.id" fxLayoutAlign="end center" fxLayoutGap="16px" style="padding-top: 50px">
+            <div fxLayout="row" *ngIf="responsavel && !responsavel.id" fxLayoutAlign="end center" fxLayoutGap="16px"
+                 style="padding-top: 50px">
                 <div>
                     <button matTooltip="Remover familiar" mat-fab color="primary" (click)="removeFamiliar()">
                         <mat-icon>delete_forever</mat-icon>
@@ -67,7 +74,7 @@
             </div>
 
             <div dir="rtl" fxLayoutGap="20px" style="padding-top: 20px; padding-bottom: 10px; padding-right: 20px"
-                  fxFlexFill>
+                 fxFlexFill>
                 <button mat-mini-fab name="botaoConfirmar" color="primary" matStepperNext>
                     <mat-icon>chevron_right</mat-icon>
                 </button>
@@ -86,7 +93,7 @@
             </form>
 
             <div dir="rtl" fxLayoutGap="20px" style="padding-top: 20px; padding-bottom: 10px; padding-right: 20px"
-                  fxFlexFill>
+                 fxFlexFill>
                 <button mat-mini-fab name="botaoConfirmar" color="primary" matStepperNext>
                     <mat-icon>chevron_right</mat-icon>
                 </button>
@@ -105,7 +112,7 @@
             </form>
 
             <div dir="rtl" fxLayoutGap="20px" style="padding-top: 20px; padding-bottom: 10px; padding-right: 20px"
-                  fxFlexFill>
+                 fxFlexFill>
                 <button mat-mini-fab name="botaoConfirmar" color="primary" matStepperNext>
                     <mat-icon>chevron_right</mat-icon>
                 </button>
@@ -124,7 +131,7 @@
             </form>
 
             <div dir="rtl" fxLayoutGap="20px" style="padding-top: 20px; padding-bottom: 10px; padding-right: 20px"
-                  fxFlexFill>
+                 fxFlexFill>
                 <button mat-mini-fab name="botaoConfirmar" color="primary" matStepperNext>
                     <mat-icon>chevron_right</mat-icon>
                 </button>
@@ -141,7 +148,7 @@
             <form #formCadastroOutrasInformacoes="ngForm">
                 <ng-template matStepLabel>OUTRAS INFORMAÇÕES</ng-template>
 
-                <atendimento-apoio [atendidoOrgaoRede]=aluno.atendidoOrgaoRede 
+                <atendimento-apoio [atendidoOrgaoRede]=aluno.atendidoOrgaoRede
                                    [pessoaFisica]="aluno.pessoaFisica"
                                    [encaminhamentos]="aluno.encaminhamentos"
                                    [beneficiosSociaisPessoaFisica]="aluno.benefeciosSociaisPessoaFisica">
@@ -149,7 +156,7 @@
             </form>
 
             <div dir="rtl" fxLayoutGap="20px" style="padding-top: 20px; padding-bottom: 10px; padding-right: 20px"
-                  fxFlexFill>
+                 fxFlexFill>
                 <button mat-mini-fab name="botaoConfirmar" color="primary" matStepperNext>
                     <mat-icon>chevron_right</mat-icon>
                 </button>
@@ -159,8 +166,8 @@
             </div>
         </mat-step>
 
-         <!-- UNIFORMES -->
-         <mat-step style="padding-bottom: 20px" [stepControl]="formUniformes">
+        <!-- UNIFORMES -->
+        <mat-step style="padding-bottom: 20px" [stepControl]="formUniformes">
             <form #formUniformes="ngForm">
                 <ng-template matStepLabel>UNIFORMES</ng-template>
                 <div *ngIf="aluno && aluno.atividades && aluno.atividades.length > 0">
@@ -169,7 +176,7 @@
             </form>
 
             <div dir="rtl" fxLayoutGap="20px" style="padding-top: 20px; padding-bottom: 10px; padding-right: 20px"
-                  fxFlexFill>
+                 fxFlexFill>
                 <button mat-mini-fab name="botaoConfirmar" color="primary" matStepperNext>
                     <mat-icon>chevron_right</mat-icon>
                 </button>
@@ -186,7 +193,22 @@
                 <app-matricula-aluno [matriculas]="matriculas"></app-matricula-aluno>
             </form>
             <div dir="rtl" fxLayoutGap="20px" style="padding-top: 20px; padding-bottom: 10px; padding-right: 20px"
-                    fxFlexFill>
+                 fxFlexFill>
+                <button mat-mini-fab name="botaoConfirmar" color="primary" matStepperPrevious>
+                    <mat-icon>chevron_left</mat-icon>
+                </button>
+            </div>
+        </mat-step>
+
+        <!------------------ CONTRATOS ------------------------>
+        <mat-step [stepControl]="formContrato">
+            <form #formContrato="ngForm">
+                <ng-template matStepLabel>CONTRATOS</ng-template>
+                <aluno-contrato [listaAlunosContrato]="aluno.alunosContrato"
+                                [isAtualizar]="isAtualizar"></aluno-contrato>
+            </form>
+            <div dir="rtl" fxLayoutGap="20px" style="padding-top: 20px; padding-bottom: 10px; padding-right: 20px"
+                 fxFlexFill>
                 <button mat-mini-fab name="botaoConfirmar" color="primary" matStepperPrevious>
                     <mat-icon>chevron_left</mat-icon>
                 </button>
@@ -216,7 +238,7 @@
                         formCadastroOutrasInformacoes.invalid || formCadastroAcademico.invalid ||
                         formCadastroVulnerabilidade.invalid || formCadastroFamiliar.invalid || formUniformes.invalid || isDataResponsavelInvalida()"
             (click)="atualizar()">
-            Atualizar
+        Atualizar
     </button>
 
     <button *ngIf="isAtualizar && mostrarBotaoAtualizar" mat-raised-button
@@ -224,22 +246,21 @@
             fxFlex="20%"
             color="primary"
             (click)="abrirOpcoesRelatorio()">
-            Relatórios
+        Relatórios
     </button>
 
     <button *ngIf="mostrarBotaoLimpar()"
             mat-raised-button
             fxFlex="20%"
             (click)="limpar()">
-            Limpar
+        Limpar
     </button>
     <button
             mat-raised-button
             fxFlex="20%"
             (click)="cancelar()">
-            Cancelar
+        Cancelar
     </button>
 
-    
 
 </div>

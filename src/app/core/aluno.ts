@@ -12,6 +12,7 @@ import { Familiares } from './familiares';
 import { ResponsaveisAluno } from './responsaveis-aluno';
 import { AtividadeAluno } from './atividade-aluno';
 import { AlunosTurma } from './alunos-turma';
+import {AlunoContrato} from "./alunoContrato";
 
 
 export class Aluno {
@@ -72,4 +73,6 @@ export class Aluno {
 	atividades: AtividadeAluno[];
 
 	matriculas: AlunosTurma[];
+
+	alunosContrato: AlunoContrato[];
 }

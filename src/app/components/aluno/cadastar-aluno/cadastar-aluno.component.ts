@@ -75,6 +75,7 @@ export class CadastarAlunoComponent implements OnInit {
     this.aluno.pessoaFisica.serieEscolar = new SerieEscolar();
     this.aluno.vulnerabilidades = [];
     this.aluno.pessoaFisica.grausInstrucao = new GrausInstrucao();
+    this.aluno.alunosContrato = [];
 
     this.carregarPerfil.carregar(this.activatedRoute.snapshot.data.perfilAcesso, this.perfilAcesso);
 
@@ -97,6 +98,10 @@ export class CadastarAlunoComponent implements OnInit {
             this.aluno.pessoaFisica.serieEscolar = new SerieEscolar();
           }
           this.recuperarAtividades(idAluno);
+
+          if (!this.aluno.alunosContrato)
+            this.aluno.alunosContrato = [];
+
           return this.arquivoPessoaFisicaService.get(aluno.pessoaFisica.id);
         })
       ).subscribe((foto: any) => {
