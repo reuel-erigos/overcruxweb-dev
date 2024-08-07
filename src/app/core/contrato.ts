@@ -23,4 +23,5 @@ export class Contrato {
     programasContrato: ProgramaContrato[];
     projetosContrato: ProjetoContrato[];
     objetivosContrato: ObjetivoContrato[];
+    qtdAtendimentoPrevistos: number;
 }
