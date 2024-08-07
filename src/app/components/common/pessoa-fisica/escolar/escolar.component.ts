@@ -48,6 +48,9 @@ export class EscolarComponent implements OnInit, OnChanges {
         this.tipoEscola =  changes.pessoaFisica.currentValue.escola.tipo;
         this.carregarEscolas();
       }
+      if (!changes.pessoaFisica.currentValue.serieEscolar) {
+        this.pessoaFisica.serieEscolar = new SerieEscolar();
+      }
     }
   }
 

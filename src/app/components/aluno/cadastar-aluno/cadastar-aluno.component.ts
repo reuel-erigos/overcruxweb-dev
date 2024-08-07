@@ -252,7 +252,7 @@ export class CadastarAlunoComponent implements OnInit {
           if(!this.aluno.pessoaFisica.serieEscolar) {
             this.aluno.pessoaFisica.serieEscolar = new SerieEscolar();
           }
-          if(!this.aluno.familiar.grauParentesco) {
+          if(this.aluno.familiar && !this.aluno.familiar.grauParentesco) {
             this.aluno.familiar.grauParentesco = new GrausParentesco();
           }
         });
