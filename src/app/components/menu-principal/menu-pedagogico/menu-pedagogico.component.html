@@ -70,6 +70,13 @@
             titulo="Reprovações do Aluno " rota="reprovacaoaluno" toolTip="Reprovações do Aluno"></sub-menu>
         -->
 
+        <!-- PERCURSO -->
+        <sub-menu *ngIf="verificaAcesso(getModulos().PERCURSO)"
+                  icone="timeline"
+                  titulo="Percursos"
+                  rota="percurso"
+                  toolTip="Percursos"></sub-menu>
+
         <!-- TABELAS REFERENCIA -->
         <tb-referencia-pedagogico></tb-referencia-pedagogico>
 

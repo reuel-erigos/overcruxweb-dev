@@ -141,6 +141,7 @@ import {PeriodoAtividadeModule} from './components/periodo-atividade/periodo-ati
 import {TipoContratoModule} from './components/tipo-contrato/tipo-contrato.module';
 import {ContratoModule} from './components/contrato/contrato.module';
 import {ComboContratoModule} from "./components/common/combo-contrato/combo-contrato.module";
+import {PercursoModule} from "./components/percurso/percurso.module";
 
 registerLocaleData(localePt, 'pt-BR');
 
@@ -277,6 +278,7 @@ registerLocaleData(localePt, 'pt-BR');
         PeriodoAtividadeModule,
         ContratoModule,
         ComboContratoModule,
+        PercursoModule,
         NgxImageDisplayModule.forRoot()
     ],
     providers: [

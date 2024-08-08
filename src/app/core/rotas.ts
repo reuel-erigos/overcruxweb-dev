@@ -91,4 +91,5 @@ export enum Rotas {
     PERIODO_ATIVIDADE               = 'api/periodoatividade/',
     TIPO_CONTRATO                   = 'api/tipocontrato/',
     CONTRATO                        = 'api/contrato/',
+    PERCURSO                        = 'api/percurso/',
 }

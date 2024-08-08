@@ -1,0 +1,36 @@
+<mat-toolbar class="subtitulo">Percurso</mat-toolbar>
+<div class="painel-principal" style="padding: 10px;">
+    <form #formCadastro="ngForm">
+        <div fxLayout="row" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill>
+            <mat-form-field fxFlexOffset="20px" fxFlex="90%">
+                <input #nome matInput maxlength="100" [(ngModel)]=percurso.nome name="nome"
+                       placeholder="Nome" required [disabled]="camposDesabilitados()">
+                <mat-hint align="end">{{ nome.value.length }} / 100</mat-hint>
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutGap="50px" style="margin-top: 10px; margin-bottom: 10px" fxFlexFill>
+            <mat-form-field fxFlexOffset="20px" fxFlex="90%">
+                <input #desc matInput maxlength="500" [(ngModel)]=percurso.descricao name="descricao"
+                       placeholder="Descrição" required [disabled]="camposDesabilitados()">
+                <mat-hint align="end">{{ desc.value.length }} / 500</mat-hint>
+            </mat-form-field>
+        </div>
+
+        <div dir="rtl" fxLayoutGap="20px" style="padding-top: 20px; padding-bottom: 10px; padding-right: 20px"
+             fxFlexFill>
+            <button *ngIf="!isAtualizar && mostrarBotaoCadastrar" mat-raised-button name="botaoConfirmar" fxFlex="20%"
+                    color="primary" [disabled]="formCadastro.invalid" (click)="cadastrar()"> Cadastrar
+            </button>
+            <button *ngIf="isAtualizar && mostrarBotaoAtualizar" mat-raised-button name="botaoConfirmar" fxFlex="20%"
+                    color="primary" [disabled]="formCadastro.invalid" (click)="atualizar()">
+                Atualizar
+            </button>
+            <button *ngIf="mostrarBotaoLimpar()" mat-raised-button fxFlex="20%" (click)="limpar()">
+                Limpar
+            </button>
+            <button mat-raised-button fxFlex="20%" (click)="cancelar()">
+                Cancelar
+            </button>
+        </div>
+    </form>
+</div>

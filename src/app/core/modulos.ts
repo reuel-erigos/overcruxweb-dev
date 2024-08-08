@@ -130,5 +130,6 @@ export enum Modulos{
     , PERIODO_ATIVIDADE                     = 'PERIODO_ATIVIDADE'
     , TIPO_CONTRATO                         = 'TIPO_CONTRATO'
     , CONTRATO                              = 'CONTRATO'
+    , PERCURSO                              = 'PERCURSO'
 
 }
